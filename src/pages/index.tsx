@@ -1,38 +1,61 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Button, Navbar, Text } from "@nextui-org/react";
-import BIRDS from "vanta/dist/vanta.birds.min";
-import { useEffect, useRef, useState } from "react";
-// import { api } from "@/utils/api";
+import { Text } from "@nextui-org/react";
+import Image from "next/image";
+import WithNavbar from "@/layouts/WithNavbar";
+import clsx from "clsx";
+
+interface PropsContent {
+  image: string;
+  content: string;
+  position: "left" | "right";
+}
+
+const Content: NextPage<PropsContent> = (props) => {
+  return (
+    <div
+      className={clsx(
+        "flex flex-col items-center justify-center gap-10",
+        props.position === "right"
+          ? "md:flex-row"
+          : "md:flex-row-reverse"
+      )}
+    >
+      <div style={{ width: "100%", height: "20rem", position: "relative" }}>
+        <Image alt="" layout="fill" objectFit="contain" src={props.image} />
+      </div>
+      <Text size={"$2xl"} className="prompt">
+        {props.content}
+      </Text>
+    </div>
+  );
+};
 
 const Home: NextPage = () => {
-  //   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
-    <>
-      <Navbar isBordered variant={"sticky"}>
-        <Navbar.Brand>
-          <Text b color="inherit">
-            KU Tech
-          </Text>
-        </Navbar.Brand>
-        <Navbar.Content hideIn="sm">
-          <Navbar.Link href="#">เกี่ยวกับชมรม</Navbar.Link>
-          <Navbar.Link href="#">กำหนดการ</Navbar.Link>
-          <Navbar.Link href="#">ผู้สนับสนุน</Navbar.Link>
-        </Navbar.Content>
-        <Navbar.Content>
-          <Navbar.Item>
-            <Button auto flat as={Link} href="#">
-              เข้าร่วมชมรม
-            </Button>
-          </Navbar.Item>
-        </Navbar.Content>
-      </Navbar>
-      {/* <div className="h-screen w-full" ref={vanta}></div> */}
-    </>
+    <WithNavbar>
+      <div className="mx-auto max-w-[73rem] flex-col items-center gap-10 p-5 md:p-10 md:flex-row">
+        <Content
+          content="สร้างโอกาสให้สมาชิกเรียนรู้ด้วยกัน: จัดกิจกรรมเช่นการสนทนาเกี่ยวกับเทคโนโลยี หรือการเล่าประสบการณ์ในการทำงานด้านเทคโนโลยี เพื่อให้สมาชิกได้เรียนรู้และแลกเปลี่ยนความรู้ด้วยกัน"
+          image="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          position="right"
+        />
+        <Content
+          content="ฝึกทักษะด้านเทคโนโลยี: จัดกิจกรรมเช่น workshop หรือสัมมนาเพื่อเสริมสร้างทักษะในการเขียนโปรแกรม การพัฒนาแอปพลิเคชัน หรือการสร้างเว็บไซต์ เป็นต้น"
+          image="https://images.unsplash.com/photo-1638029202288-451a89e0d55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          position="left"
+        />
+        <Content
+          content="สร้างโอกาสให้สมาชิกเรียนรู้และพัฒนาทักษะการทำงานเป็นทีม: จัดกิจกรรม เช่น การทำงานเป็นทีมผ่าน Mini Project เหรือการจัดทำงานวิจัยเพื่อสร้างโอกาสให้สมาชิกได้เรียนรู้และพัฒนาทักษะการทำงานเป็นทีมด้วยกัน"
+          image="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80"
+          position="right"
+        />
+        <Content
+          content="สร้างโอกาสให้สมาชิกเข้าร่วมโครงการและการแข่งขันทางเทคโนโลยี: จัดการแข่งขันเช่น hackathon หรือการพัฒนาแอปพลิเคชัน เพื่อสร้างแรงบันดาลใจและการเรียนรู้ร่วมกันในทีม"
+          image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          position="left"
+        />
+      </div>
+    </WithNavbar>
   );
 };
 

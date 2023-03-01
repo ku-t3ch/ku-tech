@@ -9,6 +9,14 @@ import "@/styles/globals.css";
 
 const darkTheme = createTheme({
   type: "dark",
+  theme: {
+    colors: {
+      // brand colors
+      
+    },
+    space: {},
+    fonts: {},
+  },
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
