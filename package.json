@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
@@ -22,12 +23,15 @@
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "antd": "^5.2.3",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "next": "^13.2.1",
     "next-auth": "^4.19.0",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-turnstile": "^1.0.6",
     "superjson": "1.9.1",
     "zod": "^3.20.6"
   },

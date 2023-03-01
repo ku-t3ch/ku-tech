@@ -2,6 +2,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
+import { ConfigProvider,theme } from "antd";
 
 import { api } from "@/utils/api";
 
@@ -9,13 +10,10 @@ import "@/styles/globals.css";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-
 const darkTheme = createTheme({
   type: "dark",
   theme: {
-    colors: {
-        
-    },
+    colors: {},
     space: {},
     fonts: {},
   },
@@ -44,7 +42,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <NextUIProvider theme={darkTheme}>
-        <Component {...pageProps} />
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#28C2F4",
+            },
+            algorithm: theme.darkAlgorithm,
+          }}
+        >
+          <Component {...pageProps} />
+        </ConfigProvider>
       </NextUIProvider>
     </SessionProvider>
   );
