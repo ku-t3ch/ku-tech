@@ -18,6 +18,10 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
       href: "/about-club",
     },
     {
+      name: "กิจกรรม",
+      href: "/activities",
+    },
+    {
       name: "กำหนดการ",
       href: "/events",
     },
@@ -26,19 +30,19 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
       href: "/works",
     },
     {
-      name: "ติดต่อเรา",
-      href: "/contact",
-    },
-    {
       name: "ผู้สนับสนุน",
       href: "/sponsors",
+    },
+    {
+      name: "ติดต่อเรา",
+      href: "/contact",
     },
   ];
 
   return (
     <div className="flex h-screen flex-col">
       <Navbar isBordered variant="sticky">
-        <Navbar.Brand onClick={()=>push("/")} className="cursor-pointer">
+        <Navbar.Brand onClick={() => push("/")} className="cursor-pointer">
           <Navbar.Toggle showIn={"sm"} aria-label="toggle navigation" />
           <Text hideIn={"sm"}>
             <Image src={LogoIcon} alt="ku tech logo" width={50} />
@@ -47,7 +51,7 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
             KU Tech
           </Text>
         </Navbar.Brand>
-        <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
+        <Navbar.Content enableCursorHighlight hideIn="sm" variant="underline">
           {collapseItems.map((item, index) => (
             <Navbar.Link
               href={item.href}
