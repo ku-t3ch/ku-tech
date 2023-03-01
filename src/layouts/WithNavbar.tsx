@@ -51,7 +51,7 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
             KU Tech
           </Text>
         </Navbar.Brand>
-        <Navbar.Content enableCursorHighlight hideIn="sm" variant="underline">
+        <Navbar.Content enableCursorHighlight hideIn="sm" variant="underline-rounded">
           {collapseItems.map((item, index) => (
             <Navbar.Link
               href={item.href}
