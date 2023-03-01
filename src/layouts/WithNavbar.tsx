@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import LogoIcon from "@/assets/logo.png";
 import { useRouter } from "next/router";
+import LaunchIcon from '@mui/icons-material/Launch';
 
 interface Props {
   children: React.ReactNode;
@@ -25,14 +26,14 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
       name: "กำหนดการ",
       href: "/events",
     },
-    {
-      name: "ผลงาน",
-      href: "/works",
-    },
-    {
-      name: "ผู้สนับสนุน",
-      href: "/sponsors",
-    },
+    // {
+    //   name: "ผลงาน",
+    //   href: "/works",
+    // },
+    // {
+    //   name: "ผู้สนับสนุน",
+    //   href: "/sponsors",
+    // },
     {
       name: "ติดต่อเรา",
       href: "/contact",
@@ -51,7 +52,7 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
             KU Tech
           </Text>
         </Navbar.Brand>
-        <Navbar.Content enableCursorHighlight hideIn="sm" variant="underline-rounded">
+        <Navbar.Content enableCursorHighlight hideIn="sm" variant="highlight-rounded">
           {collapseItems.map((item, index) => (
             <Navbar.Link
               href={item.href}
@@ -68,7 +69,7 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
         </Navbar.Content>
         <Navbar.Content>
           <Navbar.Item>
-            <Button auto shadow color="primary" as={Link} href="#">
+            <Button auto size={"sm"} rounded icon={<LaunchIcon sx={{width:20}} />} color="gradient" shadow bordered as={Link} href="#">
               เข้าร่วมชมรม
             </Button>
           </Navbar.Item>

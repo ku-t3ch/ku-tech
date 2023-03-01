@@ -1,9 +1,11 @@
 import { type NextPage } from "next";
-import { Text } from "@nextui-org/react";
+import { Button, Text } from "@nextui-org/react";
 import Image from "next/image";
 import WithNavbar from "@/layouts/WithNavbar";
 import clsx from "clsx";
 import Logo from "@/assets/logo.png";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { useRef } from "react";
 
 interface PropsContent {
   image: string;
@@ -30,13 +32,38 @@ const Content: NextPage<PropsContent> = (props) => {
 };
 
 const Home: NextPage = () => {
+  const content = useRef<HTMLDivElement>(null);
   return (
     <WithNavbar>
-      <div className="mx-auto max-w-[73rem] p-5 md:p-10">
-        <div className="flex justify-center">
+      <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
+        <div className="mt-[15%] md:mt-[10%] flex h-[100%] flex-col items-center gap-5 md:h-full">
+          <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
+            <img
+              className="h-full w-full object-cover"
+              src="/backgrounds/v1_d.svg"
+              alt=""
+            />
+          </div>
+
+          <div className="relative z-10 flex justify-center">
             <Image src={Logo} alt="logo" width={400}></Image>
+          </div>
+          <Button
+            onClick={() => content.current?.scrollIntoView({behavior: "smooth"})}
+            size={"lg"}
+            bordered
+            shadow
+            color="gradient"
+            auto
+            className="z-0"
+          >
+            <ArrowDownwardIcon className="-z-50 animate-bounce duration-500" />
+          </Button>
         </div>
-        <div className="flex-col items-center gap-10 md:flex-row">
+        <div
+          ref={content}
+          className="z-10 flex-col items-center gap-10 md:flex-row"
+        >
           <Content
             content="สร้างโอกาสให้สมาชิกเรียนรู้ด้วยกัน: จัดกิจกรรมเช่นการสนทนาเกี่ยวกับเทคโนโลยี หรือการเล่าประสบการณ์ในการทำงานด้านเทคโนโลยี เพื่อให้สมาชิกได้เรียนรู้และแลกเปลี่ยนความรู้ด้วยกัน"
             image="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
