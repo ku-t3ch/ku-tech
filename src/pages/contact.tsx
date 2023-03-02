@@ -13,7 +13,10 @@ const Contact: NextPage<Props> = () => {
             ติดต่อเรา
           </Text>
           <Text className="prompt" size={"$xl"}>
-            coming soon...
+            Line Group Member : <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">https://line.me/ti/g/mpcZOXKJaN</a>
+          </Text>
+          <Text className="prompt" size={"$xl"}>
+            Email : <a href="mailto:tech.kuclub@gmail.com">tech.kuclub@gmail.com</a>
           </Text>
         </div>
       </div>

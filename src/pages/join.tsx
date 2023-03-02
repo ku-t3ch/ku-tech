@@ -35,7 +35,10 @@ const Join: NextPage<Props> = () => {
           <Text className="prompt" size={"$3xl"}>
             เข้าร่วมชมรม
           </Text>
-          <Form
+          <Text className="prompt" size={"$xl"}>
+            Line Group Member : <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">https://line.me/ti/g/mpcZOXKJaN</a>
+          </Text>
+          {/* <Form
             form={form}
             layout="vertical"
             onValuesChange={onRequiredTypeChange}
@@ -97,7 +100,7 @@ const Join: NextPage<Props> = () => {
           />
           <Button color={"gradient"} shadow auto>
             เข้าร่วม
-          </Button>
+          </Button> */}
         </div>
       </div>
     </WithNavbar>

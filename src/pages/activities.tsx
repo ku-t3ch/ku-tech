@@ -13,7 +13,11 @@ const Activities: NextPage<Props> = () => {
             กิจกรรม
           </Text>
           <Text className="prompt" size={"$xl"}>
-            coming soon...
+            - KU Hackathon : ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ
+            ภายในมหาวิทยาลัยด้วยเทคโนโลยี
+          </Text>
+          <Text className="prompt" size={"$xl"}>
+            - KU Tech Camp : ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น
           </Text>
         </div>
       </div>
