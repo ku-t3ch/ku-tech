@@ -1,12 +1,12 @@
-import WithNavbar from "@/layouts/WithNavbar";
-import { Button, Text } from "@nextui-org/react";
+import { Text } from "@nextui-org/react";
 import { NextPage } from "next";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import { Form, Input, DatePicker, Select } from "antd";
+import { Form } from "antd";
 import { useState } from "react";
-import dayjs from "dayjs";
-import Turnstile from "react-turnstile";
-import { env } from "@/env.mjs";
+import dynamic from "next/dynamic";
+
+const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
+  ssr: false,
+});
 
 type RequiredMark = boolean | "optional";
 
@@ -36,7 +36,10 @@ const Join: NextPage<Props> = () => {
             เข้าร่วมชมรม
           </Text>
           <Text className="prompt" size={"$xl"}>
-            Line Group Member : <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">https://line.me/ti/g/mpcZOXKJaN</a>
+            Line Group Member :{" "}
+            <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">
+              https://line.me/ti/g/mpcZOXKJaN
+            </a>
           </Text>
           {/* <Form
             form={form}

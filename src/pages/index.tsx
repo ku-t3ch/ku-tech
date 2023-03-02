@@ -1,11 +1,15 @@
 import { type NextPage } from "next";
 import { Button, Text } from "@nextui-org/react";
 import Image from "next/image";
-import WithNavbar from "@/layouts/WithNavbar";
 import clsx from "clsx";
 import Logo from "@/assets/logo.png";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { useRef } from "react";
+import dynamic from "next/dynamic";
+
+const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
+  ssr: false,
+});
 
 interface PropsContent {
   image: string;
@@ -36,7 +40,7 @@ const Home: NextPage = () => {
   return (
     <WithNavbar>
       <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
-        <div className="mt-[15%] md:mt-[10%] flex h-[100%] flex-col items-center gap-5 md:h-full">
+        <div className="mt-[15%] flex h-[100%] flex-col items-center gap-5 md:mt-[10%] md:h-full">
           <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
             <img
               className="h-full w-full object-cover"
@@ -49,7 +53,9 @@ const Home: NextPage = () => {
             <Image src={Logo} alt="logo" width={400}></Image>
           </div>
           <Button
-            onClick={() => content.current?.scrollIntoView({behavior: "smooth"})}
+            onClick={() =>
+              content.current?.scrollIntoView({ behavior: "smooth" })
+            }
             size={"lg"}
             bordered
             shadow

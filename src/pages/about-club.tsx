@@ -1,6 +1,10 @@
-import WithNavbar from "@/layouts/WithNavbar";
 import { Text } from "@nextui-org/react";
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
+
+const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
+  ssr: false,
+});
 
 interface Props {}
 
