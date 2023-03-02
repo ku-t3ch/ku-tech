@@ -1,4 +1,4 @@
-import { Button, Text } from "@nextui-org/react";
+import { Button, Text, Loading } from "@nextui-org/react";
 import { NextPage } from "next";
 import { AutoComplete, Form, Input, Select } from "antd";
 import { useMemo, useState } from "react";
@@ -199,7 +199,7 @@ const Join: NextPage<Props> = () => {
                 style={{ width: "100%" }}
                 type="submit"
               >
-                เข้าร่วม
+                {joinApi.isLoading ? <Loading color="currentColor" size="sm" /> : "เข้าร่วม"}
               </Button>
             </div>
           </Form>
