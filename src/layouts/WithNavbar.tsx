@@ -67,13 +67,13 @@ const WithNavbar: NextPage<Props> = ({ children }) => {
             </Navbar.Link>
           ))}
         </Navbar.Content>
-        <Navbar.Content>
+        {/* <Navbar.Content>
           <Navbar.Item>
             <Button auto size={"sm"} rounded icon={<LaunchIcon sx={{width:20}} />} color="gradient" shadow bordered as={Link} href="#">
               เข้าร่วมชมรม
             </Button>
           </Navbar.Item>
-        </Navbar.Content>
+        </Navbar.Content> */}
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
             <Navbar.CollapseItem key={index}>
