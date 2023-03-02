@@ -42,10 +42,10 @@ const Home: NextPage = () => {
   return (
     <WithNavbar>
       <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
-        <div className="mt-[15%] flex h-[100%] flex-col items-center gap-5 md:mt-[10%] md:h-full">
+        <div className="flex flex-col items-center justify-center gap-5 h-[80%]">
           <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
             <img
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover animate-pulse duration-75"
               src="/backgrounds/v1_d.svg"
               alt=""
             />
