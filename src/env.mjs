@@ -21,6 +21,8 @@ const server = z.object({
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
   CT_SECRET: z.string(),
   NEXT_PUBLIC_CT_SITE_KEY: z.string(),
+  EMAIL_USER: z.string(),
+  EMAIL_PASS: z.string(),
 });
 
 /**
@@ -45,6 +47,8 @@ const processEnv = {
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   CT_SECRET: process.env.CT_SECRET,
   NEXT_PUBLIC_CT_SITE_KEY: process.env.NEXT_PUBLIC_CT_SITE_KEY,
+  EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASS: process.env.EMAIL_PASS,
 };
 
 // Don't touch the part below
