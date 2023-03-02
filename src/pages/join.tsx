@@ -24,8 +24,8 @@ const Join: NextPage<Props> = () => {
   const validateMessages = {
     required: "${label} is required!",
     types: {
-      email: "${label} is not a yvalid email!",
-      number: "${label} is not a valid number!",
+      email: "${label} รูปแบบ email ไม่ถูกต้อง!",
+      number: "${label} is not a validate number!",
     },
   };
 
