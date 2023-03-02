@@ -4,8 +4,10 @@ import Image from "next/image";
 import clsx from "clsx";
 import Logo from "@/assets/logo.png";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
+import JoinClubBtn from "@/components/JoinClubBtn";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -52,7 +54,7 @@ const Home: NextPage = () => {
           <div className="relative z-10 flex justify-center">
             <Image src={Logo} alt="logo" width={400}></Image>
           </div>
-          <Button
+          {/* <Button
             onClick={() =>
               content.current?.scrollIntoView({ behavior: "smooth" })
             }
@@ -64,9 +66,10 @@ const Home: NextPage = () => {
             className="z-0"
           >
             <ArrowDownwardIcon className="-z-50 animate-bounce duration-500" />
-          </Button>
+          </Button> */}
+          <JoinClubBtn />
         </div>
-        <div
+        {/* <div
           ref={content}
           className="z-10 flex-col items-center gap-10 md:flex-row"
         >
@@ -90,7 +93,7 @@ const Home: NextPage = () => {
             image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
             position="left"
           />
-        </div>
+        </div> */}
       </div>
     </WithNavbar>
   );
