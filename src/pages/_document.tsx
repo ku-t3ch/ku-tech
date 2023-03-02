@@ -47,10 +47,6 @@ const _document: NextPage<Props> = () => {
           src="https://umami.csku.in.th/umami.js"
         ></script>
         <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-QQ46MXKX4X`}
-        />
-        <script
           dangerouslySetInnerHTML={{
             __html: `(function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};

@@ -2,13 +2,14 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
-import { ConfigProvider,theme } from "antd";
+import { ConfigProvider, theme } from "antd";
 
 import { api } from "@/utils/api";
 
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -41,6 +42,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
+      <GoogleAnalytics trackPageViews />
       <NextUIProvider theme={darkTheme}>
         <ConfigProvider
           theme={{
