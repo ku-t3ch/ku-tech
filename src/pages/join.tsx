@@ -41,7 +41,7 @@ const Join: NextPage<Props> = () => {
 
   useMemo(() => {
     if (joinApi.isSuccess) {
-      toast.success("เข้าร่วมชมรมสำเร็จ");
+      toast.success("สมัครสำเร็จ");
       form.resetFields();
     } else if (joinApi.isError) {
       toast.error(joinApi.error.message);
@@ -199,7 +199,7 @@ const Join: NextPage<Props> = () => {
                 style={{ width: "100%" }}
                 type="submit"
               >
-                {joinApi.isLoading ? <Loading color="currentColor" size="sm" /> : "เข้าร่วม"}
+                {joinApi.isLoading ? <Loading color="currentColor" size="sm" /> : "สมัครสมาชิก"}
               </Button>
             </div>
           </Form>
