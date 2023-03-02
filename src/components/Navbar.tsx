@@ -5,6 +5,7 @@ import Image from "next/image";
 import LogoIcon from "@/assets/logo.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface Props {}
 
@@ -74,12 +75,13 @@ const NavbarComponent: NextPage<Props> = () => {
             auto
             size={"sm"}
             rounded
-            icon={<LaunchIcon sx={{ width: 20 }} />}
+            icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
             color="gradient"
             shadow
             bordered
             as={Link}
             href="/join"
+            target="_blank"
           >
             เข้าร่วมชมรม
           </Button>
