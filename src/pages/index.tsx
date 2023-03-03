@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           >
             <ArrowDownwardIcon className="-z-50 animate-bounce duration-500" />
           </Button> */}
-          <JoinClubBtn />
+          <div><JoinClubBtn /></div>
         </div>
         {/* <div
           ref={content}
