@@ -56,6 +56,9 @@ export const joinRouter = createTRPCRouter({
           throw new Error("คุณสมัครไปเรียบร้อยแล้ว");
         }
 
+        console.log(input.data);
+        
+
         await prisma.request.update({
           where: {
             google_id: ctx.session.user.sub,
@@ -83,7 +86,7 @@ export const joinRouter = createTRPCRouter({
           คณะ : ${input.data.faculty}<br />
           สาขา : ${input.data.major}</span></p>
           
-          <p><span style="font-size:16px"><strong>รอประกาศผล ใน email นี้ 🥰</strong></span></p>`,
+          <p><span style="font-size:16px"><strong>รอประกาศผลผ่านทาง Email 🥰</strong></span></p>`,
         };
 
         transporter.sendMail(mailOptions, function (error, info) {

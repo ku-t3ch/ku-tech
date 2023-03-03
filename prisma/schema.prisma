@@ -23,6 +23,7 @@ model Request {
     first_name_en String?  @unique
     last_name_en  String?  @unique
     nick_name     String?
+    ojectives     String?
     email         String?  @unique
     year          Int?
     faculty       String?

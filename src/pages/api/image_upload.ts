@@ -4,13 +4,8 @@ import { getToken } from "next-auth/jwt";
 import nc from "next-connect";
 
 import { v4 as uuid } from "uuid";
-import {
-  GetObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 
@@ -56,7 +51,6 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
       res.status(400).end("No files were uploaded.");
       return;
     }
-    
 
     let file = req.files.avatar;
 
@@ -80,7 +74,7 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
         region: "ap-southeast-1",
       });
 
-      const fileID = uuid()+".png";
+    //   const fileID = uuid() + ".png";
 
       let dbData = await prisma.request.findUnique({
         where: {
@@ -91,8 +85,8 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
       if (!dbData) {
         dbData = await prisma.request.create({
           data: {
-            image_path: fileID,
             google_id: token.sub,
+            image_path: token.sub + ".png",
           },
         });
       }
