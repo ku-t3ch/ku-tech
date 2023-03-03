@@ -1,25 +1,35 @@
 import { Button, Text, Loading } from "@nextui-org/react";
 import { NextPage } from "next";
 import { AutoComplete, Form, Input, Select } from "antd";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Turnstile from "react-turnstile";
 import facultyData from "@/assets/faculty.json";
 import { api } from "@/utils/api";
 import { toast } from "react-hot-toast";
+import { useLocalStorage } from "usehooks-ts";
+import { FormDataInterface } from "@/interfaces/FormDataInterface";
+import UploadComponent from "@/components/UploadComponent";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
 });
-
-type RequiredMark = boolean | "optional";
 
 interface Props {}
 
 const Join: NextPage<Props> = () => {
   const [token, setToken] = useState<string | null>(null);
   const [Faculty, setFaculty] = useState<string | null>(null);
+  const [FormLocalStorage, setFormLocalStorage] =
+    useLocalStorage<FormDataInterface | null>("formData", null);
   const [form] = Form.useForm();
+  const [hasAvatar, setHasAvatar] = useState(false)
+
+  useEffect(() => {
+    if (FormLocalStorage !== null) {
+      form.setFieldsValue(FormLocalStorage);
+    }
+  }, []);
 
   const validateMessages = {
     required: "${label} is required!",
@@ -32,6 +42,7 @@ const Join: NextPage<Props> = () => {
   const joinApi = api.join.add.useMutation();
 
   const onFinish = async (values: any) => {
+    if(!hasAvatar) return;
     if (token === null) return;
     await joinApi.mutateAsync({
       data: form.getFieldsValue(),
@@ -39,10 +50,11 @@ const Join: NextPage<Props> = () => {
     });
   };
 
-  useMemo(() => {
+  useEffect(() => {
     if (joinApi.isSuccess) {
       toast.success("สมัครสำเร็จ");
       form.resetFields();
+      setFormLocalStorage(null);
     } else if (joinApi.isError) {
       toast.error(joinApi.error.message);
     }
@@ -87,6 +99,9 @@ const Join: NextPage<Props> = () => {
             initialValues={{ remember: true }}
             onFinish={onFinish}
             validateMessages={validateMessages}
+            onValuesChange={(changedValues, allValues) => {
+              setFormLocalStorage(allValues);
+            }}
           >
             <div className="flex w-full flex-col md:flex-row md:gap-5">
               <Form.Item
@@ -207,7 +222,7 @@ const Join: NextPage<Props> = () => {
                 ></AutoComplete>
               </Form.Item>
             </div>
-            {Faculty && (
+            {Faculty || form.getFieldValue("major") ? (
               <div>
                 <Form.Item
                   className="w-full"
@@ -219,9 +234,6 @@ const Join: NextPage<Props> = () => {
                     popupClassName="certain-category-search-dropdown"
                     size="large"
                     placeholder="เลือกสาขา"
-                    onSelect={(value) => {
-                      console.log(value);
-                    }}
                     options={facultyData
                       .filter((option) => option.value === Faculty)[0]
                       ?.majors.map((item) => {
@@ -235,7 +247,25 @@ const Join: NextPage<Props> = () => {
                   ></AutoComplete>
                 </Form.Item>
               </div>
+            ) : (
+              ""
             )}
+            {/* <Form.Item
+              className="w-full"
+              label="ทำไมคุณตถึงอยากเข้าร่วมชมรมของเรา"
+              name="ojectives"
+              rules={[{ required: true }, { validator: EnglishValidator }]}
+            >
+              <TextArea rows={4} />
+            </Form.Item> */}
+            <Form.Item
+              className="w-full"
+              label="รูปสำเนาบัตรนิสิต"
+              name="ojectives"
+              required
+            >
+              <UploadComponent onReady={(v)=>setHasAvatar(v)} />
+            </Form.Item>
             <div className="flex flex-col items-center gap-3">
               <Turnstile
                 sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}

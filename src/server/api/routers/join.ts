@@ -14,7 +14,7 @@ import requestIp from "request-ip";
 import FormData from "form-data";
 
 export const joinRouter = createTRPCRouter({
-  add: publicProcedure
+  add: protectedProcedure
     .input(z.object({ token: z.string(), data: FormDataZod }))
     .mutation(async ({ input, ctx }) => {
       try {
@@ -41,16 +41,28 @@ export const joinRouter = createTRPCRouter({
 
         const email = await prisma.request.findUnique({
           where: {
-            email: input.data.email,
+            google_id: ctx.session.user.sub,
           },
         });
 
-        if (email) {
+        if (
+          email?.first_name_en ||
+          email?.last_name_en ||
+          email?.first_name_th ||
+          email?.last_name_th ||
+          email?.faculty ||
+          email?.major
+        ) {
           throw new Error("คุณสมัครไปเรียบร้อยแล้ว");
         }
 
-        await prisma.request.create({
-          data: { ...input.data },
+        await prisma.request.update({
+          where: {
+            google_id: ctx.session.user.sub,
+          },
+          data: {
+            ...input.data,
+          },
         });
 
         const transporter = nodemailer.createTransport({
@@ -61,7 +73,7 @@ export const joinRouter = createTRPCRouter({
           },
         });
 
-        const mailOptions:any = {
+        const mailOptions: any = {
           from: env.EMAIL_USER,
           to: input.data.email,
           subject: "ขอบคุณที่สนใจเข้าร่วมชมรมกับเรา - KU Tech Club",

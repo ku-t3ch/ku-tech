@@ -18,15 +18,17 @@ model Request {
     id            String   @id @default(cuid())
     createdAt     DateTime @default(now())
     updatedAt     DateTime @updatedAt
-    first_name_th String   @unique
-    last_name_th  String   @unique
-    first_name_en String   @unique
-    last_name_en  String   @unique
-    nick_name     String
-    email         String   @unique
-    year          Int
-    faculty       String
-    major         String
+    first_name_th String?  @unique
+    last_name_th  String?  @unique
+    first_name_en String?  @unique
+    last_name_en  String?  @unique
+    nick_name     String?
+    email         String?  @unique
+    year          Int?
+    faculty       String?
+    major         String?
+    image_path    String? @unique
+    google_id     String? @unique
 }
 
 // model Example {

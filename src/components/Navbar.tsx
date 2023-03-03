@@ -5,12 +5,14 @@ import Image from "next/image";
 import LogoIcon from "@/assets/logo.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { signOut, useSession } from "next-auth/react";
 
 interface Props {}
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
+  const { data: session, status } = useSession();
 
   const collapseItems = [
     {
@@ -86,6 +88,21 @@ const NavbarComponent: NextPage<Props> = () => {
             เข้าร่วมชมรม
           </Button>
         </Navbar.Item>
+        {status === "authenticated" && (
+          <Navbar.Item hideIn={"md"}>
+            <Button
+              auto
+              size={"sm"}
+              rounded
+              color="error"
+              shadow
+              bordered
+              onClick={() => signOut()}
+            >
+              <LogoutIcon />
+            </Button>
+          </Navbar.Item>
+        )}
       </Navbar.Content>
       <Navbar.Collapse>
         {collapseItems.map((item, index) => (
@@ -105,6 +122,21 @@ const NavbarComponent: NextPage<Props> = () => {
             </Link>
           </Navbar.CollapseItem>
         ))}
+        {status === "authenticated" && (
+          <Navbar.CollapseItem>
+            <Button
+              auto
+              size={"sm"}
+              rounded
+              color="error"
+              shadow
+              bordered
+              onClick={() => signOut()}
+            >
+              <LogoutIcon />
+            </Button>
+          </Navbar.CollapseItem>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

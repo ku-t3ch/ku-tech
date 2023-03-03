@@ -23,6 +23,9 @@ const server = z.object({
   NEXT_PUBLIC_CT_SITE_KEY: z.string(),
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  S3: z.string(),
 });
 
 /**
@@ -49,6 +52,9 @@ const processEnv = {
   NEXT_PUBLIC_CT_SITE_KEY: process.env.NEXT_PUBLIC_CT_SITE_KEY,
   EMAIL_USER: process.env.EMAIL_USER,
   EMAIL_PASS: process.env.EMAIL_PASS,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  S3: process.env.S3,
 };
 
 // Don't touch the part below
