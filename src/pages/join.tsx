@@ -48,6 +48,32 @@ const Join: NextPage<Props> = () => {
     }
   }, [joinApi]);
 
+  const ThaiValidator = (rule: any, value: any, callback: any) => {
+    const thaiNameRegex = /^[ก-๙]+$/;
+    if (!thaiNameRegex.test(value)) {
+      callback("กรุณากรอกภาษาไทยเท่านั้น");
+    } else {
+      callback();
+    }
+  };
+  const EnglishValidator = (rule: any, value: any, callback: any) => {
+    const englishNameRegex = /^[a-zA-Z]+$/;
+    if (!englishNameRegex.test(value)) {
+      callback("กรุณากรอกภาษาอังกฤษเท่านั้น");
+    } else {
+      callback();
+    }
+  };
+
+  const KuEmailValidator = (rule: any, value: any, callback: any) => {
+    const kuEmailRegex = /^[a-zA-Z0-9._%+-]+@ku\.th$/;
+    if (!kuEmailRegex.test(value)) {
+      callback("กรุณากรอกอีเมล์ @ku.th เท่านั้น");
+    } else {
+      callback();
+    }
+  };
+
   return (
     <WithNavbar>
       <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
@@ -67,17 +93,26 @@ const Join: NextPage<Props> = () => {
                 className="w-full"
                 label="ชื่อ (ภาษาไทย)"
                 name="first_name_th"
-                rules={[{ required: true }]}
+                rules={[
+                  { required: true },
+                  {
+                    validator: ThaiValidator,
+                  },
+                ]}
               >
-                <Input size="large" placeholder="ชื่อจริง (ภาษาไทย)" />
+                <Input
+                  size="large"
+                  lang="th"
+                  placeholder="ชื่อจริง (ภาษาไทย)"
+                />
               </Form.Item>
               <Form.Item
                 className="w-full"
                 label="นามสกุล (ภาษาไทย)"
                 name="last_name_th"
-                rules={[{ required: true }]}
+                rules={[{ required: true }, { validator: ThaiValidator }]}
               >
-                <Input size="large" placeholder="นามสกุล (ภาษาไทย)" />
+                <Input lang="th" size="large" placeholder="นามสกุล (ภาษาไทย)" />
               </Form.Item>
             </div>
             <div className="flex w-full flex-col md:flex-row md:gap-5">
@@ -85,17 +120,25 @@ const Join: NextPage<Props> = () => {
                 className="w-full"
                 label="ชื่อ (ภาษาอังกฤษ)"
                 name="first_name_en"
-                rules={[{ required: true }]}
+                rules={[{ required: true }, { validator: EnglishValidator }]}
               >
-                <Input size="large" placeholder="ชื่อจริง (ภาษาอังกฤษ)" />
+                <Input
+                  lang="en"
+                  size="large"
+                  placeholder="ชื่อจริง (ภาษาอังกฤษ)"
+                />
               </Form.Item>
               <Form.Item
                 className="w-full"
                 label="นามสกุล (ภาษาอังกฤษ)"
                 name="last_name_en"
-                rules={[{ required: true }]}
+                rules={[{ required: true }, { validator: EnglishValidator }]}
               >
-                <Input size="large" placeholder="นามสกุล (ภาษาอังกฤษ)" />
+                <Input
+                  lang="en"
+                  size="large"
+                  placeholder="นามสกุล (ภาษาอังกฤษ)"
+                />
               </Form.Item>
             </div>
             <div className="flex w-full flex-col md:flex-row md:gap-5">
@@ -108,12 +151,17 @@ const Join: NextPage<Props> = () => {
                 <Input size="large" placeholder="ชื่อเล่น" />
               </Form.Item>
               <Form.Item
-                rules={[{ type: "email", required: true }]}
+                rules={[
+                  { type: "email", required: true },
+                  {
+                    validator: KuEmailValidator,
+                  },
+                ]}
                 className="w-full"
                 label="อีเมล"
                 name="email"
               >
-                <Input size="large" placeholder="example@example.com" />
+                <Input size="large" placeholder="example@ku.th" />
               </Form.Item>
             </div>
             <div className="flex w-full flex-col md:flex-row md:gap-5">
@@ -199,7 +247,11 @@ const Join: NextPage<Props> = () => {
                 style={{ width: "100%" }}
                 type="submit"
               >
-                {joinApi.isLoading ? <Loading color="currentColor" size="sm" /> : "สมัครสมาชิก"}
+                {joinApi.isLoading ? (
+                  <Loading color="currentColor" size="sm" />
+                ) : (
+                  "สมัครสมาชิก"
+                )}
               </Button>
             </div>
           </Form>
