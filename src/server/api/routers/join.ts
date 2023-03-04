@@ -68,34 +68,34 @@ export const joinRouter = createTRPCRouter({
           },
         });
 
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: env.EMAIL_USER,
-            pass: env.EMAIL_PASS,
-          },
-        });
+        // const transporter = nodemailer.createTransport({
+        //   service: "gmail",
+        //   auth: {
+        //     user: env.EMAIL_USER,
+        //     pass: env.EMAIL_PASS,
+        //   },
+        // });
 
-        const mailOptions: any = {
-          from: env.EMAIL_USER,
-          to: input.data.email,
-          subject: "ขอบคุณที่สนใจเข้าร่วมชมรมกับเรา - KU Tech Club",
-          html: `<p><span style="font-size:20px"><strong>ขอบคุณ&nbsp;${input.data.first_name_th}&nbsp;ที่สนใจเข้าร่วมชมรมกับเรา - KU Tech Club</strong></span></p>
+        // const mailOptions: any = {
+        //   from: env.EMAIL_USER,
+        //   to: input.data.email,
+        //   subject: "ขอบคุณที่สนใจเข้าร่วมชมรมกับเรา - KU Tech Club",
+        //   html: `<p><span style="font-size:20px"><strong>ขอบคุณ&nbsp;${input.data.first_name_th}&nbsp;ที่สนใจเข้าร่วมชมรมกับเรา - KU Tech Club</strong></span></p>
 
-          <p><span style="font-size:16px">ชื่อ : ${input.data.first_name_th} ${input.data.last_name_th}<br />
-          คณะ : ${input.data.faculty}<br />
-          สาขา : ${input.data.major}</span></p>
+        //   <p><span style="font-size:16px">ชื่อ : ${input.data.first_name_th} ${input.data.last_name_th}<br />
+        //   คณะ : ${input.data.faculty}<br />
+        //   สาขา : ${input.data.major}</span></p>
           
-          <p><span style="font-size:16px"><strong>รอประกาศผลผ่านทาง Email 🥰</strong></span></p>`,
-        };
+        //   <p><span style="font-size:16px"><strong>รอประกาศผลผ่านทาง Email 🥰</strong></span></p>`,
+        // };
 
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("Email sent: " + info.response);
-          }
-        });
+        // transporter.sendMail(mailOptions, function (error, info) {
+        //   if (error) {
+        //     console.log(error);
+        //   } else {
+        //     console.log("Email sent: " + info.response);
+        //   }
+        // });
       } catch (error: any) {
         throw new Error(error.message);
       }
