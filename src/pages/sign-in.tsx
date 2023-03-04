@@ -25,7 +25,7 @@ const SignIn: NextPage<Props> = () => {
           color={"gradient"}
           bordered
         >
-          Sign with Google
+          Sign with Google (@ku.th)
         </Button>
       </div>
     </div>
