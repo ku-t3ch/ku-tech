@@ -1,7 +1,7 @@
 import { Button, Text, Loading } from "@nextui-org/react";
 import { NextPage, NextPageContext } from "next";
 import { AutoComplete, Form, Input, Select } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import facultyData from "@/assets/faculty.json";
 import { api } from "@/utils/api";
@@ -9,8 +9,6 @@ import { toast } from "react-hot-toast";
 import { useLocalStorage } from "usehooks-ts";
 import { FormDataInterface } from "@/interfaces/FormDataInterface";
 import { getToken } from "next-auth/jwt";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/server/auth";
 import { prisma } from "@/server/db";
 import { useSession } from "next-auth/react";
 
@@ -329,7 +327,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
               </Form.Item>
               <Form.Item
                 className="w-full"
-                label="รูปสำเนาบัตรนิสิต (กรุณาเซ็นสำเนาถูกต้องด้วย)"
+                label="รูปสำเนาบัตรนิสิต (กรุณาเซ็นสำเนาถูกต้องด้วย) หรือใช้รูปบัตรใน Application NisitKU ได้"
                 required
               >
                 <UploadComponent onReady={(v) => setHasImage(v)} />

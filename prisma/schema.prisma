@@ -30,6 +30,7 @@ model Request {
     major         String?
     image_path    String? @unique
     google_id     String? @unique
+    is_approved   Boolean? @default(false)
 }
 
 // model Example {

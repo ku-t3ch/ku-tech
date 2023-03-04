@@ -1,10 +1,8 @@
 import { type NextPage } from "next";
-import { Button, Text } from "@nextui-org/react";
+import { Text } from "@nextui-org/react";
 import Image from "next/image";
 import clsx from "clsx";
 import Logo from "@/assets/logo.png";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import JoinClubBtn from "@/components/JoinClubBtn";
