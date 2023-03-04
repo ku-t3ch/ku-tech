@@ -38,16 +38,16 @@ export async function getServerSideProps(context: NextPageContext) {
 
   let isRegisted = false;
 
-  if (
-    isRegistedRaw?.first_name_en ||
-    isRegistedRaw?.last_name_en ||
-    isRegistedRaw?.first_name_th ||
-    isRegistedRaw?.last_name_th ||
-    isRegistedRaw?.faculty ||
-    isRegistedRaw?.major
-  ) {
-    isRegisted = true;
-  }
+    if (
+      isRegistedRaw?.first_name_en ||
+      isRegistedRaw?.last_name_en ||
+      isRegistedRaw?.first_name_th ||
+      isRegistedRaw?.last_name_th ||
+      isRegistedRaw?.faculty ||
+      isRegistedRaw?.major
+    ) {
+      isRegisted = true;
+    }
 
   return {
     props: {
@@ -118,29 +118,30 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
     }
   }, [joinApi]);
 
-  const ThaiValidator = (rule: any, value: any, callback: any) => {
-    const thaiNameRegex = /^[ก-๙]+$/;
+  const ThaiValidator = (_: any, value: any) => {
+    const thaiNameRegex = /^[ก-๙\s]+$/;
     if (!thaiNameRegex.test(value)) {
-      callback("กรุณากรอกภาษาไทยเท่านั้น");
+      return Promise.reject("กรุณากรอกภาษาไทยเท่านั้น");
     } else {
-      callback();
-    }
-  };
-  const EnglishValidator = (rule: any, value: any, callback: any) => {
-    const englishNameRegex = /^[a-zA-Z]+$/;
-    if (!englishNameRegex.test(value)) {
-      callback("กรุณากรอกภาษาอังกฤษเท่านั้น");
-    } else {
-      callback();
+      return Promise.resolve();
     }
   };
 
-  const KuEmailValidator = (rule: any, value: any, callback: any) => {
+  const EnglishValidator = (_: any, value: any) => {
+    const englishNameRegex = /^[a-zA-Z\s]+$/;
+    if (!englishNameRegex.test(value)) {
+      return Promise.reject("กรุณากรอกภาษาอังกฤษเท่านั้น");
+    } else {
+      return Promise.resolve();
+    }
+  };
+
+  const KuEmailValidator = (_: any, value: any) => {
     const kuEmailRegex = /^[a-zA-Z0-9._%+-]+@ku\.th$/;
     if (!kuEmailRegex.test(value)) {
-      callback("กรุณากรอกอีเมล์ @ku.th เท่านั้น");
+      return Promise.reject("กรุณากรอกอีเมล์ @ku.th เท่านั้น");
     } else {
-      callback();
+      return Promise.resolve();
     }
   };
 
