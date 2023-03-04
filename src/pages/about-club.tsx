@@ -11,7 +11,7 @@ interface Props {}
 const AboutClub: NextPage<Props> = () => {
   return (
     <WithNavbar>
-      <div className="mx-auto flex max-w-[73rem] flex-col gap-20 p-5 md:p-10">
+      <div className="mx-auto flex max-w-[73rem] flex-col gap-10 md:gap-20 p-5 md:p-10">
         <div className="flex flex-col gap-3">
           <Text className="prompt" size={"$3xl"}>
             เกี่ยวกับชมรม
