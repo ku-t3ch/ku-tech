@@ -65,7 +65,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
   const [FormLocalStorage, setFormLocalStorage] =
     useLocalStorage<FormDataInterface | null>("formData", null);
   const [form] = Form.useForm();
-  const [hasAvatar, setHasAvatar] = useState(false);
+  const [hasImage, setHasImage] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
 
   useEffect(() => {
@@ -85,16 +85,13 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
   const joinApi = api.join.add.useMutation();
 
   const onFinish = async (values: any) => {
-    if (!hasAvatar) return;
-    if (token === null) return;
+    if (!hasImage) return toast.error("กรุณาอัพโหลดรูปภาพ");
+    if (token === null) return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
     await joinApi.mutateAsync({
       data: form.getFieldsValue(),
       token,
     });
   };
-
-  console.log(form.getFieldsValue());
-  
 
   useEffect(() => {
     if (joinApi.isSuccess) {
@@ -311,14 +308,14 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
               )}
               <Form.Item
                 className="w-full"
-                label="ทำไมคุณตถึงอยากเข้าร่วมชมรมของเรา"
+                label="ทำไมคุณถึงอยากเข้าร่วมชมรมของเรา"
                 name="ojectives"
                 rules={[{ required: true }]}
               >
                 <TextArea name="" rows={4} />
               </Form.Item>
               <Form.Item className="w-full" label="รูปสำเนาบัตรนิสิต" required>
-                <UploadComponent onReady={(v) => setHasAvatar(v)} />
+                <UploadComponent onReady={(v) => setHasImage(v)} />
               </Form.Item>
               <div className="flex flex-col items-center gap-3">
                 <Turnstile

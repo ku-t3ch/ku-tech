@@ -12,15 +12,15 @@ const getBase64 = (img: RcFile, callback: (url: string) => void) => {
 };
 
 const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg";
   if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
+    message.error("คุณสามารถอัพโหลดไฟล์รูปภาพเท่านั้น! jpg หรือ png");
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+  const isLt4M = file.size / 1024 / 1024 < 4;
+  if (!isLt4M) {
+    message.error("คุณสามารถอัพโหลดไฟล์ได้ไม่เกิน 4MB!");
   }
-  return isJpgOrPng && isLt2M;
+  return isJpgOrPng && isLt4M;
 };
 
 interface Props {
@@ -30,6 +30,7 @@ interface Props {
 const UploadComponent: NextPage<Props> = (props) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
+  const [visible, setVisible] = React.useState(false);
 
   const handleChange: UploadProps["onChange"] = (
     info: UploadChangeParam<UploadFile>
@@ -57,34 +58,19 @@ const UploadComponent: NextPage<Props> = (props) => {
     </div>
   );
 
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as RcFile);
-        reader.onload = () => resolve(reader.result as string);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-
   return (
     <>
       <Upload
-        name="avatar"
+        name="file"
         listType="picture-card"
-        className="avatar-uploader"
+        className="avatar-uploader "
         showUploadList={false}
         action="/api/image_upload"
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
         {imageUrl ? (
-          <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+          <img src={imageUrl} className="w-full h-full object-cover z-0" alt="file" />
         ) : (
           uploadButton
         )}

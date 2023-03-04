@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import nc from "next-connect";
 
-import { v4 as uuid } from "uuid";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 import { env } from "@/env.mjs";
@@ -15,6 +14,25 @@ export interface FileUploadRequest extends NextApiRequest {
 
 interface File1 {
   [key: string]: any;
+}
+
+async function constraintImage(buffer: Buffer, quality = 82, drop = 2): Promise<Buffer> {
+  const done = await sharp(buffer)
+    .resize({
+      width: 1000,
+      height: 1000,
+      fit: sharp.fit.inside,
+    })
+    .png({
+      quality,
+    })
+    .toBuffer();
+
+  if (done.byteLength > 1000000) {
+    return constraintImage(buffer, quality - drop);
+  }
+
+  return done;
 }
 
 const handler = nc<FileUploadRequest, NextApiResponse>({
@@ -52,7 +70,7 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
       return;
     }
 
-    let file = req.files.avatar;
+    let file = req.files.file;
 
     const fileTypes = /jpeg|jpg|png|gif/;
     const extName = fileTypes.test(
@@ -74,8 +92,6 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
         region: "ap-southeast-1",
       });
 
-    //   const fileID = uuid() + ".png";
-
       let dbData = await prisma.request.findUnique({
         where: {
           google_id: token.sub,
@@ -95,7 +111,7 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
         new PutObjectCommand({
           Bucket: "idcard",
           Key: dbData.image_path!,
-          Body: sharp(file.data).resize(1000).png(),
+          Body: await constraintImage(file.data),
         })
       );
 
