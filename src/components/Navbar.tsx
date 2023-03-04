@@ -152,21 +152,6 @@ const NavbarComponent: NextPage<Props> = () => {
             </Link>
           </Navbar.CollapseItem>
         ))}
-        {status === "authenticated" && (
-          <Navbar.CollapseItem>
-            <Button
-              auto
-              size={"sm"}
-              rounded
-              color="error"
-              shadow
-              bordered
-              onClick={() => signOut()}
-            >
-              <LogoutIcon />
-            </Button>
-          </Navbar.CollapseItem>
-        )}
       </Navbar.Collapse>
     </Navbar>
   );
