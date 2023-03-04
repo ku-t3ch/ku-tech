@@ -3,19 +3,26 @@ import { NextPage, NextPageContext } from "next";
 import { AutoComplete, Form, Input, Select } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import Turnstile from "react-turnstile";
 import facultyData from "@/assets/faculty.json";
 import { api } from "@/utils/api";
 import { toast } from "react-hot-toast";
 import { useLocalStorage } from "usehooks-ts";
 import { FormDataInterface } from "@/interfaces/FormDataInterface";
-import UploadComponent from "@/components/UploadComponent";
 import { getToken } from "next-auth/jwt";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/server/auth";
 import { prisma } from "@/server/db";
+import { useSession } from "next-auth/react";
 
 const TextArea = dynamic(() => import("antd/es/input/TextArea"), {
+  ssr: false,
+});
+
+const UploadComponent = dynamic(() => import("@/components/UploadComponent"), {
+  ssr: false,
+});
+
+const Turnstile = dynamic(() => import("react-turnstile"), {
   ssr: false,
 });
 
@@ -67,6 +74,8 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
   const [form] = Form.useForm();
   const [hasImage, setHasImage] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
+  const [CT, setCT] = useState(1)
+  const {data:session} = useSession()
 
   useEffect(() => {
     if (FormLocalStorage !== null) {
@@ -86,11 +95,13 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
 
   const onFinish = async (values: any) => {
     if (!hasImage) return toast.error("กรุณาอัพโหลดรูปภาพ");
-    if (token === null) return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
+    if (token === null)
+      return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
     await joinApi.mutateAsync({
       data: form.getFieldsValue(),
       token,
     });
+    setCT(pre=>pre+1)
   };
 
   useEffect(() => {
@@ -102,6 +113,8 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
       form.resetFields();
       setFormLocalStorage(null);
       window.location.reload();
+    } else if (joinApi.isLoading) {
+      toast.loading("กำลังสมัครสมาชิก");
     } else if (joinApi.isError) {
       toast.error(joinApi.error.message);
     }
@@ -217,7 +230,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
                   className="w-full"
                   label="ชื่อเล่น"
                   name="nick_name"
-                  rules={[{ required: true }]}
+                  rules={[{ required: true }, { validator: ThaiValidator }]}
                 >
                   <Input size="large" placeholder="ชื่อเล่น" />
                 </Form.Item>
@@ -314,13 +327,14 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
               >
                 <TextArea name="" rows={4} />
               </Form.Item>
-              <Form.Item className="w-full" label="รูปสำเนาบัตรนิสิต" required>
+              <Form.Item className="w-full" label="รูปสำเนาบัตรนิสิต (กรุณาเซ็นสำเนาถูกต้องด้วย)" required>
                 <UploadComponent onReady={(v) => setHasImage(v)} />
               </Form.Item>
               <div className="flex flex-col items-center gap-3">
                 <Turnstile
                   sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}
                   onVerify={(token) => setToken(token)}
+                  key={CT}
                 />
                 <Button
                   color={"gradient"}
