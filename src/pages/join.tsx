@@ -35,11 +35,14 @@ const Join: NextPage<Props> = () => {
           <Text className="prompt" size={"$3xl"}>
             เข้าร่วมชมรม
           </Text>
-          <Text className="prompt" size={"$xl"}>
+          {/* <Text className="prompt" size={"$xl"}>
             Line Group Member :{" "}
             <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">
               https://line.me/ti/g/mpcZOXKJaN
             </a>
+          </Text> */}
+          <Text className="prompt" size={"$xl"}>
+            Comming Soon...
           </Text>
           {/* <Form
             form={form}
