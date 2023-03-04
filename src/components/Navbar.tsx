@@ -1,16 +1,25 @@
 import { NextPage } from "next";
-import { Button, Navbar, Text, Link } from "@nextui-org/react";
+import {
+  Button,
+  Navbar,
+  Text,
+  Link,
+  Dropdown,
+  Avatar,
+} from "@nextui-org/react";
 import NextLink from "next/link";
 import Image from "next/image";
 import LogoIcon from "@/assets/logo.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { signOut, useSession } from "next-auth/react";
 
 interface Props {}
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
+  const { data: session, status } = useSession();
 
   const collapseItems = [
     {
@@ -69,23 +78,61 @@ const NavbarComponent: NextPage<Props> = () => {
           </Navbar.Link>
         ))}
       </Navbar.Content>
+
       <Navbar.Content>
-        <Navbar.Item>
-          <Button
-            auto
-            size={"sm"}
-            rounded
-            icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
-            color="gradient"
-            shadow
-            bordered
-            as={Link}
-            href="/join"
-            target="_blank"
-          >
-            เข้าร่วมชมรม
-          </Button>
-        </Navbar.Item>
+        {pathname !== "/join" && (
+          <Navbar.Item>
+            <Button
+              auto
+              size={"sm"}
+              rounded
+              icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
+              color="gradient"
+              shadow
+              bordered
+              as={Link}
+              href="/join"
+              target="_blank"
+            >
+              เข้าร่วมชมรม
+            </Button>
+          </Navbar.Item>
+        )}
+
+        {status === "authenticated" && pathname === "/join" ? (
+          <>
+            {session.user.given_name}
+            <Dropdown placement="bottom-right">
+              <Navbar.Item>
+                <Dropdown.Trigger>
+                  <Avatar
+                    bordered
+                    as="button"
+                    color="primary"
+                    size="md"
+                    src={session.user.picture}
+                  />
+                </Dropdown.Trigger>
+              </Navbar.Item>
+              <Dropdown.Menu aria-label="User menu actions" color="secondary">
+                <Dropdown.Item key="profile" css={{ height: "$18" }}>
+                  <Text b color="inherit" css={{ d: "flex" }}>
+                    Signed in as
+                  </Text>
+                  <Text b color="inherit" css={{ d: "flex" }}>
+                    {session.user.email}
+                  </Text>
+                </Dropdown.Item>
+
+                <Dropdown.Item key="logout" withDivider color="error">
+                  <div onClick={() => signOut()}>Log Out</div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </>
+        ) : (
+          ""
+        )}
       </Navbar.Content>
       <Navbar.Collapse>
         {collapseItems.map((item, index) => (
@@ -105,6 +152,21 @@ const NavbarComponent: NextPage<Props> = () => {
             </Link>
           </Navbar.CollapseItem>
         ))}
+        {status === "authenticated" && (
+          <Navbar.CollapseItem>
+            <Button
+              auto
+              size={"sm"}
+              rounded
+              color="error"
+              shadow
+              bordered
+              onClick={() => signOut()}
+            >
+              <LogoutIcon />
+            </Button>
+          </Navbar.CollapseItem>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

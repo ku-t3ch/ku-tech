@@ -10,6 +10,7 @@ import "@/styles/globals.css";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { GoogleAnalytics } from "nextjs-google-analytics";
+import { Toaster } from "react-hot-toast";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -52,6 +53,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
             algorithm: theme.darkAlgorithm,
           }}
         >
+          <Toaster position="top-right" reverseOrder={false} />
           <Component {...pageProps} />
         </ConfigProvider>
       </NextUIProvider>

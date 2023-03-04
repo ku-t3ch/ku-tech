@@ -4,66 +4,97 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
+declare module "next-auth/jwt" {
+  interface JWT {
+    name: string;
+    email: string;
+    picture: string;
+    sub: string;
+    iss: string;
+    azp: string;
+    aud: string;
+    hd: string;
+    email_verified: boolean;
+    at_hash: string;
+    given_name: string;
+    family_name: string;
+    locale: string;
+    iat: number;
+    exp: number;
+    jti: string;
+  }
+}
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
-      id: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+      name: string;
+      email: string;
+      picture: string;
+      sub: string;
+      iss: string;
+      azp: string;
+      aud: string;
+      hd: string;
+      email_verified: boolean;
+      at_hash: string;
+      given_name: string;
+      family_name: string;
+      locale: string;
+      iat: number;
+      exp: number;
+      jti: string;
+    };
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    name: string;
+    email: string;
+    picture: string;
+    sub: string;
+    iss: string;
+    azp: string;
+    aud: string;
+    hd: string;
+    email_verified: boolean;
+    at_hash: string;
+    given_name: string;
+    family_name: string;
+    locale: string;
+    iat: number;
+    exp: number;
+    jti: string;
+  }
 }
-
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
+    session(session) {
+      session.session.user = session.token as any;
+      if (session.token.exp < Date.now() / 1000) {
+        return {} as any;
       }
-      return session;
+      return session.session;
+    },
+    jwt({ token, user, profile }) {
+      return { ...token, ...profile };
     },
   },
-//   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: "/sign-in",
+  },
   providers: [
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
 };
 
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
 export const getServerAuthSession = (ctx: {
   req: GetServerSidePropsContext["req"];
   res: GetServerSidePropsContext["res"];
