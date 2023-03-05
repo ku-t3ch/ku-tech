@@ -328,7 +328,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
               </Form.Item>
               <Form.Item
                 className="w-full"
-                label="รูปสำเนาบัตรนิสิต (กรุณาเซ็นสำเนาถูกต้องด้วย) หรือใช้รูปบัตรใน Application NisitKU ได้"
+                label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
                 required
               >
                 <UploadComponent onReady={(v) => setHasImage(v)} />
