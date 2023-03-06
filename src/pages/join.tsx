@@ -38,16 +38,16 @@ export async function getServerSideProps(context: NextPageContext) {
 
   let isRegisted = false;
 
-    if (
-      isRegistedRaw?.first_name_en ||
-      isRegistedRaw?.last_name_en ||
-      isRegistedRaw?.first_name_th ||
-      isRegistedRaw?.last_name_th ||
-      isRegistedRaw?.faculty ||
-      isRegistedRaw?.major
-    ) {
-      isRegisted = true;
-    }
+  if (
+    isRegistedRaw?.first_name_en ||
+    isRegistedRaw?.last_name_en ||
+    isRegistedRaw?.first_name_th ||
+    isRegistedRaw?.last_name_th ||
+    isRegistedRaw?.faculty ||
+    isRegistedRaw?.major
+  ) {
+    isRegisted = true;
+  }
 
   return {
     props: {
@@ -71,9 +71,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
     useLocalStorage<FormDataInterface | null>("formData", null);
   const [form] = Form.useForm();
   const [hasImage, setHasImage] = useState(false);
-  const [isFirst, setIsFirst] = useState(false);
   const [CT, setCT] = useState(1);
-  const { data: session } = useSession();
 
   useEffect(() => {
     if (FormLocalStorage !== null) {
@@ -91,32 +89,35 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
 
   const joinApi = api.join.add.useMutation();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async () => {
     if (!hasImage) return toast.error("กรุณาอัพโหลดรูปภาพ");
     if (token === null)
       return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
-    await joinApi.mutateAsync({
-      data: form.getFieldsValue(),
-      token,
-    });
-    setCT((pre) => pre + 1);
-  };
-
-  useEffect(() => {
-    if (joinApi.isSuccess) {
-      if (!isFirst) {
-        toast.success("สมัครสำเร็จ");
+    let key = toast.loading("กำลังสมัครสมาชิก");
+    await joinApi.mutate(
+      {
+        data: form.getFieldsValue(),
+        token,
+      },
+      {
+        onSuccess: () => {
+          toast.success("สมัครสำเร็จ", {
+            id: key,
+          });
+          form.resetFields();
+          setFormLocalStorage(null);
+          window.location.reload()
+        },
+        onError: ({ message }) => {
+          toast.error(message, {
+            id: key,
+          });
+          setCT((pre) => pre + 1);
+        },
       }
-      setIsFirst(true);
-      form.resetFields();
-      setFormLocalStorage(null);
-      window.location.reload();
-    } else if (joinApi.isLoading) {
-      toast.loading("กำลังสมัครสมาชิก");
-    } else if (joinApi.isError) {
-      toast.error(joinApi.error.message);
-    }
-  }, [joinApi]);
+    );
+    
+  };
 
   const ThaiValidator = (_: any, value: any) => {
     const thaiNameRegex = /^[ก-๙\s]+$/;
@@ -137,9 +138,11 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
   };
 
   const KuEmailValidator = (_: any, value: any) => {
-    const kuEmailRegex = /^[a-zA-Z0-9._%+-]+@ku\.th$/;
+    const kuEmailRegex = /^[a-z0-9._%+-]+@ku\.th$/;
     if (!kuEmailRegex.test(value)) {
-      return Promise.reject("กรุณากรอกอีเมล์ @ku.th เท่านั้น");
+      return Promise.reject(
+        "กรุณากรอกอีเมล์ @ku.th เท่านั้น (ต้องเป็นตัวเล็กทั้งหมด)"
+      );
     } else {
       return Promise.resolve();
     }
