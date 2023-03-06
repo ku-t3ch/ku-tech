@@ -16,11 +16,11 @@ const Contact: NextPage<Props> = () => {
           <Text className="prompt" size={"$3xl"}>
             ติดต่อเรา
           </Text>
-          {/* <Text className="prompt" size={"$xl"}>
-            Line Group Member : <a href="https://line.me/ti/g/mpcZOXKJaN" target="_blank">https://line.me/ti/g/mpcZOXKJaN</a>
-          </Text> */}
           <Text className="prompt" size={"$xl"}>
-            Email : <a href="mailto:tech.kuclub@gmail.com">tech.kuclub@gmail.com</a>
+            Discord Group : <a href="https://discord.gg/daxY4By4DV" target="_blank">https://discord.gg/daxY4By4DV</a>
+          </Text>
+          <Text className="prompt" size={"$xl"}>
+            Email : <a href="mailto:ku.t3ch@gmail.com">ku.t3ch@gmail.com</a>
           </Text>
         </div>
       </div>
