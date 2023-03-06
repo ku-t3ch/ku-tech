@@ -30,7 +30,7 @@ export async function getServerSideProps(context: NextPageContext) {
     secret: process.env.NEXTAUTH_SECRET!,
   });
 
-  const isRegistedRaw = await prisma.request.findUnique({
+  const dataDB = await prisma.request.findUnique({
     where: {
       google_id: token?.sub,
     },
@@ -39,12 +39,12 @@ export async function getServerSideProps(context: NextPageContext) {
   let isRegisted = false;
 
   if (
-    isRegistedRaw?.first_name_en ||
-    isRegistedRaw?.last_name_en ||
-    isRegistedRaw?.first_name_th ||
-    isRegistedRaw?.last_name_th ||
-    isRegistedRaw?.faculty ||
-    isRegistedRaw?.major
+    dataDB?.first_name_en ||
+    dataDB?.last_name_en ||
+    dataDB?.first_name_th ||
+    dataDB?.last_name_th ||
+    dataDB?.faculty ||
+    dataDB?.major
   ) {
     isRegisted = true;
   }
@@ -52,6 +52,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       isRegisted,
+      isApproved: dataDB?.is_approved || false,
     },
   };
 }
@@ -62,9 +63,10 @@ const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
 
 interface Props {
   isRegisted: boolean;
+  isApproved: boolean;
 }
 
-const Join: NextPage<Props> = ({ isRegisted }) => {
+const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
   const [token, setToken] = useState<string | null>(null);
   const [Faculty, setFaculty] = useState<string | null>(null);
   const [FormLocalStorage, setFormLocalStorage] =
@@ -106,7 +108,7 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
           });
           form.resetFields();
           setFormLocalStorage(null);
-          window.location.reload()
+          window.location.reload();
         },
         onError: ({ message }) => {
           toast.error(message, {
@@ -116,7 +118,6 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
         },
       }
     );
-    
   };
 
   const ThaiValidator = (_: any, value: any) => {
@@ -156,9 +157,32 @@ const Join: NextPage<Props> = ({ isRegisted }) => {
             เข้าร่วมชมรม
           </Text>
           {isRegisted ? (
-            <Text className="prompt" size={"$xl"}>
-              คุณได้สมัครเข้าร่วมชมรมแล้ว รอการตอบรับจากทางชมรม ผ่านทาง Email 🙏
-            </Text>
+            <>
+              {isApproved ? (
+                <div className="flex flex-col">
+                  <Text className="prompt" size={"$xl"}>
+                    Congratulations! 🎉 คุณได้รับการอนุมัติเข้าร่วมชมรมแล้ว
+                  </Text>
+                  <Text className="prompt" size={"$xl"}>
+                    Line :{" "}
+                    <a href="https://line.me/ti/g/gbU_JbD-DV" target="_blank">
+                      https://line.me/ti/g/gbU_JbD-DV
+                    </a>
+                  </Text>
+                  <Text className="prompt" size={"$xl"}>
+                    Discord :{" "}
+                    <a href="https://discord.gg/daxY4By4DV" target="_blank">
+                      https://discord.gg/daxY4By4DV
+                    </a>
+                  </Text>
+                </div>
+              ) : (
+                <Text className="prompt" size={"$xl"}>
+                  คุณได้สมัครเข้าร่วมชมรมแล้ว รอการตอบรับจากทางชมรม ผ่านทาง
+                  Email 🙏
+                </Text>
+              )}
+            </>
           ) : (
             <Form
               form={form}
