@@ -46,18 +46,18 @@ model RequestDelete {
     id            String   @id @default(cuid())
     createdAt     DateTime @default(now())
     updatedAt     DateTime @updatedAt
-    first_name_th String?  @unique
-    last_name_th  String?  @unique
-    first_name_en String?  @unique
-    last_name_en  String?  @unique
+    first_name_th String?
+    last_name_th  String?
+    first_name_en String?
+    last_name_en  String?
     nick_name     String?
     ojectives     String?
-    email         String?  @unique
+    email         String?
     year          Int?
     faculty       String?
     major         String?
-    image_path    String?  @unique
-    google_id     String?  @unique
+    image_path    String?
+    google_id     String?
     discord_tag   String?
     google_email  String?
     is_approved   Boolean? @default(false)
@@ -74,8 +74,7 @@ model Tag {
     name         String
     color_id     String?
     color        TagColor? @relation(fields: [color_id], references: [id])
-    request_id   String?
-    request_user Request?  @relation(fields: [request_id], references: [id])
+    request_user Request[]  
     tag_type_id  String?
     tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
 }
