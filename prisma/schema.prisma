@@ -27,6 +27,7 @@ model Request {
     google_email  String?
     is_approved   Boolean? @default(false)
     email_history Email[]
+    tags          Tag[]
 }
 
 model Email {
@@ -65,4 +66,31 @@ model RequestDelete {
 model Admin {
     id    Int    @id @default(autoincrement())
     email String @unique
+}
+
+model Tag {
+    id           String    @id @default(cuid())
+    createdAt    DateTime  @default(now())
+    name         String
+    color_id     String?
+    color        TagColor? @relation(fields: [color_id], references: [id])
+    request_id   String?
+    request_user Request?  @relation(fields: [request_id], references: [id])
+    tag_type_id  String?
+    tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
+}
+
+model TagType {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    name      String?   @unique
+    tags      Tag[]
+}
+
+model TagColor {
+    id         String   @id @default(cuid())
+    createdAt  DateTime @default(now())
+    color_bg   String?
+    color_text String?
+    tags       Tag[]
 }

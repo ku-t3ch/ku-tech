@@ -35,6 +35,7 @@ export async function getServerSideProps(context: NextPageContext) {
       google_id: token?.sub,
     },
   });
+  
 
   let isRegisted = false;
 
@@ -156,11 +157,7 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
           <Text className="prompt" size={"$3xl"}>
             เข้าร่วมชมรม
           </Text>
-          <Text className="prompt" size={"$3xl"}>
-            ปิดรับชั่วคราว
-          </Text>
-
-          {/* {isRegisted ? (
+          {isRegisted ? (
             <>
               {isApproved ? (
                 <div className="flex flex-col">
@@ -387,7 +384,7 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
                 </Button>
               </div>
             </Form>
-          )} */}
+          )}
         </div>
       </div>
     </WithNavbar>
