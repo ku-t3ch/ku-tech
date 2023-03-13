@@ -35,7 +35,6 @@ export async function getServerSideProps(context: NextPageContext) {
       google_id: token?.sub,
     },
   });
-  
 
   let isRegisted = false;
 
@@ -97,6 +96,7 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
     if (token === null)
       return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
     let key = toast.loading("กำลังสมัครสมาชิก");
+    console.log(form.getFieldsValue());
     await joinApi.mutate(
       {
         data: form.getFieldsValue(),
@@ -353,6 +353,14 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
                 rules={[{ required: true }]}
               >
                 <TextArea name="" rows={4} />
+              </Form.Item>
+              <Form.Item
+                className="w-full"
+                label="Discord Tag"
+                name="discord_tag"
+                rules={[{ required: true }]}
+              >
+                <Input lang="en" size="large" placeholder="Holilope#3811" />
               </Form.Item>
               <Form.Item
                 className="w-full"

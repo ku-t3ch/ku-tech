@@ -25,4 +25,5 @@ export const FormDataZod = z.object({
   faculty: z.string(),
   major: z.string(),
   token: z.string().optional(),
+  discord_tag: z.string().optional(),
 });

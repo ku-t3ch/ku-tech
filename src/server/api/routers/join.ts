@@ -65,6 +65,7 @@ export const joinRouter = createTRPCRouter({
           },
           data: {
             ...input.data,
+            google_email: ctx.session.user.email,
           },
         });
 
