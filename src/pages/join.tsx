@@ -1,6 +1,6 @@
 import { Button, Text, Loading } from "@nextui-org/react";
 import { NextPage, NextPageContext } from "next";
-import { AutoComplete, Form, Input, Select } from "antd";
+import { AutoComplete, Form, Input, Select, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import facultyData from "@/assets/faculty.json";
@@ -170,244 +170,260 @@ const Join: NextPage<Props> = () => {
           <Text className="prompt" size={"$3xl"}>
             เข้าร่วมชมรม
           </Text>
-          {isRegisted ? (
+          {!checkApproveApi.isLoading ? (
             <>
-              {isApproved ? (
-                <div className="flex flex-col">
-                  <Text className="prompt" size={"$xl"}>
-                    Congratulations! 🎉 คุณได้รับการอนุมัติเข้าร่วมชมรมแล้ว
-                  </Text>
-                  <Text className="prompt" size={"$xl"}>
-                    Line :{" "}
-                    <a href={message.line ? message.line : ""} target="_blank">
-                      {message.line ? message.line : ""}
-                    </a>
-                  </Text>
-                  <Text className="prompt" size={"$xl"}>
-                    Discord :{" "}
-                    <a
-                      href={message.discord ? message.discord : ""}
-                      target="_blank"
-                    >
-                      {message.discord ? message.discord : ""}
-                    </a>
-                  </Text>
-                </div>
+              {isRegisted ? (
+                <>
+                  {isApproved ? (
+                    <div className="flex flex-col">
+                      <Text className="prompt" size={"$xl"}>
+                        Congratulations! 🎉 คุณได้รับการอนุมัติเข้าร่วมชมรมแล้ว
+                      </Text>
+                      <Text className="prompt" size={"$xl"}>
+                        Line :{" "}
+                        <a
+                          href={message.line ? message.line : ""}
+                          target="_blank"
+                        >
+                          {message.line ? message.line : ""}
+                        </a>
+                      </Text>
+                      <Text className="prompt" size={"$xl"}>
+                        Discord :{" "}
+                        <a
+                          href={message.discord ? message.discord : ""}
+                          target="_blank"
+                        >
+                          {message.discord ? message.discord : ""}
+                        </a>
+                      </Text>
+                    </div>
+                  ) : (
+                    <Text className="prompt" size={"$xl"}>
+                      คุณได้สมัครเข้าร่วมชมรมแล้ว รอการตอบรับจากทางชมรม ผ่านทาง
+                      Email 🙏
+                    </Text>
+                  )}
+                </>
               ) : (
-                <Text className="prompt" size={"$xl"}>
-                  คุณได้สมัครเข้าร่วมชมรมแล้ว รอการตอบรับจากทางชมรม ผ่านทาง
-                  Email 🙏
-                </Text>
+                <Form
+                  form={form}
+                  layout="vertical"
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  validateMessages={validateMessages}
+                  onValuesChange={(changedValues, allValues) => {
+                    setFormLocalStorage(allValues);
+                  }}
+                >
+                  <div className="flex w-full flex-col md:flex-row md:gap-5">
+                    <Form.Item
+                      className="w-full"
+                      label="ชื่อ (ภาษาไทย)"
+                      name="first_name_th"
+                      rules={[
+                        { required: true },
+                        {
+                          validator: ThaiValidator,
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        lang="th"
+                        placeholder="ชื่อจริง (ภาษาไทย)"
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className="w-full"
+                      label="นามสกุล (ภาษาไทย)"
+                      name="last_name_th"
+                      rules={[{ required: true }, { validator: ThaiValidator }]}
+                    >
+                      <Input
+                        lang="th"
+                        size="large"
+                        placeholder="นามสกุล (ภาษาไทย)"
+                      />
+                    </Form.Item>
+                  </div>
+                  <div className="flex w-full flex-col md:flex-row md:gap-5">
+                    <Form.Item
+                      className="w-full"
+                      label="ชื่อ (ภาษาอังกฤษ)"
+                      name="first_name_en"
+                      rules={[
+                        { required: true },
+                        { validator: EnglishValidator },
+                      ]}
+                    >
+                      <Input
+                        lang="en"
+                        size="large"
+                        placeholder="ชื่อจริง (ภาษาอังกฤษ)"
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className="w-full"
+                      label="นามสกุล (ภาษาอังกฤษ)"
+                      name="last_name_en"
+                      rules={[
+                        { required: true },
+                        { validator: EnglishValidator },
+                      ]}
+                    >
+                      <Input
+                        lang="en"
+                        size="large"
+                        placeholder="นามสกุล (ภาษาอังกฤษ)"
+                      />
+                    </Form.Item>
+                  </div>
+                  <div className="flex w-full flex-col md:flex-row md:gap-5">
+                    <Form.Item
+                      className="w-full"
+                      label="ชื่อเล่น"
+                      name="nick_name"
+                      rules={[{ required: true }, { validator: ThaiValidator }]}
+                    >
+                      <Input size="large" placeholder="ชื่อเล่น" />
+                    </Form.Item>
+                    <Form.Item
+                      rules={[
+                        { type: "email", required: true },
+                        {
+                          validator: KuEmailValidator,
+                        },
+                      ]}
+                      className="w-full"
+                      label="อีเมล"
+                      name="email"
+                    >
+                      <Input size="large" placeholder="example@ku.th" />
+                    </Form.Item>
+                  </div>
+                  <div className="flex w-full flex-col md:flex-row md:gap-5">
+                    <Form.Item
+                      className="w-full"
+                      label="ชั้นปี"
+                      name="year"
+                      rules={[{ required: true }]}
+                    >
+                      <Select size="large" placeholder="เลือกชั้นปี">
+                        <Select.Option value={1}>ปี 1</Select.Option>
+                        <Select.Option value={2}>ปี 2</Select.Option>
+                        <Select.Option value={3}>ปี 3</Select.Option>
+                        <Select.Option value={4}>ปี 4</Select.Option>
+                        <Select.Option value={5}>ปี 5</Select.Option>
+                        <Select.Option value={6}>ปี 6</Select.Option>
+                      </Select>
+                    </Form.Item>
+                  </div>
+                  <div className="flex w-full flex-col md:flex-row md:gap-5">
+                    <Form.Item
+                      className="w-full"
+                      label="คณะ"
+                      name="faculty"
+                      rules={[{ required: true }]}
+                    >
+                      <AutoComplete
+                        popupClassName="certain-category-search-dropdown"
+                        placeholder="เลือกคณะ"
+                        size="large"
+                        onSelect={(value) => setFaculty(value)}
+                        onChange={(value) => {
+                          if (value.length === 0) {
+                            setFaculty(null);
+                          }
+                        }}
+                        options={facultyData}
+                        filterOption={(inputValue, option) =>
+                          option!.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      ></AutoComplete>
+                    </Form.Item>
+                  </div>
+                  {Faculty || form.getFieldValue("major") ? (
+                    <div>
+                      <Form.Item
+                        className="w-full"
+                        label="สาขา"
+                        name="major"
+                        rules={[{ required: true }]}
+                      >
+                        <AutoComplete
+                          popupClassName="certain-category-search-dropdown"
+                          size="large"
+                          placeholder="เลือกสาขา"
+                          options={facultyData
+                            .filter((option) => option.value === Faculty)[0]
+                            ?.majors.map((item) => {
+                              return { value: item };
+                            })}
+                          filterOption={(inputValue, option) =>
+                            option?.value
+                              .toUpperCase()
+                              .indexOf(inputValue.toUpperCase()) !== -1
+                          }
+                        ></AutoComplete>
+                      </Form.Item>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <Form.Item
+                    className="w-full"
+                    label="ทำไมคุณถึงอยากเข้าร่วมชมรมของเรา"
+                    name="ojectives"
+                    rules={[{ required: true }]}
+                  >
+                    <TextArea name="" rows={4} />
+                  </Form.Item>
+                  <Form.Item
+                    className="w-full"
+                    label="Discord Tag"
+                    name="discord_tag"
+                    rules={[{ required: true }]}
+                  >
+                    <Input lang="en" size="large" placeholder="Holilope#3811" />
+                  </Form.Item>
+                  <Form.Item
+                    className="w-full"
+                    label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
+                    required
+                  >
+                    <UploadComponent onReady={(v) => setHasImage(v)} />
+                    <Text color="error">
+                      *เพื่อความปลอดภัย ท่านควรขีดฆ่าเลขบัตร Master Card
+                      ของท่านออก
+                    </Text>
+                  </Form.Item>
+                  <div className="flex flex-col items-center gap-3">
+                    <Turnstile
+                      sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}
+                      onVerify={(token) => setToken(token)}
+                      key={CT}
+                    />
+                    <Button
+                      color={"gradient"}
+                      shadow
+                      style={{ width: "100%" }}
+                      type="submit"
+                    >
+                      {joinApi.isLoading ? (
+                        <Loading color="currentColor" size="sm" />
+                      ) : (
+                        "สมัครสมาชิก"
+                      )}
+                    </Button>
+                  </div>
+                </Form>
               )}
             </>
           ) : (
-            <Form
-              form={form}
-              layout="vertical"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              validateMessages={validateMessages}
-              onValuesChange={(changedValues, allValues) => {
-                setFormLocalStorage(allValues);
-              }}
-            >
-              <div className="flex w-full flex-col md:flex-row md:gap-5">
-                <Form.Item
-                  className="w-full"
-                  label="ชื่อ (ภาษาไทย)"
-                  name="first_name_th"
-                  rules={[
-                    { required: true },
-                    {
-                      validator: ThaiValidator,
-                    },
-                  ]}
-                >
-                  <Input
-                    size="large"
-                    lang="th"
-                    placeholder="ชื่อจริง (ภาษาไทย)"
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-full"
-                  label="นามสกุล (ภาษาไทย)"
-                  name="last_name_th"
-                  rules={[{ required: true }, { validator: ThaiValidator }]}
-                >
-                  <Input
-                    lang="th"
-                    size="large"
-                    placeholder="นามสกุล (ภาษาไทย)"
-                  />
-                </Form.Item>
-              </div>
-              <div className="flex w-full flex-col md:flex-row md:gap-5">
-                <Form.Item
-                  className="w-full"
-                  label="ชื่อ (ภาษาอังกฤษ)"
-                  name="first_name_en"
-                  rules={[{ required: true }, { validator: EnglishValidator }]}
-                >
-                  <Input
-                    lang="en"
-                    size="large"
-                    placeholder="ชื่อจริง (ภาษาอังกฤษ)"
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-full"
-                  label="นามสกุล (ภาษาอังกฤษ)"
-                  name="last_name_en"
-                  rules={[{ required: true }, { validator: EnglishValidator }]}
-                >
-                  <Input
-                    lang="en"
-                    size="large"
-                    placeholder="นามสกุล (ภาษาอังกฤษ)"
-                  />
-                </Form.Item>
-              </div>
-              <div className="flex w-full flex-col md:flex-row md:gap-5">
-                <Form.Item
-                  className="w-full"
-                  label="ชื่อเล่น"
-                  name="nick_name"
-                  rules={[{ required: true }, { validator: ThaiValidator }]}
-                >
-                  <Input size="large" placeholder="ชื่อเล่น" />
-                </Form.Item>
-                <Form.Item
-                  rules={[
-                    { type: "email", required: true },
-                    {
-                      validator: KuEmailValidator,
-                    },
-                  ]}
-                  className="w-full"
-                  label="อีเมล"
-                  name="email"
-                >
-                  <Input size="large" placeholder="example@ku.th" />
-                </Form.Item>
-              </div>
-              <div className="flex w-full flex-col md:flex-row md:gap-5">
-                <Form.Item
-                  className="w-full"
-                  label="ชั้นปี"
-                  name="year"
-                  rules={[{ required: true }]}
-                >
-                  <Select size="large" placeholder="เลือกชั้นปี">
-                    <Select.Option value={1}>ปี 1</Select.Option>
-                    <Select.Option value={2}>ปี 2</Select.Option>
-                    <Select.Option value={3}>ปี 3</Select.Option>
-                    <Select.Option value={4}>ปี 4</Select.Option>
-                    <Select.Option value={5}>ปี 5</Select.Option>
-                    <Select.Option value={6}>ปี 6</Select.Option>
-                  </Select>
-                </Form.Item>
-              </div>
-              <div className="flex w-full flex-col md:flex-row md:gap-5">
-                <Form.Item
-                  className="w-full"
-                  label="คณะ"
-                  name="faculty"
-                  rules={[{ required: true }]}
-                >
-                  <AutoComplete
-                    popupClassName="certain-category-search-dropdown"
-                    placeholder="เลือกคณะ"
-                    size="large"
-                    onSelect={(value) => setFaculty(value)}
-                    onChange={(value) => {
-                      if (value.length === 0) {
-                        setFaculty(null);
-                      }
-                    }}
-                    options={facultyData}
-                    filterOption={(inputValue, option) =>
-                      option!.value
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                  ></AutoComplete>
-                </Form.Item>
-              </div>
-              {Faculty || form.getFieldValue("major") ? (
-                <div>
-                  <Form.Item
-                    className="w-full"
-                    label="สาขา"
-                    name="major"
-                    rules={[{ required: true }]}
-                  >
-                    <AutoComplete
-                      popupClassName="certain-category-search-dropdown"
-                      size="large"
-                      placeholder="เลือกสาขา"
-                      options={facultyData
-                        .filter((option) => option.value === Faculty)[0]
-                        ?.majors.map((item) => {
-                          return { value: item };
-                        })}
-                      filterOption={(inputValue, option) =>
-                        option?.value
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      }
-                    ></AutoComplete>
-                  </Form.Item>
-                </div>
-              ) : (
-                ""
-              )}
-              <Form.Item
-                className="w-full"
-                label="ทำไมคุณถึงอยากเข้าร่วมชมรมของเรา"
-                name="ojectives"
-                rules={[{ required: true }]}
-              >
-                <TextArea name="" rows={4} />
-              </Form.Item>
-              <Form.Item
-                className="w-full"
-                label="Discord Tag"
-                name="discord_tag"
-                rules={[{ required: true }]}
-              >
-                <Input lang="en" size="large" placeholder="Holilope#3811" />
-              </Form.Item>
-              <Form.Item
-                className="w-full"
-                label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
-                required
-              >
-                <UploadComponent onReady={(v) => setHasImage(v)} />
-                <Text color="error">
-                  *เพื่อความปลอดภัย ท่านควรขีดฆ่าเลขบัตร Master Card ของท่านออก
-                </Text>
-              </Form.Item>
-              <div className="flex flex-col items-center gap-3">
-                <Turnstile
-                  sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}
-                  onVerify={(token) => setToken(token)}
-                  key={CT}
-                />
-                <Button
-                  color={"gradient"}
-                  shadow
-                  style={{ width: "100%" }}
-                  type="submit"
-                >
-                  {joinApi.isLoading ? (
-                    <Loading color="currentColor" size="sm" />
-                  ) : (
-                    "สมัครสมาชิก"
-                  )}
-                </Button>
-              </div>
-            </Form>
+            <Skeleton active paragraph={{ rows: 4 }} />
           )}
         </div>
       </div>
