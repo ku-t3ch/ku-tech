@@ -56,8 +56,6 @@ export const joinRouter = createTRPCRouter({
           throw new Error("คุณสมัครไปเรียบร้อยแล้ว");
         }
 
-        console.log(input.data);
-
         await prisma.request.update({
           where: {
             google_id: ctx.session.user.sub,
@@ -126,7 +124,7 @@ export const joinRouter = createTRPCRouter({
     };
 
     if (isRegisted && isRegisted) {
-      if (dataDB.is_approved) {
+      if (dataDB?.is_approved) {
         message.line = "https://line.me/ti/g/gbU_JbD-DV";
         message.discord = "https://discord.gg/daxY4By4DV";
       } else {
