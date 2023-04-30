@@ -24,49 +24,49 @@ const Turnstile = dynamic(() => import("react-turnstile"), {
   ssr: false,
 });
 
-export async function getServerSideProps(context: NextPageContext) {
-  let token = await getToken({
-    req: context.req as any,
-    secret: process.env.NEXTAUTH_SECRET!,
-  });
+// export async function getServerSideProps(context: NextPageContext) {
+//   let token = await getToken({
+//     req: context.req as any,
+//     secret: process.env.NEXTAUTH_SECRET!,
+//   });
 
-  const dataDB = await prisma.request.findUnique({
-    where: {
-      google_id: token?.sub,
-    },
-  });
+//   const dataDB = await prisma.request.findUnique({
+//     where: {
+//       google_id: token?.sub,
+//     },
+//   });
 
-  let isRegisted = false;
+//   let isRegisted = false;
 
-  if (
-    dataDB?.first_name_en ||
-    dataDB?.last_name_en ||
-    dataDB?.first_name_th ||
-    dataDB?.last_name_th ||
-    dataDB?.faculty ||
-    dataDB?.major
-  ) {
-    isRegisted = true;
-  }
+//   if (
+//     dataDB?.first_name_en ||
+//     dataDB?.last_name_en ||
+//     dataDB?.first_name_th ||
+//     dataDB?.last_name_th ||
+//     dataDB?.faculty ||
+//     dataDB?.major
+//   ) {
+//     isRegisted = true;
+//   }
 
-  return {
-    props: {
-      isRegisted,
-      isApproved: dataDB?.is_approved || false,
-    },
-  };
-}
+//   return {
+//     props: {
+//       isRegisted,
+//       isApproved: dataDB?.is_approved || false,
+//     },
+//   };
+// }
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
 });
 
 interface Props {
-  isRegisted: boolean;
-  isApproved: boolean;
+  isRegisted?: boolean;
+  isApproved?: boolean;
 }
 
-const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
+const Join: NextPage<Props> = () => {
   const [token, setToken] = useState<string | null>(null);
   const [Faculty, setFaculty] = useState<string | null>(null);
   const [FormLocalStorage, setFormLocalStorage] =
@@ -90,6 +90,7 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
   };
 
   const joinApi = api.join.add.useMutation();
+  const checkApproveApi = api.join.checkApprove.useQuery(undefined);
 
   const onFinish = async () => {
     if (!hasImage) return toast.error("กรุณาอัพโหลดรูปภาพ");
@@ -150,6 +151,15 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
     }
   };
 
+  const { isRegisted, isApproved, message } = checkApproveApi.data || {
+    isRegisted: false,
+    isApproved: false,
+    message: {
+      line: "" as string | null,
+      discord: "" as string | null,
+    },
+  };
+
   return (
     <WithNavbar>
       <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
@@ -169,14 +179,17 @@ const Join: NextPage<Props> = ({ isRegisted, isApproved }) => {
                   </Text>
                   <Text className="prompt" size={"$xl"}>
                     Line :{" "}
-                    <a href="https://line.me/ti/g/gbU_JbD-DV" target="_blank">
-                      https://line.me/ti/g/gbU_JbD-DV
+                    <a href={message.line ? message.line : ""} target="_blank">
+                      {message.line ? message.line : ""}
                     </a>
                   </Text>
                   <Text className="prompt" size={"$xl"}>
                     Discord :{" "}
-                    <a href="https://discord.gg/daxY4By4DV" target="_blank">
-                      https://discord.gg/daxY4By4DV
+                    <a
+                      href={message.discord ? message.discord : ""}
+                      target="_blank"
+                    >
+                      {message.discord ? message.discord : ""}
                     </a>
                   </Text>
                 </div>

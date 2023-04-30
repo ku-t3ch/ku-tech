@@ -57,7 +57,6 @@ export const joinRouter = createTRPCRouter({
         }
 
         console.log(input.data);
-        
 
         await prisma.request.update({
           where: {
@@ -86,7 +85,7 @@ export const joinRouter = createTRPCRouter({
         //   <p><span style="font-size:16px">ชื่อ : ${input.data.first_name_th} ${input.data.last_name_th}<br />
         //   คณะ : ${input.data.faculty}<br />
         //   สาขา : ${input.data.major}</span></p>
-          
+
         //   <p><span style="font-size:16px"><strong>รอประกาศผลผ่านทาง Email 🥰</strong></span></p>`,
         // };
 
@@ -101,4 +100,45 @@ export const joinRouter = createTRPCRouter({
         throw new Error(error.message);
       }
     }),
+  checkApprove: protectedProcedure.query(async ({ ctx }) => {
+    const dataDB = await prisma.request.findUnique({
+      where: {
+        google_id: ctx.session.user.sub,
+      },
+    });
+
+    let isRegisted = false;
+
+    if (
+      dataDB?.first_name_en ||
+      dataDB?.last_name_en ||
+      dataDB?.first_name_th ||
+      dataDB?.last_name_th ||
+      dataDB?.faculty ||
+      dataDB?.major
+    ) {
+      isRegisted = true;
+    }
+
+    let message = {
+      line: "" as string | null,
+      discord: "" as string | null,
+    };
+
+    if (isRegisted && isRegisted) {
+      if (dataDB.is_approved) {
+        message.line = "https://line.me/ti/g/gbU_JbD-DV";
+        message.discord = "https://discord.gg/daxY4By4DV";
+      } else {
+        message.line = null;
+        message.discord = null;
+      }
+    }
+
+    return {
+      isRegisted,
+      isApproved: dataDB?.is_approved || false,
+      message,
+    };
+  }),
 });
