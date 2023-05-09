@@ -11,6 +11,7 @@ import { FormDataInterface } from "@/interfaces/FormDataInterface";
 import { getToken } from "next-auth/jwt";
 import { prisma } from "@/server/db";
 import { useSession } from "next-auth/react";
+import { useReCaptcha } from "next-recaptcha-v3";
 
 const TextArea = dynamic(() => import("antd/es/input/TextArea"), {
   ssr: false,
@@ -20,9 +21,9 @@ const UploadComponent = dynamic(() => import("@/components/UploadComponent"), {
   ssr: false,
 });
 
-const Turnstile = dynamic(() => import("react-turnstile"), {
-  ssr: false,
-});
+// const Turnstile = dynamic(() => import("react-turnstile"), {
+//   ssr: false,
+// });
 
 // export async function getServerSideProps(context: NextPageContext) {
 //   let token = await getToken({
@@ -69,11 +70,11 @@ interface Props {
 const Join: NextPage<Props> = () => {
   const [token, setToken] = useState<string | null>(null);
   const [Faculty, setFaculty] = useState<string | null>(null);
-  const [FormLocalStorage, setFormLocalStorage] =
-    useLocalStorage<FormDataInterface | null>("formData", null);
+  const [FormLocalStorage, setFormLocalStorage] = useLocalStorage<FormDataInterface | null>("formData", null);
   const [form] = Form.useForm();
   const [hasImage, setHasImage] = useState(false);
   const [CT, setCT] = useState(1);
+  const { executeRecaptcha } = useReCaptcha();
 
   useEffect(() => {
     if (FormLocalStorage !== null) {
@@ -94,10 +95,12 @@ const Join: NextPage<Props> = () => {
 
   const onFinish = async () => {
     if (!hasImage) return toast.error("กรุณาอัพโหลดรูปภาพ");
-    if (token === null)
-      return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
+
+    const token = await executeRecaptcha("form_submit");
+
+    if (token === null) return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
+
     let key = toast.loading("กำลังสมัครสมาชิก");
-    console.log(form.getFieldsValue());
     await joinApi.mutate(
       {
         data: form.getFieldsValue(),
@@ -401,11 +404,11 @@ const Join: NextPage<Props> = () => {
                     </Text>
                   </Form.Item>
                   <div className="flex flex-col items-center gap-3">
-                    <Turnstile
+                    {/* <Turnstile
                       sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}
                       onVerify={(token) => setToken(token)}
                       key={CT}
-                    />
+                    /> */}
                     <Button
                       color={"gradient"}
                       shadow

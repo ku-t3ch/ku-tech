@@ -26,6 +26,7 @@ const server = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   S3: z.string(),
+  RECAPTCHA_SECRET: z.string(),
 });
 
 /**
@@ -55,6 +56,7 @@ const processEnv = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   S3: process.env.S3,
+  RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET,
 };
 
 // Don't touch the part below

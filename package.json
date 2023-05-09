@@ -39,6 +39,7 @@
     "next": "^13.2.1",
     "next-auth": "^4.19.0",
     "next-connect": "^0.13.0",
+    "next-recaptcha-v3": "^1.1.5",
     "next-themes": "^0.2.1",
     "nextjs-google-analytics": "^2.3.3",
     "nodemailer": "^6.9.1",
