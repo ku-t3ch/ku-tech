@@ -47,12 +47,12 @@ const News: NextPage<Props> = () => {
 
   return (
     <WithNavbar>
-      <div className="mx-auto h-full w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="flex h-full w-full flex-col gap-5">
+      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+        <div className="flex w-full flex-col gap-5">
           <Text className="prompt" size={"$3xl"}>
             ข่าวสาร
           </Text>
-          <div className="flex h-full flex-col gap-5">
+          <div className="flex flex-col gap-5 pb-20">
             {!loading ? (
               _.orderBy(data?.infos, "createdAt","desc").map((info) => (
                 <CardNews info={info} />

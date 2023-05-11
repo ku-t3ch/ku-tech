@@ -42,8 +42,8 @@ const News: NextPage<Props> = ({ id }) => {
   if (data?.info === null) {
     return (
       <WithNavbar>
-        <div className="mx-auto h-full w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-          <div className="flex h-full w-full flex-col gap-5">
+        <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+          <div className="flex w-full flex-col gap-5">
             <Text className="prompt self-center" size={"$3xl"}>
               ไม่พบข้อมูล
             </Text>
@@ -55,8 +55,8 @@ const News: NextPage<Props> = ({ id }) => {
 
   return (
     <WithNavbar>
-      <div className="mx-auto h-full w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="flex h-full w-full flex-col gap-5">
+      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+        <div className="flex w-full flex-col gap-5 pb-20">
           <Text className="prompt self-center" size={"$3xl"}>
             {data?.info?.title}
           </Text>
