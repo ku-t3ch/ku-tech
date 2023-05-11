@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { gql, useQuery } from "@apollo/client";
 import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 import { Spin } from "antd";
+import _ from "lodash";
 
 const CardNews = dynamic(() => import("@/components/news/CardNews"), {
   ssr: false,
@@ -53,7 +54,9 @@ const News: NextPage<Props> = () => {
           </Text>
           <div className="flex h-full flex-col gap-5">
             {!loading ? (
-              data?.infos?.map((info) => <CardNews info={info} />)
+              _.orderBy(data?.infos, "createdAt","desc").map((info) => (
+                <CardNews info={info} />
+              ))
             ) : (
               <div className="flex h-[90%] flex-col items-center justify-center">
                 <Spin tip="Loading" size="large"></Spin>
