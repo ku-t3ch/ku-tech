@@ -43,6 +43,10 @@ const NavbarComponent: NextPage<Props> = () => {
     //   href: "/sponsors",
     // },
     {
+      name: "ข่าวสาร",
+      href: "/news",
+    },
+    {
       name: "ติดต่อเรา",
       href: "/contact",
     },
