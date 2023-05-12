@@ -67,6 +67,7 @@ const Home: NextPage = () => {
           </Button> */}
           <div><JoinClubBtn /></div>
         </div>
+        
         {/* <div
           ref={content}
           className="z-10 flex-col items-center gap-10 md:flex-row"

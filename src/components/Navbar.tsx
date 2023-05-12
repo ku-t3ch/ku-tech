@@ -7,12 +7,10 @@ import {
   Dropdown,
   Avatar,
 } from "@nextui-org/react";
-import NextLink from "next/link";
 import Image from "next/image";
 import LogoIcon from "@/assets/logo.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { signOut, useSession } from "next-auth/react";
 
 interface Props {}

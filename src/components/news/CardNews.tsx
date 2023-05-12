@@ -11,7 +11,7 @@ interface Props {
 const CardNews: NextPage<Props> = ({ info }) => {
   const { push } = useRouter();
   return (
-    <a href={`/news/${info.id}`}>
+    <a href={`/news/detail/${info.id}`}>
       <Card css={{ w: "100%", h: "400px" }}>
         <Card.Body css={{ p: 0 }}>
           <Card.Image
