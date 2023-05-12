@@ -6,6 +6,7 @@ import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 import { Spin } from "antd";
 import _ from "lodash";
 import CardNews from "@/components/news/CardNews";
+import { useEffect, useState } from "react";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -14,6 +15,7 @@ const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
 interface Props {}
 
 const News: NextPage<Props> = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const { loading, data, refetch } = useQuery<NewsInterface<Info[]>>(
     gql`
       query Infos($search: String!) {
@@ -38,11 +40,20 @@ const News: NextPage<Props> = () => {
     }
   );
 
-  const handleSearch = (value: string) => {
-    refetch({
-      search: value,
-    });
-  };
+  useEffect(() => {
+    if (searchTerm === "") {
+        refetch({
+            search: searchTerm,
+        });
+    }
+    const delayDebounceFn = setTimeout(() => {
+      refetch({
+        search: searchTerm,
+      });
+    }, 1000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   return (
     <WithNavbar>
@@ -54,7 +65,7 @@ const News: NextPage<Props> = () => {
           <Input
             clearable
             placeholder="ค้นหา"
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           {data?.infos?.length === 0 ? (
             <div>ไม่พบข้อมูล</div>
