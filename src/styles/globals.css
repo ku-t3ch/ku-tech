@@ -30,3 +30,7 @@ pre {
     padding: 0 !important;
     overflow: visible !important;
 }
+
+blockquote {
+    @apply truncate;
+}
