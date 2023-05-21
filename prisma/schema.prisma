@@ -102,3 +102,13 @@ model WebConfig {
     key       String?  @unique
     status    Boolean? @default(false)
 }
+
+model ShortLink {
+    id            String   @id @default(cuid())
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    original_link String?  @unique
+    short_link    String?  @unique
+    is_active     Boolean? @default(false)
+    count         Int?     @default(0)
+}
