@@ -7,7 +7,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start -p 3001"
+    "start": "next start"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
