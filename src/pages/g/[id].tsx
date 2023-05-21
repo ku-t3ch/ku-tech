@@ -1,43 +1,55 @@
-import { api } from "@/utils/api";
-import { Loading } from "@nextui-org/react";
+import { prisma } from "@/server/db";
 import { NextPage, NextPageContext } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
-interface Props {
-  id: string;
-}
+interface Props {}
 
-export async function getServerSideProps(ctx: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
+  const { id } = context.query;
+  const data = await prisma.shortLink.findUnique({
+    where: {
+      short_link: String(id),
+    },
+  });
+
+  if (!data) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  await prisma.shortLink.update({
+    where: {
+      short_link: String(id),
+    },
+    data: {
+      count: {
+        increment: 1,
+      },
+    },
+  });
+
+  if (!data) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    props: {
-      id: ctx.query.id,
+    redirect: {
+      destination: data.original_link,
+      permanent: false,
     },
   };
 }
 
-const G: NextPage<Props> = ({ id }) => {
-  const getShortLink = api.shortlink.getShortLink.useQuery({ short_link: id });
-  const router = useRouter();
-
-    useEffect(() => {
-      if (getShortLink.isSuccess) {
-        if (getShortLink.data === null) {
-          router.push("/");
-          return;
-        }
-        router.push(getShortLink.data!);
-      }
-    }, [getShortLink]);
-
-  return (
-    <div className="absolute top-0 bottom-0 right-0 left-0 flex h-screen flex-col items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-3">
-        <Loading size="lg" type="points-opacity" />
-        <div>redirecting</div>
-      </div>
-    </div>
-  );
+const LinkShort: NextPage<Props> = () => {
+  return <></>;
 };
 
-export default G;
+export default LinkShort;
