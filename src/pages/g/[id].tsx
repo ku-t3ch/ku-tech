@@ -30,7 +30,6 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     },
   });
-
   if (!data) {
     return {
       redirect: {
