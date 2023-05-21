@@ -166,10 +166,10 @@ const Join: NextPage<Props> = () => {
   return (
     <WithNavbar>
       <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="text-3xl text-center">
+        {/* <div className="text-3xl text-center">
         {`cout << "ปิดปรับปรุงระบบ" << endl;`}
-        </div>
-        {/* <div className="flex w-full flex-col gap-5">
+        </div> */}
+        <div className="flex w-full flex-col gap-5">
           <Text className="prompt" size={"$3xl"}>
             เข้าร่วมชมรม
           </Text>
@@ -424,7 +424,7 @@ const Join: NextPage<Props> = () => {
            ) : (
              <Skeleton active paragraph={{ rows: 4 }} />
            )}
-         </div> */}
+         </div>
       </div>
     </WithNavbar>
   );
