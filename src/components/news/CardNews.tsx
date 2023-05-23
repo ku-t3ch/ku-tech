@@ -15,7 +15,8 @@ const CardNews: NextPage<Props> = ({ info }) => {
       <Card css={{ w: "100%", h: "400px" }}>
         <Card.Body css={{ p: 0 }}>
           <Card.Image
-            src={info.cover.url}
+            //src={info.cover.url}
+            src={`${info.cover.url}?q=50`}
             objectFit="cover"
             width="100%"
             height="100%"
