@@ -1,6 +1,7 @@
 import { Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import actData from "@/assets/activities.json";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -16,13 +17,15 @@ const Activities: NextPage<Props> = () => {
           <Text className="prompt" size={"$3xl"}>
             กิจกรรม
           </Text>
-          <Text className="prompt" size={"$xl"}>
-            - KU Hackathon : ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ
-            ภายในมหาวิทยาลัยด้วยเทคโนโลยี
-          </Text>
-          <Text className="prompt" size={"$xl"}>
-            - KU Tech Camp : ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น
-          </Text>
+
+          {actData.map((item, index) => (
+            <div key={index}>
+              <Text className="prompt" size={"$xl"}>
+              {item.title} : {item.description}
+              </Text>
+            </div>
+          ))}
+
         </div>
       </div>
     </WithNavbar>

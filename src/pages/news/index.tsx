@@ -12,7 +12,7 @@ const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
 });
 
-interface Props {}
+interface Props { }
 
 const News: NextPage<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,9 +42,9 @@ const News: NextPage<Props> = () => {
 
   useEffect(() => {
     if (searchTerm === "") {
-        refetch({
-            search: searchTerm,
-        });
+      refetch({
+        search: searchTerm,
+      });
     }
     const delayDebounceFn = setTimeout(() => {
       refetch({
@@ -57,8 +57,8 @@ const News: NextPage<Props> = () => {
 
   return (
     <WithNavbar>
-      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="flex w-full flex-col gap-5">
+      <div className="mx-auto max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+        <div className="flex w-full flex-col gap-5 pb-6">
           <Text className="prompt" size={"$3xl"}>
             ข่าวสาร
           </Text>
@@ -67,10 +67,13 @@ const News: NextPage<Props> = () => {
             placeholder="ค้นหา"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+        {/* <div className="flex w-full flex-col gap-5"> */}
+        <div className="flex w-full flex-col gap-5">
           {data?.infos?.length === 0 ? (
             <div>ไม่พบข้อมูล</div>
           ) : (
-            <div className="flex flex-col gap-5 pb-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pb-20">
               {!loading ? (
                 _.orderBy(data?.infos, "createdAt", "desc").map((info) => (
                   <CardNews info={info} />
