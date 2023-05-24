@@ -76,7 +76,7 @@ const News: NextPage<Props> = ({ id, data }) => {
             },
           ],
 
-          siteName: "KU Tech",
+          siteName: data?.info?.title,
         }}
         twitter={{
           handle: "@handle",
