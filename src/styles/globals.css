@@ -34,3 +34,7 @@ pre {
 blockquote {
     @apply truncate;
 }
+
+.grecaptcha-badge {
+    visibility: hidden;
+}
