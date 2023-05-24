@@ -1,6 +1,7 @@
 ##### DEPENDENCIES
 # --platform=linux/amd64
-FROM node:18-alpine AS deps
+
+FROM --platform=linux/amd64 node:16-alpine3.17 AS deps
 RUN apk add --no-cache libc6-compat openssl1.1-compat
 WORKDIR /app
 
@@ -21,15 +22,28 @@ RUN \
 
 ##### BUILDER
 
-FROM node:18-alpine AS builder
+FROM --platform=linux/amd64 node:16-alpine3.17 AS builder
+
 ARG DATABASE_URL
-ARG NEXT_PUBLIC_CLIENTVAR
+ARG NEXTAUTH_SECRET
+ARG NEXTAUTH_URL
+ARG CT_SECRET
+ARG NEXT_PUBLIC_CT_SITE_KEY
+ARG RECAPTCHA_SECRET
+ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
+ARG EMAIL_USER
+ARG EMAIL_PASS
+ARG GOOGLE_CLIENT_ID
+ARG GOOGLE_CLIENT_SECRET
+ARG S3
+ARG NEXT_PUBLIC_GRAPHQL_URL
+
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # ENV NEXT_TELEMETRY_DISABLED 1
-
 ENV SKIP_ENV_VALIDATION=1
 
 RUN \
@@ -41,7 +55,7 @@ RUN \
 
 ##### RUNNER
 
-FROM node:18-alpine AS runner
+FROM --platform=linux/amd64 node:16-alpine3.17 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -63,3 +77,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 CMD ["node", "server.js"]
+
