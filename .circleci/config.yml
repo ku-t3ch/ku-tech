@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:stable
+        user: root
 
     steps:
       - checkout
