@@ -40,13 +40,13 @@ const _document: NextPage<Props> = () => {
           href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
           rel="stylesheet"
         />
-        <script
+        {/* <script
           async
           defer
           data-website-id="300321f7-6a33-46d1-9135-dd14724da1ee"
           src="https://umami.csku.in.th/umami.js"
-        ></script>
-        <script
+        ></script> */}
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `(function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -57,7 +57,7 @@ const _document: NextPage<Props> = () => {
                 a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
           }}
-        />
+        /> */}
       </Head>
       <body>
         <Main />
