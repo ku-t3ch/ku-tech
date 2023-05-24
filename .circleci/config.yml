@@ -11,21 +11,15 @@ jobs:
     steps:
       - checkout
 
-      - setup_remote_docker:
-          version: 20.10.14
       - run:
           name: Check Docker daemon status
           command: docker version
       # Build Docker image
-      - setup_remote_docker:
-          version: 20.10.14
       - run:
           name: Build Docker image
           command: docker build -t $DOCKER_USERNAME/ku-tech:latest .
 
       # Push Docker image to registry
-      - setup_remote_docker:
-          version: 20.10.14
       - run:
           name: Push Docker image
           command: |
