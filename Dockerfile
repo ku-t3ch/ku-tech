@@ -30,6 +30,8 @@ COPY . .
 
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+ENV SKIP_ENV_VALIDATION=1
+
 RUN \
  if [ -f yarn.lock ]; then SKIP_ENV_VALIDATION=1 yarn postinstall && yarn build; \
  elif [ -f package-lock.json ]; then SKIP_ENV_VALIDATION=1 npm run build; \
