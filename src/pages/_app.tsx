@@ -11,6 +11,8 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Toaster } from "react-hot-toast";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import SEO from "../next-seo.config";
+import { DefaultSeo } from "next-seo";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -47,28 +49,31 @@ const MyApp: AppType<{ session: Session | null }> = ({
   }, [router]);
 
   return (
-    <ApolloProvider client={client}>
-      <SessionProvider session={session}>
-        <GoogleAnalytics trackPageViews />
-        <ReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-        >
-          <NextUIProvider theme={darkTheme}>
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: "#28C2F4",
-                },
-                algorithm: theme.darkAlgorithm,
-              }}
-            >
-              <Toaster position="top-right" reverseOrder={false} />
-              <Component {...pageProps} />
-            </ConfigProvider>
-          </NextUIProvider>
-        </ReCaptchaProvider>
-      </SessionProvider>
-    </ApolloProvider>
+    <>
+      <DefaultSeo {...SEO} />
+      <ApolloProvider client={client}>
+        <SessionProvider session={session}>
+          <GoogleAnalytics trackPageViews />
+          <ReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+          >
+            <NextUIProvider theme={darkTheme}>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: "#28C2F4",
+                  },
+                  algorithm: theme.darkAlgorithm,
+                }}
+              >
+                <Toaster position="top-right" reverseOrder={false} />
+                <Component {...pageProps} />
+              </ConfigProvider>
+            </NextUIProvider>
+          </ReCaptchaProvider>
+        </SessionProvider>
+      </ApolloProvider>
+    </>
   );
 };
 

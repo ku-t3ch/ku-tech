@@ -1,12 +1,13 @@
-import { type NextPage } from "next";
+import { Metadata, type NextPage } from "next";
 import { Text } from "@nextui-org/react";
 import Image from "next/image";
 import clsx from "clsx";
-// import Logo from "@/assets/logo.png";
+import { NextSeo } from "next-seo";
 import Logo from "@/assets/KU-TECH-Logo-TW.png";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import JoinClubBtn from "@/components/JoinClubBtn";
+import SeoGlobal from "@/components/SeoGlobal";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -39,21 +40,22 @@ const Content: NextPage<PropsContent> = (props) => {
 const Home: NextPage = () => {
   const content = useRef<HTMLDivElement>(null);
   return (
-    <WithNavbar>
-      <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
-        <div className="flex h-[80%] flex-col items-center justify-center gap-5">
-          <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
-            <img
-              className="h-full w-full animate-pulse object-cover duration-75"
-              src="/backgrounds/v1_d.svg"
-              alt=""
-            />
-          </div>
+    <>
+      <WithNavbar>
+        <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
+          <div className="flex h-[80%] flex-col items-center justify-center gap-5">
+            <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
+              <img
+                className="h-full w-full animate-pulse object-cover duration-75"
+                src="/backgrounds/v1_d.svg"
+                alt=""
+              />
+            </div>
 
-          <div className="relative z-10 flex justify-center">
-            <Image src={Logo} alt="logo" width={400}></Image>
-          </div>
-          {/* <Button
+            <div className="relative z-10 flex justify-center">
+              <Image src={Logo} alt="logo" width={400}></Image>
+            </div>
+            {/* <Button
             onClick={() =>
               content.current?.scrollIntoView({ behavior: "smooth" })
             }
@@ -66,10 +68,12 @@ const Home: NextPage = () => {
           >
             <ArrowDownwardIcon className="-z-50 animate-bounce duration-500" />
           </Button> */}
-          <div><JoinClubBtn /></div>
-        </div>
-        
-        {/* <div
+            <div>
+              <JoinClubBtn />
+            </div>
+          </div>
+
+          {/* <div
           ref={content}
           className="z-10 flex-col items-center gap-10 md:flex-row"
         >
@@ -94,8 +98,9 @@ const Home: NextPage = () => {
             position="left"
           />
         </div> */}
-      </div>
-    </WithNavbar>
+        </div>
+      </WithNavbar>
+    </>
   );
 };
 

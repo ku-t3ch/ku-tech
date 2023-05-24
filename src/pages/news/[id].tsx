@@ -2,6 +2,7 @@ import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 import { Text } from "@nextui-org/react";
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
+import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
@@ -60,34 +61,29 @@ const News: NextPage<Props> = ({ id, data }) => {
 
   return (
     <>
-      <Head>
-        <title>{data?.info?.title} - KU Tech</title>
-        <meta name="title" content={data?.info?.title} />
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content={shortDescription(data?.info?.content.text!)}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`http://kutech.club/news/${id}`} />
-        <meta property="og:title" content={data?.info?.title} />
-        <meta
-          property="og:description"
-          content={shortDescription(data?.info?.content.text!)}
-        />
-        <meta property="og:image" content={data?.info?.cover.url} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:url"
-          content={`http://kutech.club/news/${id}`}
-        />
-        <meta property="twitter:title" content="KU Tech" />
-        <meta
-          property="twitter:description"
-          content={shortDescription(data?.info?.content.text!)}
-        />
-        <meta property="twitter:image" content={data?.info?.cover.url} />
-      </Head>
+      <NextSeo
+        title={data?.info?.title}
+        description={shortDescription(data?.info?.content.text!)}
+        openGraph={{
+          title: data?.info?.title,
+          url: "http://kutech.club/news/" + id,
+          type: "website",
+          description: shortDescription(data?.info?.content.text!),
+          images: [
+            {
+              url: data?.info?.cover.url!,
+              alt: data?.info?.title,
+            },
+          ],
+
+          siteName: "KU Tech",
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+      />
       <WithNavbar>
         <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
           <div className="flex w-full flex-col gap-5 pb-20">
