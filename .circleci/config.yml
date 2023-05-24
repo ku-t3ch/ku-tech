@@ -8,6 +8,9 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Check Docker daemon status
+          command: docker version
       # Build Docker image
       - run:
           name: Build Docker image
