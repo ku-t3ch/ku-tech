@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/docker@1.7.0
+      - image: cimg/base:stable
 
     steps:
       - checkout
