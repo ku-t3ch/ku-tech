@@ -1,6 +1,8 @@
 import { Info } from "@/interfaces/NewsInterface";
+import { css } from "@emotion/css";
 import { Card, Col, Row, Text } from "@nextui-org/react";
 import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -11,48 +13,41 @@ interface Props {
 const CardNews: NextPage<Props> = ({ info }) => {
   const { push } = useRouter();
   return (
-    <a href={`/news/detail/${info.id}`}>
-      <Card css={{ w: "100%", h: "400px" }}>
+    <a href={`/news/${info.id}`}>
+      <Card
+        className={css`
+          height: 100% !important;
+          border-width: 0rem;
+        `}
+      >
         <Card.Body css={{ p: 0 }}>
-          <Card.Image
-            //src={info.cover.url}
-            src={`${info.cover.url}?q=50`}
-            objectFit="cover"
-            width="100%"
-            height="100%"
-            alt="Relaxing app background"
-          />
+          <div className="h-[20rem]" style={{ position: "relative" }}>
+            <Image
+              src={info.cover.url}
+              alt=""
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         </Card.Body>
-        <Card.Footer
-          isBlurred
-          css={{
-            position: "absolute",
-            bgBlur: "#0f111466",
-            borderTop: "$borderWeights$light solid $gray800",
-            bottom: 0,
-            zIndex: 1,
-          }}
-        >
-          <Row>
-            <Col>
-              <Row>
-                <Col>
-                  <Text h3 color="white">
-                    {info.title}
-                  </Text>
-                  <Text color="#d1d1d1" size={12}>
-                    {/* {format(new Date(info.publishedAt), "dd MMMM yyyy HH:mm")}  */}
-                    {new Date(info.createdAt).toLocaleString("th-TH", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}
-                  </Text>
-                </Col>
-              </Row>
-            </Col>
+        <Card.Footer css={{ justifyItems: "flex-start" }}>
+          <Row wrap="wrap" justify="space-between" align="center">
+            <Text b>{info.title}</Text>
+            <Text
+              css={{
+                color: "$accents7",
+                fontWeight: "$semibold",
+                fontSize: "$sm",
+              }}
+            >
+              {new Date(info.createdAt).toLocaleString("th-TH", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </Text>
           </Row>
         </Card.Footer>
       </Card>

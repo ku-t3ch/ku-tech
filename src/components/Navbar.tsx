@@ -8,7 +8,7 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import Image from "next/image";
-import LogoIcon from "@/assets/logo.png";
+import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";

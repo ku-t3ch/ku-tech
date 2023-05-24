@@ -14,6 +14,7 @@ export interface Info {
 export interface Content {
   markdown?: string;
   html?: string;
+  text?: string;
 }
 
 export interface Cover {
