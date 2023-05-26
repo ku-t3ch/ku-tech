@@ -1,6 +1,6 @@
 import AvatarComponent from "@/components/AvatarComponent";
 import { api } from "@/utils/api";
-import { Avatar, Text } from "@nextui-org/react";
+import { Avatar, Loading, Text } from "@nextui-org/react";
 import clsx from "clsx";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -42,7 +42,7 @@ const CoreTeam: NextPage<Props> = () => {
                   <AvatarComponent {...tag} position={"ประธาน"} />
                 ))}
               </div>
-              <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center gap-5">
+              <div className="grid w-full grid-cols-1 items-center gap-5 sm:grid-cols-2 md:grid-cols-3">
                 {findName("รองประธาน")?.map((tag) => (
                   <AvatarComponent {...tag} position={"รองประธาน"} />
                 ))}
@@ -163,7 +163,13 @@ const CoreTeam: NextPage<Props> = () => {
           </div>
         </div>
       ) : (
-        "Loading"
+        <div className="flex h-screen flex-col items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <Text className="prompt" size={"$4xl"}>
+              <Loading size="lg" />
+            </Text>
+          </div>
+        </div>
       )}
     </WithNavbar>
   );
