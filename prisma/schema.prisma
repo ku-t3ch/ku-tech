@@ -28,6 +28,7 @@ model Request {
     is_approved   Boolean? @default(false)
     email_history Email[]
     tags          Tag[]
+    core_team_profile_image_path String?
 }
 
 model Email {

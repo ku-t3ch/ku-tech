@@ -25,9 +25,14 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/about-club",
     },
     {
+      name: "ข่าวสาร",
+      href: "/news",
+    },
+    {
       name: "กิจกรรม",
       href: "/activities",
     },
+
     // {
     //   name: "กำหนดการ",
     //   href: "/events",
@@ -41,8 +46,8 @@ const NavbarComponent: NextPage<Props> = () => {
     //   href: "/sponsors",
     // },
     {
-      name: "ข่าวสาร",
-      href: "/news",
+      name: "คณะทำงาน",
+      href: "/core-team",
     },
     {
       name: "ติดต่อเรา",
@@ -82,7 +87,7 @@ const NavbarComponent: NextPage<Props> = () => {
       </Navbar.Content>
 
       <Navbar.Content>
-        {pathname !== "/join" && (
+        {!["/join","/cms"].includes(pathname) && (
           <Navbar.Item>
             <Button
               auto
@@ -101,7 +106,7 @@ const NavbarComponent: NextPage<Props> = () => {
           </Navbar.Item>
         )}
 
-        {status === "authenticated" && pathname === "/join" ? (
+        {status === "authenticated" && ["/join","/cms"].includes(pathname) ? (
           <>
             {session.user.given_name}
             <Dropdown placement="bottom-right">

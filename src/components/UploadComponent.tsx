@@ -25,6 +25,7 @@ const beforeUpload = (file: RcFile) => {
 
 interface Props {
   onReady: (val: boolean) => void;
+  action: string;
 }
 
 const UploadComponent: NextPage<Props> = (props) => {
@@ -65,7 +66,7 @@ const UploadComponent: NextPage<Props> = (props) => {
         listType="picture-card"
         className="avatar-uploader "
         showUploadList={false}
-        action="/api/image_upload"
+        action={props.action}
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
