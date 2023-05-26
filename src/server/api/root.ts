@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "@/server/api/trpc";
 import { joinRouter } from "./routers/join";
 import { shortLinkRouter } from "./routers/shortlink";
+import { coreTeamRouter } from "./routers/core-team";
 
 /**
  * This is the primary router for your server.
@@ -9,7 +10,8 @@ import { shortLinkRouter } from "./routers/shortlink";
  */
 export const appRouter = createTRPCRouter({
   join: joinRouter,
-  shortlink: shortLinkRouter
+  shortlink: shortLinkRouter,
+  coreTeam: coreTeamRouter
 });
 
 // export type definition of API

@@ -22,4 +22,4 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/join",] };
+export const config = { matcher: ["/join","/cms"] };

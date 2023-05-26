@@ -397,7 +397,7 @@ const Join: NextPage<Props> = () => {
                     label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
                     required
                   >
-                    <UploadComponent onReady={(v) => setHasImage(v)} />
+                    <UploadComponent action="/api/image_upload" onReady={(v) => setHasImage(v)} />
                     <Text color="error">
                       *เพื่อความปลอดภัย ท่านควรขีดฆ่าเลขบัตร Master Card
                       ของท่านออก
