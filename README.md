@@ -1,4 +1,5 @@
 # KU Tech Website
+> Working on branch ***develop*** only, When you need deploy please merge to branch ***main*** by open pull request
 
 ## Setup
 
@@ -50,5 +51,5 @@ SKIP_ENV_VALIDATION=1
 ---
 ## Docker Build
 ```bash
-docker build -t ku-tech .
+docker build -t ku-tech --build-arg NEXT_PUBLIC_CT_SITE_KEY="" --build-arg NEXT_PUBLIC_RECAPTCHA_SITE_KEY="" --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID="" --build-arg NEXT_PUBLIC_GRAPHQL_URL="" .
 ```
