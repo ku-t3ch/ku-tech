@@ -32,7 +32,7 @@ pre {
 }
 
 blockquote {
-    @apply truncate;
+    @apply truncate whitespace-normal;
 }
 
 .grecaptcha-badge {
