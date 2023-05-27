@@ -30,6 +30,7 @@ model Request {
     tags          Tag[]
     core_team_profile_image_path String?
     isActive      Boolean? @default(true)
+    short_link    ShortLink[]
 }
 
 model Email {
@@ -111,6 +112,8 @@ model ShortLink {
     updatedAt     DateTime @updatedAt
     original_link String?  @unique
     short_link    String?  @unique
+    request_user  Request? @relation(fields: [request_user_id], references: [id])
+    request_user_id String?
     is_active     Boolean? @default(false)
     count         Int?     @default(0)
 }

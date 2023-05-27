@@ -49,7 +49,7 @@ const Members: NextPage<Props> = () => {
                 {findName("เลขานุการ")?.map((tag) => (
                   <AvatarComponent {...tag} position={"เลขานุการ"} />
                 ))}
-                {findName("เลขานุการ")?.map((tag) => (
+                {findName("รองเลขานุการ")?.map((tag) => (
                   <AvatarComponent {...tag} position={"รองเลขานุการ"} />
                 ))}
               </div>

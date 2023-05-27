@@ -11,7 +11,7 @@ export const coreTeamRouter = createTRPCRouter({
   get: publicProcedure.query(async ({ ctx }) => {
     const coreTeam = await prisma.tagType.findMany({
       where: {
-        name: "core-team-cms",
+        name: "core-team",
       },
       include: {
         tags: {

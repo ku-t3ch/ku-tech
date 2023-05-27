@@ -12,14 +12,14 @@ import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 interface Props {}
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
   const { data: session, status } = useSession();
-
-  const collapseItems = [
+  const [collapseItems, setCollapseItems] = useState([
     {
       name: "เกี่ยวกับชมรม",
       href: "/about-club",
@@ -37,20 +37,25 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/members",
     },
     {
-        name: "นโบายความเป็นส่วนตัว",
-        href: "/privacy",
-      },
+      name: "นโบายความเป็นส่วนตัว",
+      href: "/privacy",
+    },
     {
       name: "ติดต่อเรา",
       href: "/contact",
     },
-  ];
+    {
+      name: "core",
+      href: "/core",
+      coreProtected: true,
+    },
+  ]);
 
   return (
     <Navbar isBordered variant="sticky">
       <Navbar.Brand onClick={() => push("/")} className="cursor-pointer">
-        <Navbar.Toggle showIn={"sm"} aria-label="toggle navigation" />
-        <Text hideIn={"sm"}>
+        <Navbar.Toggle showIn={"md"} aria-label="toggle navigation" />
+        <Text hideIn={"md"}>
           <Image src={LogoIcon} alt="ku tech logo" width={50} />
         </Text>
         <Text b size={"$2xl"} className="ml-3" color="inherit">
@@ -59,31 +64,51 @@ const NavbarComponent: NextPage<Props> = () => {
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
-        hideIn="sm"
+        hideIn="md"
         variant="highlight-rounded"
       >
-        {collapseItems.map((item, index) => (
-          <Navbar.Link
-            href={item.href}
-            onClick={(e) => {
-              e.preventDefault();
-              push(item.href);
-            }}
-            isActive={pathname === item.href}
-            key={index}
-          >
-            {item.name}
-          </Navbar.Link>
-        ))}
-        
+        {collapseItems
+          .filter((item) => !item.coreProtected)
+          .map((item, index) => (
+            <Navbar.Link
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                push(item.href);
+              }}
+              isActive={pathname === item.href}
+              key={index}
+            >
+              {item.name}
+            </Navbar.Link>
+          ))}
+        {collapseItems
+          .filter((item) => item.coreProtected)
+          .map((item, index) =>
+            session?.user.isCoreTeam ? (
+              <Navbar.Link
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  push(item.href);
+                }}
+                isActive={pathname === item.href}
+                key={index}
+              >
+                {item.name}
+              </Navbar.Link>
+            ) : (
+              ""
+            )
+          )}
       </Navbar.Content>
 
       <Navbar.Content>
-        {!["/join","/cms"].includes(pathname) && (
+        {!["/join", "/cms", "/core", "/core/cms"].includes(pathname) && (
           <Navbar.Item>
             <Button
               auto
-              size={"sm"}
+              size={"md"}
               rounded
               icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
               color="gradient"
@@ -98,7 +123,8 @@ const NavbarComponent: NextPage<Props> = () => {
           </Navbar.Item>
         )}
 
-        {status === "authenticated" && ["/join","/cms"].includes(pathname) ? (
+        {status === "authenticated" &&
+        ["/join", "/cms", "/core", "/core/cms"].includes(pathname) ? (
           <>
             {session.user.given_name}
             <Dropdown placement="bottom-right">
@@ -134,23 +160,48 @@ const NavbarComponent: NextPage<Props> = () => {
         )}
       </Navbar.Content>
       <Navbar.Collapse>
-        {collapseItems.map((item, index) => (
-          <Navbar.CollapseItem key={index}>
-            <Link
-              color="inherit"
-              css={{
-                minWidth: "100%",
-              }}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                push(item.href);
-              }}
-            >
-              {item.name}
-            </Link>
-          </Navbar.CollapseItem>
-        ))}
+        {collapseItems
+          .filter((item) => !item.coreProtected)
+          .map((item, index) => (
+            <Navbar.CollapseItem key={index}>
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  push(item.href);
+                }}
+              >
+                {item.name}
+              </Link>
+            </Navbar.CollapseItem>
+          ))}
+        {collapseItems
+          .filter((item) => item.coreProtected)
+          .map((item, index) =>
+            session?.user.isCoreTeam ? (
+              <Navbar.CollapseItem key={index}>
+                <Link
+                  color="inherit"
+                  css={{
+                    minWidth: "100%",
+                  }}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    push(item.href);
+                  }}
+                >
+                  {item.name}
+                </Link>
+              </Navbar.CollapseItem>
+            ) : (
+              ""
+            )
+          )}
       </Navbar.Collapse>
     </Navbar>
   );
