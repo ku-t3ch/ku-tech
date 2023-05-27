@@ -32,23 +32,14 @@ const NavbarComponent: NextPage<Props> = () => {
       name: "กิจกรรม",
       href: "/activities",
     },
-
-    // {
-    //   name: "กำหนดการ",
-    //   href: "/events",
-    // },
-    // {
-    //   name: "ผลงาน",
-    //   href: "/works",
-    // },
-    // {
-    //   name: "ผู้สนับสนุน",
-    //   href: "/sponsors",
-    // },
     {
       name: "คณะทำงาน",
       href: "/members",
     },
+    {
+        name: "นโบายความเป็นส่วนตัว",
+        href: "/privacy",
+      },
     {
       name: "ติดต่อเรา",
       href: "/contact",
@@ -84,6 +75,7 @@ const NavbarComponent: NextPage<Props> = () => {
             {item.name}
           </Navbar.Link>
         ))}
+        
       </Navbar.Content>
 
       <Navbar.Content>

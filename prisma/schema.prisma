@@ -29,6 +29,7 @@ model Request {
     email_history Email[]
     tags          Tag[]
     core_team_profile_image_path String?
+    isActive      Boolean? @default(true)
 }
 
 model Email {
