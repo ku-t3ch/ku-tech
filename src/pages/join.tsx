@@ -1,6 +1,6 @@
 import { Button, Text, Loading } from "@nextui-org/react";
 import { NextPage, NextPageContext } from "next";
-import { AutoComplete, Form, Input, Select, Skeleton } from "antd";
+import { AutoComplete, Checkbox, Form, Input, Select, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import facultyData from "@/assets/faculty.json";
@@ -12,6 +12,7 @@ import { getToken } from "next-auth/jwt";
 import { prisma } from "@/server/db";
 import { useSession } from "next-auth/react";
 import { useReCaptcha } from "next-recaptcha-v3";
+import Link from "next/link";
 
 const TextArea = dynamic(() => import("antd/es/input/TextArea"), {
   ssr: false,
@@ -70,11 +71,13 @@ interface Props {
 const Join: NextPage<Props> = () => {
   const [token, setToken] = useState<string | null>(null);
   const [Faculty, setFaculty] = useState<string | null>(null);
-  const [FormLocalStorage, setFormLocalStorage] = useLocalStorage<FormDataInterface | null>("formData", null);
+  const [FormLocalStorage, setFormLocalStorage] =
+    useLocalStorage<FormDataInterface | null>("formData", null);
   const [form] = Form.useForm();
   const [hasImage, setHasImage] = useState(false);
   const [CT, setCT] = useState(1);
   const { executeRecaptcha } = useReCaptcha();
+  const [AceptPrivacy, setAceptPrivacy] = useState(false);
 
   useEffect(() => {
     if (FormLocalStorage !== null) {
@@ -98,7 +101,10 @@ const Join: NextPage<Props> = () => {
 
     const token = await executeRecaptcha("form_submit");
 
-    if (token === null) return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
+    if (token === null)
+      return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
+
+    if (!AceptPrivacy) return toast.error("กรุณายอมรับข้อตกลงและเงื่อนไข");
 
     let key = toast.loading("กำลังสมัครสมาชิก");
     await joinApi.mutate(
@@ -397,14 +403,24 @@ const Join: NextPage<Props> = () => {
                     label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
                     required
                   >
-                    <UploadComponent action="/api/image_upload" onReady={(v) => setHasImage(v)} />
+                    <UploadComponent
+                      action="/api/image_upload"
+                      onReady={(v) => setHasImage(v)}
+                    />
                     <Text color="error">
                       *เพื่อความปลอดภัย ท่านควรขีดฆ่าเลขบัตร Master Card
                       ของท่านออก
                     </Text>
                   </Form.Item>
+                  <Form.Item>
+                    <Checkbox
+                      onChange={(v) => setAceptPrivacy(v.target.checked)}
+                    >
+                      ยอมรับ{" "}
+                      <Link href={"/privacy"}>นโยบายความเป็นส่วนตัว</Link>
+                    </Checkbox>
+                  </Form.Item>
                   <div className="flex flex-col items-center gap-3">
-                    
                     <Button
                       color={"gradient"}
                       shadow
@@ -421,17 +437,16 @@ const Join: NextPage<Props> = () => {
                 </Form>
               )}
             </>
-           ) : (
-             <Skeleton active paragraph={{ rows: 4 }} />
-           )}
-         </div>
+          ) : (
+            <Skeleton active paragraph={{ rows: 4 }} />
+          )}
+        </div>
       </div>
     </WithNavbar>
   );
 };
 
 export default Join;
-
 
 // {/* <Turnstile
 //                       sitekey={process.env.NEXT_PUBLIC_CT_SITE_KEY!}
