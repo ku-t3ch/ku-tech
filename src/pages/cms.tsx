@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     },
   });
 
-  const isCoreTeam = user?.tags[0]?.tag_type?.name === "core-team-cms" || false;
+  const isCoreTeam = user?.tags.filter(tag=>tag.tag_type?.name==="core-team-cms").length! > 0 || false;
 
   if (!isCoreTeam) {
     return {
