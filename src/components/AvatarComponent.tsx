@@ -47,7 +47,7 @@ const AvatarComponent: NextPage<Props> = ({
           >
             {/* <div>{faculty}</div> */}
             <div>
-              {major} (ปี {year})
+              {major}
             </div>
           </Text>
         </div>
