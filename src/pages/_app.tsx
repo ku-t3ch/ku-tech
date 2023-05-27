@@ -13,6 +13,7 @@ import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import SEO from "../next-seo.config";
 import { DefaultSeo } from "next-seo";
+import CookieConsentFooter from "@/components/CookieConsentFooter";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -73,6 +74,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </ReCaptchaProvider>
         </SessionProvider>
       </ApolloProvider>
+      <CookieConsentFooter />
     </>
   );
 };

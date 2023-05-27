@@ -26,7 +26,7 @@ const AvatarComponent: NextPage<Props> = ({
 }) => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-3">
+      <div className="flex flex-col items-center justify-center gap-3 z-0">
         <Avatar
           css={{ size: "$20" }}
           src={core_team_profile_image_path ? `https://s3.kutech.club/core-team/${core_team_profile_image_path}` : `/avatar.png`}
@@ -45,7 +45,7 @@ const AvatarComponent: NextPage<Props> = ({
             size={"$md"}
             color=""
           >
-            <div>{faculty}</div>
+            {/* <div>{faculty}</div> */}
             <div>
               {major} (ปี {year})
             </div>

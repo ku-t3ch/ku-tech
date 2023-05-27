@@ -24,6 +24,7 @@ declare module "next-auth/jwt" {
     given_name: string;
     family_name: string;
     locale: string;
+    isCoreTeam: boolean;
     iat: number;
     exp: number;
     jti: string;
@@ -46,6 +47,7 @@ declare module "next-auth" {
       given_name: string;
       family_name: string;
       locale: string;
+      isCoreTeam: boolean;
       iat: number;
       exp: number;
       jti: string;
@@ -66,6 +68,7 @@ declare module "next-auth" {
     given_name: string;
     family_name: string;
     locale: string;
+    isCoreTeam: boolean;
     iat: number;
     exp: number;
     jti: string;
@@ -80,8 +83,27 @@ export const authOptions: NextAuthOptions = {
       }
       return session.session;
     },
-    jwt({ token, user, profile }) {
-      return { ...token, ...profile };
+    async jwt({ token, user, profile }) {
+      const userData = await prisma.request.findUnique({
+        where: {
+          email: token.email,
+        },
+        include: {
+          tags: {
+            select: {
+              tag_type: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      const isCoreTeam =
+        userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
+          .length! > 0 || false;
+      return { ...token, ...profile, isCoreTeam };
     },
   },
   pages: {

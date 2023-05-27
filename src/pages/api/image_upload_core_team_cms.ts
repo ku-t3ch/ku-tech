@@ -87,7 +87,7 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
     });
 
     const isCoreTeam =
-      userData?.tags.filter((tag) => tag.tag_type?.name === "core-team-cms")
+      userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
         .length! > 0 || false;
 
     if (!isCoreTeam) {
