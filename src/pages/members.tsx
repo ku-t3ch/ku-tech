@@ -11,7 +11,7 @@ const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
 
 interface Props {}
 
-const CoreTeam: NextPage<Props> = () => {
+const Members: NextPage<Props> = () => {
   const coreTeamApi = api.coreTeam.get.useQuery();
 
   const findName = (name: string) => {
@@ -175,4 +175,4 @@ const CoreTeam: NextPage<Props> = () => {
   );
 };
 
-export default CoreTeam;
+export default Members;
