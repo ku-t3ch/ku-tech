@@ -47,7 +47,7 @@ const NavbarComponent: NextPage<Props> = () => {
     // },
     {
       name: "คณะทำงาน",
-      href: "/core-team",
+      href: "/members",
     },
     {
       name: "ติดต่อเรา",
