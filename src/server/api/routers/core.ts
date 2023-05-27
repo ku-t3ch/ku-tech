@@ -33,15 +33,15 @@ export const coreRouter = createTRPCRouter({
         throw new Error("You are not core team");
       }
       const link = generateString();
-      const exitLink = await prisma.shortLink.findUnique({
-        where: {
-          original_link: input.original_link,
-        },
-      });
+    //   const exitLink = await prisma.shortLink.findUnique({
+    //     where: {
+    //       original_link: input.original_link,
+    //     },
+    //   });
 
-      if (exitLink) {
-        return exitLink.short_link;
-      }
+    //   if (exitLink) {
+    //     return exitLink.short_link;
+    //   }
 
       await prisma.shortLink.create({
         data: {
