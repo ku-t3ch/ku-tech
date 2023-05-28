@@ -75,8 +75,8 @@ const News: NextPage<Props> = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 pb-20">
               {!loading ? (
-                _.orderBy(data?.infos, "createdAt", "desc").map((info) => (
-                  <CardNews info={info} />
+                _.orderBy(data?.infos, "createdAt", "desc").map((info,index) => (
+                  <CardNews info={info} key={index} />
                 ))
               ) : (
                 <div className="flex h-[90%] flex-col items-center justify-center">

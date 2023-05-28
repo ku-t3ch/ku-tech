@@ -43,19 +43,19 @@ const Members: NextPage<Props> = () => {
                 ฝ่ายบริหาร
               </Text>
               <div className="grid w-full grid-cols-1 items-center gap-5">
-                {findName("ประธาน")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ประธาน"} />
+                {findName("ประธาน")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ประธาน"} />
                 ))}
               </div>
               <div className="grid w-full grid-cols-1 items-center gap-5 sm:grid-cols-2 md:grid-cols-3">
-                {findName("รองประธาน")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"รองประธาน"} />
+                {findName("รองประธาน")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"รองประธาน"} />
                 ))}
-                {findName("เลขานุการ")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"เลขานุการ"} />
+                {findName("เลขานุการ")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
                 ))}
-                {findName("รองเลขานุการ")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"รองเลขานุการ"} />
+                {findName("รองเลขานุการ")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"รองเลขานุการ"} />
                 ))}
               </div>
             </div>
@@ -81,8 +81,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("ฝ่ายสารสนเทศ")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ฝ่ายสารสนเทศ"} />
+                {findName("ฝ่ายสารสนเทศ")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ฝ่ายสารสนเทศ"} />
                 ))}
               </div>
             </div>
@@ -107,8 +107,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("ฝ่ายกิจกรรม")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ฝ่ายกิจกรรม"} />
+                {findName("ฝ่ายกิจกรรม")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ฝ่ายกิจกรรม"} />
                 ))}
               </div>
             </div>
@@ -133,8 +133,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("ฝ่ายโสตฯ")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ฝ่ายโสตฯ"} />
+                {findName("ฝ่ายโสตฯ")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
                 ))}
               </div>
             </div>
@@ -159,8 +159,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("เหรัญญิก")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"เหรัญญิก"} />
+                {findName("เหรัญญิก")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                 ))}
               </div>
             </div>
@@ -185,8 +185,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("ฝ่ายประชาสัมพันธ์")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ฝ่ายประชาสัมพันธ์"} />
+                {findName("ฝ่ายประชาสัมพันธ์")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ฝ่ายประชาสัมพันธ์"} />
                 ))}
               </div>
             </div>
@@ -211,8 +211,8 @@ const Members: NextPage<Props> = () => {
                     : ""
                 )}
               >
-                {findName("ผู้ร่วมก่อตั้ง")?.map((tag) => (
-                  <AvatarComponent {...tag} position={"ผู้ร่วมก่อตั้ง"} />
+                {findName("ผู้ร่วมก่อตั้ง")?.map((tag,index) => (
+                  <AvatarComponent {...tag} key={index} position={"ผู้ร่วมก่อตั้ง"} />
                 ))}
               </div>
             </div>
