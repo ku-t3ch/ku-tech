@@ -33,15 +33,6 @@ export const coreRouter = createTRPCRouter({
         throw new Error("You are not core team");
       }
       const link = generateString();
-    //   const exitLink = await prisma.shortLink.findUnique({
-    //     where: {
-    //       original_link: input.original_link,
-    //     },
-    //   });
-
-    //   if (exitLink) {
-    //     return exitLink.short_link;
-    //   }
 
       await prisma.shortLink.create({
         data: {
@@ -56,5 +47,40 @@ export const coreRouter = createTRPCRouter({
         },
       });
       return link;
+    }),
+  deleteShortLink: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.isCoreTeam) {
+        throw new Error("You are not core team");
+      }
+
+      const link = await prisma.shortLink.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          request_user: {
+            select: {
+              email: true,
+            },
+          },
+        },
+      });
+
+      if (link?.request_user?.email !== ctx.session?.user.email) {
+        throw new Error("You are not owner of this link");
+      }
+
+      await prisma.shortLink.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return true;
     }),
 });

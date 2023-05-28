@@ -33,7 +33,7 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/activities",
     },
     {
-      name: "คณะทำงาน",
+      name: "สมาชิก",
       href: "/members",
     },
     {
