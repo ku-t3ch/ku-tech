@@ -7,6 +7,7 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
+import { S3Interface } from "@/interfaces/S3Interface";
 
 export interface FileUploadRequest extends NextApiRequest {
   files: File1;
@@ -50,14 +51,6 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
 })
   .use(fileUpload())
   .post(async (req, res) => {
-    interface S3Interface {
-      url: string;
-      accessKey: string;
-      secretKey: string;
-      api: string;
-      path: string;
-    }
-
     let S3_ENV = JSON.parse(env.S3) as S3Interface;
 
     let token = await getToken({
