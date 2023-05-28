@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import _ from "lodash";
 import { getToken } from "next-auth/jwt";
 import ChangeProfileCore from "@/components/core-page/ChangeProfileCore";
-import ShortLinkCore from "@/components/core-page/ShortLInkCore";
+import ShortLinkCore from "@/components/core-page/ShortLinkCore";
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const token = await getToken({
