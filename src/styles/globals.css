@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Prompt', sans-serif;
+    font-family: 'Prompt', sans-serif !important;
 }
 
 .prompt {
-    font-family: 'Prompt', sans-serif;
+    font-family: 'Prompt', sans-serif !important;
 }
 
 code {
