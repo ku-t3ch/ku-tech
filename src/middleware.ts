@@ -22,4 +22,4 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/join","/cms","/core"] };
+export const config = { matcher: ["/join","/core","/user/short-link","/user"] };

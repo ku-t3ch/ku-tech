@@ -104,7 +104,7 @@ const Join: NextPage<Props> = () => {
     if (token === null)
       return toast.error("เกิดข้อผิดพลาด กรุณารีหน้าเว็บไชต์ใหม่");
 
-    if (!AceptPrivacy) return toast.error("กรุณายอมรับข้อตกลงและเงื่อนไข");
+    if (!AceptPrivacy) return toast.error("กรุณายอมรับนโยบายความเป็นส่วนตัว");
 
     let key = toast.loading("กำลังสมัครสมาชิก");
     await joinApi.mutate(
@@ -400,17 +400,17 @@ const Join: NextPage<Props> = () => {
                   </Form.Item>
                   <Form.Item
                     className="w-full"
-                    label="รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ (กรุณาเซ็นสำเนาถูกต้องด้วย)"
+                    label={<div>รูปสำเนาบัตรนิสิต หรือใช้รูปบัตรใน Application NisitKU ได้ {" "}<span className="text-red-500 font-bold">(กรุณาเซ็นสำเนาถูกต้องด้วย)</span></div>}
                     required
                   >
                     <UploadComponent
                       action="/api/image_upload"
                       onReady={(v) => setHasImage(v)}
                     />
-                    <Text color="error">
+                    <div className="text-red-500 text-lg font-bold">
                       *เพื่อความปลอดภัย ท่านควรขีดฆ่าเลขบัตร Master Card
                       ของท่านออก
-                    </Text>
+                    </div>
                   </Form.Item>
                   <Form.Item>
                     <Checkbox
