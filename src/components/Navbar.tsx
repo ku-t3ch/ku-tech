@@ -20,7 +20,11 @@ interface Props { }
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
   const { data: session, status } = useSession();
-  const [collapseItems, setCollapseItems] = useState([
+  const [collapseItems, setCollapseItems] = useState<{
+    name: string;
+    href: string;
+    coreProtected?: boolean;
+  }[]>([
     {
       name: "เกี่ยวกับชมรม",
       href: "/about-club",
@@ -45,11 +49,11 @@ const NavbarComponent: NextPage<Props> = () => {
       name: "ติดต่อเรา",
       href: "/contact",
     },
-    {
-      name: "core",
-      href: "/core",
-      coreProtected: true,
-    },
+    // {
+    //   name: "core",
+    //   href: "/core",
+    //   coreProtected: true,
+    // },
   ]);
 
   return (
