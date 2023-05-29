@@ -13,7 +13,7 @@ interface Props {
   core_team_profile_image_path?: string | null;
 }
 
-const AvatarComponent: NextPage<Props> = ({
+const AvatarComponent: NextPage<Props> = ({ 
   faculty,
   first_name_th,
   google_id,
