@@ -13,8 +13,9 @@ import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { findLastKey } from "lodash";
 
-interface Props {}
+interface Props { }
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
@@ -84,47 +85,26 @@ const NavbarComponent: NextPage<Props> = () => {
           ))}
         {collapseItems
           .filter((item) => item.coreProtected)
-          .map((item, index) =>
-            session?.user.isCoreTeam ? (
-              <Navbar.Link
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  push(item.href);
-                }}
-                isActive={pathname === item.href}
-                key={index}
-              >
-                {item.name}
-              </Navbar.Link>
-            ) : (
-              ""
-            )
+          .map((item, index) => session?.user.isCoreTeam ? (
+            <Navbar.Link
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                push(item.href);
+              }}
+              isActive={pathname === item.href}
+              key={index}
+            >
+              {item.name}
+            </Navbar.Link>
+          ) : (
+            ""
+          )
           )}
       </Navbar.Content>
 
       <Navbar.Content>
-        {!["/join", "/cms", "/core", "/core/cms"].includes(pathname) && (
-          <Navbar.Item>
-            <Button
-              auto
-              size={"md"}
-              rounded
-              icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
-              color="gradient"
-              shadow
-              bordered
-              as={Link}
-              href="/join"
-              target="_blank"
-            >
-              เข้าร่วมชมรม
-            </Button>
-          </Navbar.Item>
-        )}
-
-        {status === "authenticated" &&
-        ["/join", "/cms", "/core", "/core/cms"].includes(pathname) ? (
+        {status === "authenticated" ? (
           <>
             {session.user.given_name}
             <Dropdown placement="bottom-right">
@@ -149,6 +129,38 @@ const NavbarComponent: NextPage<Props> = () => {
                   </Text>
                 </Dropdown.Item>
 
+                { session?.user.isCoreTeam ? (
+                  <Dropdown.Item key="core" withDivider color="primary">
+                    <Navbar.Link
+                      href="/core"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        push("/core");
+                      }}
+                      isActive={pathname === "/core"}
+                      key="core"
+                    >
+                      Core
+                    </Navbar.Link>
+                  </Dropdown.Item>
+                ) : (
+                  null!
+                )}
+
+                {/* <Dropdown.Item key="url" withDivider color="primary" hasChildItems>
+                  <Navbar.Link
+                    href="/url"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      push("/url");
+                    }}
+                    isActive={pathname === "/url"}
+                    key="url"
+                  >
+                    ย่อลิงก์
+                  </Navbar.Link>
+                </Dropdown.Item> */}
+
                 <Dropdown.Item key="logout" withDivider color="error">
                   <div onClick={() => signOut()}>Log Out</div>
                 </Dropdown.Item>
@@ -156,7 +168,20 @@ const NavbarComponent: NextPage<Props> = () => {
             </Dropdown>
           </>
         ) : (
-          ""
+          <Button
+            auto
+            size={"md"}
+            rounded
+            icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
+            color="gradient"
+            shadow
+            bordered
+            as={Link}
+            href="/join"
+            target="_blank"
+          >
+            เข้าร่วมชมรม
+          </Button>
         )}
       </Navbar.Content>
       <Navbar.Collapse>
@@ -181,26 +206,25 @@ const NavbarComponent: NextPage<Props> = () => {
           ))}
         {collapseItems
           .filter((item) => item.coreProtected)
-          .map((item, index) =>
-            session?.user.isCoreTeam ? (
-              <Navbar.CollapseItem key={index}>
-                <Link
-                  color="inherit"
-                  css={{
-                    minWidth: "100%",
-                  }}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    push(item.href);
-                  }}
-                >
-                  {item.name}
-                </Link>
-              </Navbar.CollapseItem>
-            ) : (
-              ""
-            )
+          .map((item, index) => session?.user.isCoreTeam ? (
+            <Navbar.CollapseItem key={index}>
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  push(item.href);
+                }}
+              >
+                {item.name}
+              </Link>
+            </Navbar.CollapseItem>
+          ) : (
+            ""
+          )
           )}
       </Navbar.Collapse>
     </Navbar>
