@@ -10,10 +10,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {}
 
-const ShortLinkCore: NextPage<Props> = () => {
-  const createShortLinkApi = api.core.createShortLink.useMutation();
-  const getAllShortLinkApi = api.core.getAllShortLink.useQuery();
-  const DeleteShortLinkApi = api.core.deleteShortLink.useMutation();
+const ShortLinkUser: NextPage<Props> = () => {
+  const createShortLinkApi = api.shortlink.createShortLink.useMutation();
+  const getAllShortLinkApi = api.shortlink.getAllShortLinkUser.useQuery();
+  const DeleteShortLinkApi = api.shortlink.deleteShortLink.useMutation();
   const [formShortLink] = Form.useForm();
 
   const createShortLink = async () => {
@@ -47,13 +47,6 @@ const ShortLinkCore: NextPage<Props> = () => {
           >
             <Input placeholder="Shorten your link" />
           </Form.Item>
-          {/* <Form.Item
-            name="custom_url"
-            label="CustomURL"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="Name" />
-          </Form.Item> */}
           <Form.Item>
             <Button htmlType="submit" loading={createShortLinkApi.isLoading}>
               Shorten
@@ -125,4 +118,4 @@ const ShortLinkCore: NextPage<Props> = () => {
   );
 };
 
-export default ShortLinkCore;
+export default ShortLinkUser;

@@ -1,12 +1,9 @@
-import { Button, Text } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { NextPage } from "next";
 import { signIn } from "next-auth/react";
-import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/router";
-
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 interface Props {}
 
@@ -27,6 +24,7 @@ const SignIn: NextPage<Props> = () => {
         >
           Sign with Google (@ku.th)
         </Button>
+        <Link href={"/"} className="text-red-400 text-lg"><ChevronLeftIcon />กลับหน้าหลัก</Link>
       </div>
     </div>
   );

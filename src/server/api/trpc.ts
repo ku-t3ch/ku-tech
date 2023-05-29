@@ -39,7 +39,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
     prisma,
-    req: opts.req
+    req: opts.req,
   };
 };
 
@@ -122,3 +122,36 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+const enforceUserIsAuthedMember = t.middleware(({ ctx, next }) => {
+  if (!ctx.session || !ctx.session.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  if (!ctx.session.user.isMember) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "You are not a member" });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+export const protectedMemberProcedure = t.procedure.use(enforceUserIsAuthedMember)
+
+
+const enforceUserIsAuthedCoreTeam= t.middleware(({ ctx, next }) => {
+    if (!ctx.session || !ctx.session.user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    if (!ctx.session.user.isCoreTeam) {
+      throw new TRPCError({ code: "UNAUTHORIZED", message: "You are not a core team member" });
+    }
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    });
+  });
+export const protectedCoreTeamProcedure = t.procedure.use(enforceUserIsAuthedCoreTeam)

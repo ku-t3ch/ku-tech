@@ -12,19 +12,22 @@ import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
 import { useRouter } from "next/router";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { findLastKey } from "lodash";
 
-interface Props { }
+interface Props {}
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
   const { data: session, status } = useSession();
-  const [collapseItems, setCollapseItems] = useState<{
-    name: string;
-    href: string;
-    coreProtected?: boolean;
-  }[]>([
+
+  const [collapseItems, setCollapseItems] = useState<
+    {
+      name: string;
+      href: string;
+      coreProtected?: boolean;
+    }[]
+  >([
     {
       name: "เกี่ยวกับชมรม",
       href: "/about-club",
@@ -89,21 +92,22 @@ const NavbarComponent: NextPage<Props> = () => {
           ))}
         {collapseItems
           .filter((item) => item.coreProtected)
-          .map((item, index) => session?.user.isCoreTeam ? (
-            <Navbar.Link
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                push(item.href);
-              }}
-              isActive={pathname === item.href}
-              key={index}
-            >
-              {item.name}
-            </Navbar.Link>
-          ) : (
-            ""
-          )
+          .map((item, index) =>
+            session?.user.isCoreTeam ? (
+              <Navbar.Link
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  push(item.href);
+                }}
+                isActive={pathname === item.href}
+                key={index}
+              >
+                {item.name}
+              </Navbar.Link>
+            ) : (
+              ""
+            )
           )}
       </Navbar.Content>
 
@@ -133,15 +137,14 @@ const NavbarComponent: NextPage<Props> = () => {
                   </Text>
                 </Dropdown.Item>
 
-                { session?.user.isCoreTeam ? (
-                  <Dropdown.Item key="core" withDivider color="primary">
+                {session?.user.isCoreTeam ? (
+                  <Dropdown.Item withDivider color="primary">
                     <Navbar.Link
-                      href="/core"
+                      isActive={pathname === "/core"}
                       onClick={(e) => {
                         e.preventDefault();
                         push("/core");
                       }}
-                      isActive={pathname === "/core"}
                       key="core"
                     >
                       Core
@@ -151,19 +154,22 @@ const NavbarComponent: NextPage<Props> = () => {
                   null!
                 )}
 
-                {/* <Dropdown.Item key="url" withDivider color="primary" hasChildItems>
-                  <Navbar.Link
-                    href="/url"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      push("/url");
-                    }}
-                    isActive={pathname === "/url"}
-                    key="url"
-                  >
-                    ย่อลิงก์
-                  </Navbar.Link>
-                </Dropdown.Item> */}
+                {session?.user.isMember ? (
+                  <Dropdown.Item withDivider color="primary" hasChildItems>
+                    <Navbar.Link
+                      href="/user/short-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        push("/user/short-link");
+                      }}
+                      isActive={pathname === "/user/short-link"}
+                    >
+                      ย่อลิงก์
+                    </Navbar.Link>
+                  </Dropdown.Item>
+                ) : (
+                  null!
+                )}
 
                 <Dropdown.Item key="logout" withDivider color="error">
                   <div onClick={() => signOut()}>Log Out</div>
@@ -176,15 +182,13 @@ const NavbarComponent: NextPage<Props> = () => {
             auto
             size={"md"}
             rounded
-            icon={<LaunchIcon sx={{ width: 20 }} className="animate-pulse" />}
             color="gradient"
             shadow
             bordered
             as={Link}
-            href="/join"
-            target="_blank"
+            href={`/sign-in?callbackUrl=/`}
           >
-            เข้าร่วมชมรม
+            เข้าสู่ระบบ
           </Button>
         )}
       </Navbar.Content>
@@ -210,25 +214,26 @@ const NavbarComponent: NextPage<Props> = () => {
           ))}
         {collapseItems
           .filter((item) => item.coreProtected)
-          .map((item, index) => session?.user.isCoreTeam ? (
-            <Navbar.CollapseItem key={index}>
-              <Link
-                color="inherit"
-                css={{
-                  minWidth: "100%",
-                }}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  push(item.href);
-                }}
-              >
-                {item.name}
-              </Link>
-            </Navbar.CollapseItem>
-          ) : (
-            ""
-          )
+          .map((item, index) =>
+            session?.user.isCoreTeam ? (
+              <Navbar.CollapseItem key={index}>
+                <Link
+                  color="inherit"
+                  css={{
+                    minWidth: "100%",
+                  }}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    push(item.href);
+                  }}
+                >
+                  {item.name}
+                </Link>
+              </Navbar.CollapseItem>
+            ) : (
+              ""
+            )
           )}
       </Navbar.Collapse>
     </Navbar>

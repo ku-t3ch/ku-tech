@@ -1,27 +1,25 @@
+import ShortLinkUser from "@/components/user/ShortLinkUser";
 import { NextPage, NextPageContext } from "next";
+import { getToken } from "next-auth/jwt";
 import dynamic from "next/dynamic";
 
-import _ from "lodash";
-import { getToken } from "next-auth/jwt";
-import ChangeProfileCore from "@/components/core-page/ChangeProfileCore";
-
 export async function getServerSideProps(ctx: NextPageContext) {
-  const token = await getToken({
-    req: ctx.req as any,
-    secret: process.env.JWT_SECRET,
-  });
-  if (!token?.isCoreTeam) {
+    const token = await getToken({
+      req: ctx.req as any,
+      secret: process.env.JWT_SECRET,
+    });
+    if (!token?.isMember) {
+      return {
+        redirect: {
+          destination: "/404",
+          permanent: false,
+        },
+      };
+    }
     return {
-      redirect: {
-        destination: "/404",
-        permanent: false,
-      },
+      props: {},
     };
   }
-  return {
-    props: {},
-  };
-}
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -29,16 +27,16 @@ const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
 
 interface Props {}
 
-const Core: NextPage<Props> = () => {
+const ShortLink: NextPage<Props> = () => {
   return (
     <WithNavbar>
       <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
         <div className="flex w-full flex-col gap-5">
-          <ChangeProfileCore />
+          <ShortLinkUser />
         </div>
       </div>
     </WithNavbar>
   );
 };
 
-export default Core;
+export default ShortLink;
