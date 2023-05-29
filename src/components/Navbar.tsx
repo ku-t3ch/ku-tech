@@ -45,8 +45,8 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/members",
     },
     {
-      name: "นโบายความเป็นส่วนตัว",
-      href: "/privacy",
+      name: "ย่อลิงก์",
+      href: "/user/short-link",
     },
     {
       name: "ติดต่อเรา",
