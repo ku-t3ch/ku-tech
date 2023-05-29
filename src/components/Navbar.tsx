@@ -138,13 +138,14 @@ const NavbarComponent: NextPage<Props> = () => {
                 </Dropdown.Item>
 
                 {session?.user.isCoreTeam ? (
-                  <Dropdown.Item withDivider color="primary">
+                  <Dropdown.Item key="core" withDivider color="primary">
                     <Navbar.Link
-                      isActive={pathname === "/core"}
+                      href="/core"
                       onClick={(e) => {
                         e.preventDefault();
                         push("/core");
                       }}
+                      isActive={pathname === "/core"}
                       key="core"
                     >
                       Core
@@ -155,7 +156,7 @@ const NavbarComponent: NextPage<Props> = () => {
                 )}
 
                 {session?.user.isMember ? (
-                  <Dropdown.Item withDivider color="primary" hasChildItems>
+                  <Dropdown.Item key="short-link" withDivider color="primary">
                     <Navbar.Link
                       href="/user/short-link"
                       onClick={(e) => {
@@ -163,6 +164,7 @@ const NavbarComponent: NextPage<Props> = () => {
                         push("/user/short-link");
                       }}
                       isActive={pathname === "/user/short-link"}
+                      key="short-link"
                     >
                       ย่อลิงก์
                     </Navbar.Link>
@@ -170,6 +172,7 @@ const NavbarComponent: NextPage<Props> = () => {
                 ) : (
                   null!
                 )}
+
 
                 <Dropdown.Item key="logout" withDivider color="error">
                   <div onClick={() => signOut()}>Log Out</div>
