@@ -1,7 +1,7 @@
 # KU Tech Website
 > Working on branch ***develop*** only, When you need deploy please merge to branch ***main*** by open pull request
 
-## Setup
+## Setu
 
 ```bash
 npm install yarn -g
