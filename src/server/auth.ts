@@ -106,16 +106,28 @@ export const authOptions: NextAuthOptions = {
           },
         },
       });
-      const isCoreTeam =
-        userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
-          .length! > 0 || false;
-      return {
-        ...token,
-        ...profile,
-        isCoreTeam,
-        isMember: userData?.is_approved || false,
-        customProfileImage: userData?.core_team_profile_image_path || null,
-      };
+
+      if (userData === null) {
+        return {
+          ...token,
+          ...profile,
+          isCoreTeam: false,
+          isMember: false,
+          customProfileImage: null,
+        };
+      } else {
+        const isCoreTeam =
+          userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
+            .length! > 0 || false;
+
+        return {
+          ...token,
+          ...profile,
+          isCoreTeam,
+          isMember: userData?.is_approved || false,
+          customProfileImage: userData?.core_team_profile_image_path || null,
+        };
+      }
     },
   },
   pages: {

@@ -117,7 +117,7 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: "core-team",
+          Bucket: `${env.NODE_ENV}-core-team`,
           Key: `${token.sub}.png`,
           Body: await constraintImage(file.data),
         })
