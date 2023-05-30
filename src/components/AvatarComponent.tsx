@@ -29,7 +29,7 @@ const AvatarComponent: NextPage<Props> = ({
       <div className="flex flex-col items-center justify-center gap-3 z-0">
         <Avatar
           css={{ size: "$20" }}
-          src={core_team_profile_image_path ? `https://s3.kutech.club/core-team/${core_team_profile_image_path}` : `/avatar.png`}
+          src={core_team_profile_image_path ? `https://s3.kutech.club/production-core-team/${core_team_profile_image_path}` : `/avatar.png`}
           color="gradient"
           bordered
         />

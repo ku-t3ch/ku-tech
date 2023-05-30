@@ -38,6 +38,7 @@ ARG GOOGLE_CLIENT_ID
 ARG GOOGLE_CLIENT_SECRET
 ARG S3
 ARG NEXT_PUBLIC_GRAPHQL_URL
+ARG NODE_ENV
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -58,7 +59,7 @@ RUN \
 FROM --platform=linux/amd64 node:16-alpine3.17 AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+# ENV NODE_ENV production
 
 # ENV NEXT_TELEMETRY_DISABLED 1
 
