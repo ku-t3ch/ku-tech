@@ -114,7 +114,7 @@ const NavbarComponent: NextPage<Props> = () => {
                     as="button"
                     color="primary"
                     size="md"
-                    src={session.user.customProfileImage ? `https://s3.kutech.club/core-team/${session.user.customProfileImage}` : session.user.picture}
+                    src={session.user.customProfileImage ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}` : session.user.picture}
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
