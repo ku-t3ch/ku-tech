@@ -26,6 +26,7 @@ declare module "next-auth/jwt" {
     locale: string;
     isCoreTeam: boolean;
     isMember: boolean;
+    customProfileImage: string | null;
     iat: number;
     exp: number;
     jti: string;
@@ -50,6 +51,7 @@ declare module "next-auth" {
       locale: string;
       isCoreTeam: boolean;
       isMember: boolean;
+      customProfileImage: string | null;
       iat: number;
       exp: number;
       jti: string;
@@ -72,6 +74,7 @@ declare module "next-auth" {
     locale: string;
     isCoreTeam: boolean;
     isMember: boolean;
+    customProfileImage: string | null;
     iat: number;
     exp: number;
     jti: string;
@@ -106,7 +109,13 @@ export const authOptions: NextAuthOptions = {
       const isCoreTeam =
         userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
           .length! > 0 || false;
-      return { ...token, ...profile, isCoreTeam, isMember: userData?.is_approved || false };
+      return {
+        ...token,
+        ...profile,
+        isCoreTeam,
+        isMember: userData?.is_approved || false,
+        customProfileImage: userData?.core_team_profile_image_path || null,
+      };
     },
   },
   pages: {

@@ -45,18 +45,9 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/members",
     },
     {
-      name: "ย่อลิงก์",
-      href: "/user/short-link",
-    },
-    {
       name: "ติดต่อเรา",
       href: "/contact",
     },
-    // {
-    //   name: "core",
-    //   href: "/core",
-    //   coreProtected: true,
-    // },
   ]);
 
   return (
@@ -123,7 +114,7 @@ const NavbarComponent: NextPage<Props> = () => {
                     as="button"
                     color="primary"
                     size="md"
-                    src={session.user.picture}
+                    src={session.user.customProfileImage ? `https://s3.kutech.club/core-team/${session.user.customProfileImage}` : session.user.picture}
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
@@ -139,17 +130,7 @@ const NavbarComponent: NextPage<Props> = () => {
 
                 {session?.user.isCoreTeam ? (
                   <Dropdown.Item key="core" withDivider color="primary">
-                    <Navbar.Link
-                      href="/core"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        push("/core");
-                      }}
-                      isActive={pathname === "/core"}
-                      key="core"
-                    >
-                      Core
-                    </Navbar.Link>
+                    <div onClick={() => push("/core")}> Core</div>
                   </Dropdown.Item>
                 ) : (
                   null!
@@ -157,22 +138,11 @@ const NavbarComponent: NextPage<Props> = () => {
 
                 {session?.user.isMember ? (
                   <Dropdown.Item key="short-link" withDivider color="primary">
-                    <Navbar.Link
-                      href="/user/short-link"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        push("/user/short-link");
-                      }}
-                      isActive={pathname === "/user/short-link"}
-                      key="short-link"
-                    >
-                      ย่อลิงก์
-                    </Navbar.Link>
+                    <div onClick={() => push("/user/short-link")}>ย่อลิงก์</div>
                   </Dropdown.Item>
                 ) : (
                   null!
                 )}
-
 
                 <Dropdown.Item key="logout" withDivider color="error">
                   <div onClick={() => signOut()}>Log Out</div>
