@@ -8,8 +8,9 @@ import sharp from "sharp";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 import { S3Interface } from "@/interfaces/S3Interface";
-
 import { getLogger } from "@/utils/logging";
+import getConfig from "next/config";
+const { serverRuntimeConfig } = getConfig();
 
 const logger = getLogger("home");
 export interface FileUploadRequest extends NextApiRequest {
@@ -106,11 +107,11 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
           },
         });
       }
-      logger.info(`upload : ${process.env.NODE_ENV}-idcard/${dbData.image_path!}`);
+      logger.info(`upload : ${serverRuntimeConfig.NODE_ENV}-idcard/${dbData.image_path!}`);
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: `${process.env.NODE_ENV}-idcard`,
+          Bucket: `${serverRuntimeConfig.NODE_ENV}-idcard`,
           Key: dbData.image_path!,
           Body: await constraintImage(file.data),
         })
