@@ -51,10 +51,10 @@ const NavbarComponent: NextPage<Props> = () => {
   ]);
 
   return (
-    <Navbar isBordered variant="sticky">
+    <Navbar isBordered variant="sticky" className="bg-transparent">
       <Navbar.Brand onClick={() => push("/")} className="cursor-pointer">
-        <Navbar.Toggle showIn={"md"} aria-label="toggle navigation" />
-        <Text hideIn={"md"}>
+        <Navbar.Toggle showIn={"sm"} aria-label="toggle navigation" />
+        <Text hideIn={"sm"}>
           <Image src={LogoIcon} alt="ku tech logo" width={50} />
         </Text>
         <Text b size={"$2xl"} className="ml-3" color="inherit">
@@ -63,7 +63,7 @@ const NavbarComponent: NextPage<Props> = () => {
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
-        hideIn="md"
+        hideIn="sm"
         variant="highlight-rounded"
       >
         {collapseItems
@@ -113,7 +113,7 @@ const NavbarComponent: NextPage<Props> = () => {
                     bordered
                     as="button"
                     color="primary"
-                    size="md"
+                    size="sm"
                     src={session.user.customProfileImage ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}` : session.user.picture}
                   />
                 </Dropdown.Trigger>
@@ -153,7 +153,7 @@ const NavbarComponent: NextPage<Props> = () => {
         ) : (
           <Button
             auto
-            size={"md"}
+            size={"sm"}
             rounded
             color="gradient"
             shadow

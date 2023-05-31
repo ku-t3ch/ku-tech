@@ -38,3 +38,8 @@ blockquote {
 .grecaptcha-badge {
     visibility: hidden;
 }
+
+.nextui-c-egxOLa {
+    background-color: #272a3600 !important;
+    backdrop-filter: blur(0px) !important;
+}
