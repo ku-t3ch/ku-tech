@@ -3,38 +3,52 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Prompt', sans-serif !important;
-}
-
-.prompt {
-    font-family: 'Prompt', sans-serif !important;
+  /* font-family: 'Prompt', sans-serif !important; */
+  font-family: "Noto Sans Thai", sans-serif !important;
 }
 
 code {
-    background: #f4f4f4;
-    border: 1px solid #ddd;
-    color: #666;
-    page-break-inside: avoid;
-    font-family: monospace;
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 100%;
-    overflow: auto;
-    display: block;
-    word-wrap: break-word;
-    padding: 1rem !important;
-    background-color: #272A36 !important;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow: auto;
+  display: block;
+  word-wrap: break-word;
+  padding: 1rem !important;
+  background-color: #272a36 !important;
 }
 
 pre {
-    padding: 0 !important;
-    overflow: visible !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
 
 blockquote {
-    @apply truncate whitespace-normal;
+  @apply truncate whitespace-normal;
 }
 
 .grecaptcha-badge {
-    visibility: hidden;
+  visibility: hidden;
+}
+
+.nextui-c-egxOLa {
+  background-color: #272a3600 !important;
+  backdrop-filter: blur(0px) !important;
+}
+
+.rainbow {
+  background-image: -webkit-linear-gradient(
+    0deg,
+    #ff802b,
+    #ffef5c,
+    #3cb179 56%,
+    #369eff 56.1%,
+    #e34ba9,
+    #f2555a
+  );
 }
