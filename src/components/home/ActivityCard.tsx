@@ -14,18 +14,16 @@ const ActivityCard: NextPage<Props> = ({ icon, title, content }) => {
   return (
     <div
       className={
-        "flex w-full flex-col cursor-default rounded-xl border-[1px] border-cyan-300 p-5 text-[#99DFF9] duration-300 hover:text-[#1E1E1E] " +
+        "flex w-full cursor-default flex-col rounded-xl border-[1px] border-[#1e3948] bg-[#151e27] p-5 text-[#FFFFFF] duration-300" +
         css`
-          :hover {
+          /* :hover {
             background: linear-gradient(270deg, #00aeef 0%, #8dcbe6 100%);
-          }
+          } */
         `
       }
     >
       {icon}
-      <div className="font-light text-xl">
-        {title}
-      </div>
+      <div className="text-xl font-light">{title}</div>
       <div className="font-light">{content}</div>
     </div>
   );

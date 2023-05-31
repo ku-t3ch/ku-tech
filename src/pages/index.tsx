@@ -43,6 +43,50 @@ const Content: NextPage<PropsContent> = (props) => {
 
 const Home: NextPage = () => {
   const content = useRef<HTMLDivElement>(null);
+
+  const activitys = [
+    {
+      icon: (
+        <Icon
+          icon="material-symbols:keyboard-double-arrow-up-rounded"
+          className="text-[4rem]"
+        />
+      ),
+      title: "Tech Upskill",
+      content:
+        "อบรมสมาชิกด้านเทคโนโลยีต่าง ๆ ที่น่าสนใจ และเป็นประโยชน์ต่อนิสิต",
+    },
+    {
+      icon: (
+        <Icon
+          icon="material-symbols:directions-bus-outline"
+          className="text-[4rem]"
+        />
+      ),
+      title: "KU Tech Camp",
+      content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
+    },
+    {
+      icon: (
+        <Icon
+          icon="material-symbols:interpreter-mode-outline"
+          className="text-[4rem]"
+        />
+      ),
+      title: "KU Tech Talk",
+      content:
+        "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
+    },
+    {
+      icon: (
+        <Icon icon="material-symbols:code-rounded" className="text-[4rem]" />
+      ),
+      title: "KU Hackathon",
+      content:
+        "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยด้วยเทคโนโลยี",
+    },
+  ];
+
   return (
     <>
       <WithNavbar>
@@ -70,19 +114,28 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-[3rem] pb-[10rem] sm:gap-[5rem] md:gap-[10rem]">
-            <div ref={content} className="z-10 flex-col items-center">
+          <div className="flex flex-col gap-[3rem] pb-[5rem] sm:gap-[5rem] md:gap-[10rem]">
+            <div className="z-10 flex-col items-center">
               <div className="flex flex-col items-center gap-10 md:flex-row">
-                <img
+                {/* <img
                   className="h-[20rem] w-[20rem] rounded-xl object-cover"
                   src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2070&q=80"
                   alt=""
-                />
-                <div className="flex flex-col gap-3">
-                  <Text b size={"$2xl"}>
-                    เกี่ยวกับ KU Tech
+                /> */}
+                {/* <div className="hidden flex-1 md:block ">
+                  <Icon
+                    icon="material-symbols:info-outline"
+                    className="text-[18rem] "
+                  />
+                </div> */}
+
+                <div className="flex flex-col items-center  gap-3">
+                  <Text b size={"$4xl"}>
+                      <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                        เกี่ยวกับ KU Tech
+                      </span>
                   </Text>
-                  <div>
+                  <div className="text-lg">
                     KU Tech คือ
                     การรวมกลุ่มนิสิตที่มีความสนใจด้านเทคโนโลยีเข้าด้วยกันเพื่อสร้างและพัฒนาเทคโนโลยีที่สามารถใช้งานได้จริงและสร้างประโยชน์ต่อมหาวิทยาลัยและสังคม
                     โดยให้เน้นการพัฒนาศักยภาพของนิสิตด้านเทคโนโลยี
@@ -93,63 +146,35 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div ref={content} className="z-10 flex-col items-center">
+            <div className="z-10 flex-col items-center">
               <div className="flex flex-col items-center justify-center gap-5">
-                <Text b size={"$2xl"}>
+                <Text b size={"$4xl"}>
                   กิจกรรม
                 </Text>
                 <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
-                  <ActivityCard
-                    {...{
-                      icon: (
-                        <Icon
-                          icon="material-symbols:mic-outline"
-                          className="text-[4rem]"
-                        />
-                      ),
-                      title: "KU Mini Bar Camp",
-                      content:
-                        "ร่วมพูดคุย-แลกเปลี่ยนในหัวข้อ และประเด็นที่น่าสนใจภายในสมาชิกกลุ่มกิจกรรม",
-                    }}
+                  {activitys.map((activity, index) => (
+                    <ActivityCard {...activity} key={index} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="z-10 flex-col items-center">
+              <div className="flex flex-col items-center justify-center gap-5">
+                <Text b size={"$2xl"}>
+                  ช่องทางติดต่อ
+                </Text>
+                <div className="flex gap-5 text-white">
+                  <Icon
+                    icon="ic:baseline-facebook"
+                    className="text-[4rem] text-white "
                   />
-                  <ActivityCard
-                    {...{
-                      icon: (
-                        <Icon
-                          icon="material-symbols:directions-bus-outline"
-                          className="text-[4rem]"
-                        />
-                      ),
-                      title: "KU Tech Camp",
-                      content:
-                        "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
-                    }}
+                  <Icon
+                    icon="mdi:instagram"
+                    className="text-[4rem] text-white "
                   />
-                  <ActivityCard
-                    {...{
-                      icon: (
-                        <Icon
-                          icon="material-symbols:interpreter-mode-outline"
-                          className="text-[4rem]"
-                        />
-                      ),
-                      title: "KU Tech Talk",
-                      content:
-                        "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
-                    }}
-                  />
-                  <ActivityCard
-                    {...{
-                      icon: (
-                        <Icon
-                          icon="material-symbols:code-rounded"
-                          className="text-[4rem]"
-                        />
-                      ),
-                      title: "KU Hackathon",
-                      content:
-                        "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยด้วยเทคโนโลยี",
-                    }}
+                  <Icon
+                    icon="ic:baseline-tiktok"
+                    className="text-[4rem] text-white "
                   />
                 </div>
               </div>

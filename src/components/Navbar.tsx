@@ -1,19 +1,13 @@
 import { NextPage } from "next";
-import {
-  Button,
-  Navbar,
-  Text,
-  Link,
-  Dropdown,
-  Avatar,
-} from "@nextui-org/react";
+import { Navbar, Text, Link, Dropdown, Avatar } from "@nextui-org/react";
 import Image from "next/image";
 import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
 import { useRouter } from "next/router";
-import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { findLastKey } from "lodash";
+import React, { useState } from "react";
+import { Icon } from "@iconify/react";
+import { Button } from "antd";
+import LastPageIcon from "@mui/icons-material/LastPage";
 
 interface Props {}
 
@@ -113,8 +107,12 @@ const NavbarComponent: NextPage<Props> = () => {
                     bordered
                     as="button"
                     color="primary"
-                    size="sm"
-                    src={session.user.customProfileImage ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}` : session.user.picture}
+                    size="md"
+                    src={
+                      session.user.customProfileImage
+                        ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}`
+                        : session.user.picture
+                    }
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
@@ -151,18 +149,28 @@ const NavbarComponent: NextPage<Props> = () => {
             </Dropdown>
           </>
         ) : (
-          <Button
-            auto
-            size={"sm"}
-            rounded
-            color="gradient"
-            shadow
-            bordered
-            as={Link}
+          //   <Button
+          //     auto
+          //     size={"sm"}
+          //     rounded
+          //     color="gradient"
+          //     shadow
+          //     bordered
+          //     as={Link}
+          //     href={`/sign-in?callbackUrl=/`}
+          //   >
+          //     เข้าสู่ระบบ
+          //   </Button>
+          <a
             href={`/sign-in?callbackUrl=/`}
+            className="flex cursor-pointer items-center gap-1 rounded-lg p-3 text-white hover:bg-white/5 duration-200"
           >
-            เข้าสู่ระบบ
-          </Button>
+            <Icon
+              className="text-2xl"
+              icon="material-symbols:last-page-rounded"
+            />
+            <div>เข้าสู่ระบบ</div>
+          </a>
         )}
       </Navbar.Content>
       <Navbar.Collapse>
