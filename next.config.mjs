@@ -15,10 +15,6 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  serverRuntimeConfig: {
-    NODE_ENV: process.env.NODE_ENV,
-  },
-
   images: {
     remotePatterns: [
       {

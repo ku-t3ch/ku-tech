@@ -9,8 +9,6 @@ import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 import { S3Interface } from "@/interfaces/S3Interface";
 import { getLogger } from "@/utils/logging";
-import getConfig from "next/config";
-const { serverRuntimeConfig } = getConfig();
 
 const logger = getLogger("home");
 export interface FileUploadRequest extends NextApiRequest {
@@ -119,11 +117,11 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
         region: "ap-southeast-1",
       });
 
-      logger.info(`upload : ${serverRuntimeConfig.NODE_ENV}-core-team/${token.sub}.png`);
+      logger.info(`upload : ${env.S3_ENV_TYPE}-core-team/${token.sub}.png`);
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: `${serverRuntimeConfig.NODE_ENV}-core-team`,
+          Bucket: `${env.S3_ENV_TYPE}-core-team`,
           Key: `${token.sub}.png`,
           Body: await constraintImage(file.data),
         })
