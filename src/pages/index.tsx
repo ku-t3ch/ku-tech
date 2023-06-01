@@ -151,19 +151,28 @@ const Home: NextPage = () => {
                 <Text b size={"$2xl"}>
                   ช่องทางติดต่อ
                 </Text>
-                <div className="flex gap-5 text-white ">
-                  <Icon
-                    icon="ic:baseline-facebook"
-                    className="text-[4rem] text-white "
-                  />
-                  <Icon
-                    icon="mdi:instagram"
-                    className="text-[4rem] text-white "
-                  />
-                  <Icon
-                    icon="ic:baseline-tiktok"
-                    className="text-[4rem] text-white "
-                  />
+                <div className="flex gap-5 text-white">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100090902166797"
+                    target="_blank"
+                  >
+                    <Icon
+                      icon="ic:baseline-facebook"
+                      className="text-[4rem] text-white "
+                    />
+                  </a>
+                  <a href="https://instagram.com/ku.t3ch" target="_blank">
+                    <Icon
+                      icon="mdi:instagram"
+                      className="text-[4rem] text-white "
+                    />
+                  </a>
+                  {/* <a href="">
+                    <Icon
+                      icon="ic:baseline-tiktok"
+                      className="text-[4rem] text-white "
+                    />
+                  </a> */}
                 </div>
               </div>
             </motion.div>
