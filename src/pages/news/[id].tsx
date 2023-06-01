@@ -117,34 +117,6 @@ const News: NextPage<Props> = ({ id, data }) => {
                 dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
               ></div>
             </div>
-
-            {/* <Text className="prompt self-center" size={"$3xl"}>
-              {data?.info?.title}
-            </Text>
-            <Text className="prompt self-center" size={"$sm"}>
-              <div className="flex flex-col items-center">
-                <div>
-                  {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
-                </div>
-                <div> by {data?.info?.createdBy?.name}</div>
-              </div>
-            </Text>
-            <img
-              className="w-full max-w-xl self-center"
-              src={data?.info?.cover.url}
-              alt=""
-            />
-            <div className="prose-dark">
-              <div
-                dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
-              ></div>
-            </div> */}
           </div>
         </div>
       </WithNavbar>
