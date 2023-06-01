@@ -1,103 +1,174 @@
-import { Metadata, type NextPage } from "next";
+import { type NextPage } from "next";
 import { Text } from "@nextui-org/react";
 import Image from "next/image";
-import clsx from "clsx";
-import { NextSeo } from "next-seo";
 import Logo from "@/assets/KU-TECH-Logo-TW.png";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import JoinClubBtn from "@/components/JoinClubBtn";
-import SeoGlobal from "@/components/SeoGlobal";
+import { css } from "@emotion/css";
+import ActivityCard from "@/components/home/ActivityCard";
+import { Icon } from "@iconify/react";
+import { motion } from "framer-motion";
+import Footer from "@/components/Footer";
+import WithFooter from "@/layouts/WithFooter";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
 });
 
-interface PropsContent {
-  image: string;
-  content: string;
-  position: "left" | "right";
-}
+const activitys = [
+  {
+    icon: (
+      <Icon
+        icon="material-symbols:keyboard-double-arrow-up-rounded"
+        className="text-[4rem]"
+      />
+    ),
+    title: "Tech Upskill",
+    content: "อบรมสมาชิกด้านเทคโนโลยีต่าง ๆ ที่น่าสนใจ และเป็นประโยชน์ต่อนิสิต",
+  },
+  {
+    icon: (
+      <Icon
+        icon="material-symbols:directions-bus-outline"
+        className="text-[4rem]"
+      />
+    ),
+    title: "KU Tech Camp",
+    content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
+  },
+  {
+    icon: (
+      <Icon
+        icon="material-symbols:interpreter-mode-outline"
+        className="text-[4rem]"
+      />
+    ),
+    title: "KU Tech Talk",
+    content:
+      "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
+  },
+  {
+    icon: <Icon icon="material-symbols:code-rounded" className="text-[4rem]" />,
+    title: "KU Hackathon",
+    content: "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยด้วยเทคโนโลยี",
+  },
+];
 
-const Content: NextPage<PropsContent> = (props) => {
-  return (
-    <div
-      className={clsx(
-        "flex flex-col items-center justify-center gap-10",
-        props.position === "right" ? "md:flex-row" : "md:flex-row-reverse"
-      )}
-    >
-      <div style={{ width: "100%", height: "20rem", position: "relative" }}>
-        <Image alt="" layout="fill" objectFit="contain" src={props.image} />
-      </div>
-      <Text size={"$2xl"} className="prompt">
-        {props.content}
-      </Text>
-    </div>
-  );
-};
+const cssImageGrid = css`
+  /* background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoAQMAAAC2MCouAAAABlBMVEWBgYFHcEyMaNnGAAAAAnRSTlP/AOW3MEoAAAAQSURBVHgBY4CA+v9AMBJIALryrr41QoYVAAAAAElFTkSuQmCC"); */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23px' height='23px' viewBox='0 0 23 23' fill='none'%3E%3Ccircle cx='22' cy='22' r='0.88' fill='rgba(115, 115, 115, 0.218)' /%3E%3C/svg%3E%0A");
+  height: 100%;
+  z-index: 10;
+  /* opacity: 0.08; */
+`;
+
+const cssColorGradient = css`
+  background: linear-gradient(180deg, #11283a 0%, rgba(61, 23, 90, 0) 85.69%);
+  height: 100%;
+  z-index: 0;
+`;
 
 const Home: NextPage = () => {
   const content = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <WithNavbar>
-        <div className=" mx-auto h-full max-w-[73rem] p-5 md:p-10">
-          <div className="flex h-[80%] flex-col items-center justify-center gap-5">
-            <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
-              <img
-                className="h-full w-full animate-pulse object-cover duration-75"
-                src="/backgrounds/v1_d.svg"
-                alt=""
-              />
-            </div>
+        <div className="mx-auto min-h-screen max-w-[73rem] p-5 md:p-10">
+          <div className="h-full">
+            <div className="flex h-[80%] flex-col items-center justify-center gap-5">
+              <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
+                <div className={cssColorGradient}>
+                  <div className={cssImageGrid}></div>
+                </div>
+              </div>
 
-            <div className="relative z-10 flex justify-center">
-              <Image src={Logo} alt="logo" width={400}></Image>
-            </div>
-            {/* <Button
-            onClick={() =>
-              content.current?.scrollIntoView({ behavior: "smooth" })
-            }
-            size={"lg"}
-            bordered
-            shadow
-            color="gradient"
-            auto
-            className="z-0"
-          >
-            <ArrowDownwardIcon className="-z-50 animate-bounce duration-500" />
-          </Button> */}
-            <div>
-              <JoinClubBtn />
+              <div className="relative z-10 flex justify-center">
+                <Image src={Logo} alt="logo" width={400}></Image>
+              </div>
+              <div>
+                <JoinClubBtn />
+              </div>
             </div>
           </div>
 
-          {/* <div
-          ref={content}
-          className="z-10 flex-col items-center gap-10 md:flex-row"
-        >
-          <Content
-            content="สร้างโอกาสให้สมาชิกเรียนรู้ด้วยกัน: จัดกิจกรรมเช่นการสนทนาเกี่ยวกับเทคโนโลยี หรือการเล่าประสบการณ์ในการทำงานด้านเทคโนโลยี เพื่อให้สมาชิกได้เรียนรู้และแลกเปลี่ยนความรู้ด้วยกัน"
-            image="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            position="right"
-          />
-          <Content
-            content="ฝึกทักษะด้านเทคโนโลยี: จัดกิจกรรมเช่น workshop หรือสัมมนาเพื่อเสริมสร้างทักษะในการเขียนโปรแกรม การพัฒนาแอปพลิเคชัน หรือการสร้างเว็บไซต์ เป็นต้น"
-            image="https://images.unsplash.com/photo-1638029202288-451a89e0d55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            position="left"
-          />
-          <Content
-            content="สร้างโอกาสให้สมาชิกเรียนรู้และพัฒนาทักษะการทำงานเป็นทีม: จัดกิจกรรม เช่น การทำงานเป็นทีมผ่าน Mini Project เหรือการจัดทำงานวิจัยเพื่อสร้างโอกาสให้สมาชิกได้เรียนรู้และพัฒนาทักษะการทำงานเป็นทีมด้วยกัน"
-            image="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80"
-            position="right"
-          />
-          <Content
-            content="สร้างโอกาสให้สมาชิกเข้าร่วมโครงการและการแข่งขันทางเทคโนโลยี: จัดการแข่งขันเช่น hackathon หรือการพัฒนาแอปพลิเคชัน เพื่อสร้างแรงบันดาลใจและการเรียนรู้ร่วมกันในทีม"
-            image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            position="left"
-          />
-        </div> */}
+          <div className="flex flex-col gap-[3rem] pb-[5rem] sm:gap-[5rem] md:gap-[10rem]">
+            <div className="z-10 flex-col items-center">
+              <div className="flex flex-col items-center gap-10 md:flex-row">
+                <motion.div
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-start gap-3 md:items-center"
+                >
+                  <Text
+                    b
+                    className="text-[2rem] transition-all duration-200 md:text-[3rem]"
+                  >
+                    <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                      KU Tech คืออะไร ?
+                    </span>
+                  </Text>
+                  <div className="text-[1.2rem] md:text-[1.5rem]">
+                    KU Tech คือ
+                    การรวมกลุ่มนิสิตที่มีความสนใจด้านเทคโนโลยีเข้าด้วยกันเพื่อสร้างและพัฒนาเทคโนโลยีที่สามารถใช้งานได้จริงและสร้างประโยชน์ต่อมหาวิทยาลัยและสังคม
+                    โดยให้เน้นการพัฒนาศักยภาพของนิสิตด้านเทคโนโลยี
+                    นอกจากนี้ยังเป็นที่รวบรวมนิสิตที่มีความสนใจด้านเทคโนโลยีเพื่อสร้างพื้นที่ในการแลกเปลี่ยนความรู้
+                    และสร้างความสัมพันธ์ที่ดีกันระหว่างนิสิตในชมรม KU Tech
+                    อีกด้วย
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="z-10 flex-col items-center"
+            >
+              <div className="flex flex-col items-center justify-center gap-5">
+                <Text b size={"$4xl"}>
+                  กิจกรรม
+                </Text>
+                <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
+                  {activitys.map((activity, index) => (
+                    <ActivityCard {...activity} key={index} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="z-10 flex-col items-center"
+            >
+              <div className="flex flex-col items-center justify-center gap-5">
+                <Text b size={"$2xl"}>
+                  ช่องทางติดต่อ
+                </Text>
+                <div className="flex gap-5 text-white ">
+                  <Icon
+                    icon="ic:baseline-facebook"
+                    className="text-[4rem] text-white "
+                  />
+                  <Icon
+                    icon="mdi:instagram"
+                    className="text-[4rem] text-white "
+                  />
+                  <Icon
+                    icon="ic:baseline-tiktok"
+                    className="text-[4rem] text-white "
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+          <Footer />
         </div>
       </WithNavbar>
     </>

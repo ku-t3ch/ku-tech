@@ -14,6 +14,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import SEO from "../next-seo.config";
 import { DefaultSeo } from "next-seo";
 import CookieConsentFooter from "@/components/CookieConsentFooter";
+import { RecoilRoot } from "recoil";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -52,28 +53,30 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <DefaultSeo {...SEO} />
-      <ApolloProvider client={client}>
-        <SessionProvider session={session}>
-          <GoogleAnalytics trackPageViews />
-          <ReCaptchaProvider
-            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-          >
-            <NextUIProvider theme={darkTheme}>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#28C2F4",
-                  },
-                  algorithm: theme.darkAlgorithm,
-                }}
-              >
-                <Toaster position="top-right" reverseOrder={false} />
-                <Component {...pageProps} />
-              </ConfigProvider>
-            </NextUIProvider>
-          </ReCaptchaProvider>
-        </SessionProvider>
-      </ApolloProvider>
+      <RecoilRoot>
+        <ApolloProvider client={client}>
+          <SessionProvider session={session}>
+            <GoogleAnalytics trackPageViews />
+            <ReCaptchaProvider
+              reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            >
+              <NextUIProvider theme={darkTheme}>
+                <ConfigProvider
+                  theme={{
+                    token: {
+                      colorPrimary: "#28C2F4",
+                    },
+                    algorithm: theme.darkAlgorithm,
+                  }}
+                >
+                  <Toaster position="top-right" reverseOrder={false} />
+                  <Component {...pageProps} />
+                </ConfigProvider>
+              </NextUIProvider>
+            </ReCaptchaProvider>
+          </SessionProvider>
+        </ApolloProvider>
+      </RecoilRoot>
       <CookieConsentFooter />
     </>
   );

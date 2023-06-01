@@ -61,8 +61,8 @@ workflows:
             branches:
               only:
                 - main
-      - build-deploy-development:
-          filters:
-            branches:
-              only:
-                - develop
+      # - build-deploy-development:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop

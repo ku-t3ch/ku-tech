@@ -87,7 +87,38 @@ const News: NextPage<Props> = ({ id, data }) => {
       <WithNavbar>
         <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
           <div className="flex w-full flex-col gap-5 pb-20">
-            <Text className="prompt self-center" size={"$3xl"}>
+            <Text className="prompt self-start" size={"$3xl"}>
+              {data?.info?.title}
+            </Text>
+            <div className="flex items-center gap-3">
+              <div>
+                <img src="/avatar.png" className="w-[3rem]" alt="" />
+              </div>
+              <div className="flex flex-col">
+                <div>{data?.info?.createdBy?.name}</div>
+                <div>
+                  {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}
+                </div>
+              </div>
+            </div>
+            <img
+              className="h-full w-full md:max-w-md object-contain "
+              src={data?.info?.cover.url}
+              alt=""
+            />
+             <div className="prose-dark">
+              <div
+                dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
+              ></div>
+            </div>
+
+            {/* <Text className="prompt self-center" size={"$3xl"}>
               {data?.info?.title}
             </Text>
             <Text className="prompt self-center" size={"$sm"}>
@@ -113,7 +144,7 @@ const News: NextPage<Props> = ({ id, data }) => {
               <div
                 dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
               ></div>
-            </div>
+            </div> */}
           </div>
         </div>
       </WithNavbar>

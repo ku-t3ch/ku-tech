@@ -8,7 +8,9 @@ import sharp from "sharp";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 import { S3Interface } from "@/interfaces/S3Interface";
+import { getLogger } from "@/utils/logging";
 
+const logger = getLogger("home");
 export interface FileUploadRequest extends NextApiRequest {
   files: File1;
 }
@@ -103,24 +105,19 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
           },
         });
       }
+      logger.info(`upload : ${env.S3_ENV_TYPE}-idcard/${dbData.image_path!}`);
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: `${env.NODE_ENV}-idcard`,
+          Bucket: `${env.S3_ENV_TYPE}-idcard`,
           Key: dbData.image_path!,
           Body: await constraintImage(file.data),
         })
       );
 
-      //   const command = new GetObjectCommand({
-      //     Bucket: "idcard",
-      //     Key: dbData.image_path!,
-      //   });
-
-      //   const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-
       res.status(200).send("Ok");
     } catch (error: any) {
+      logger.error(`upload : ${error.message}`);
       throw new Error(error.message);
     }
   });

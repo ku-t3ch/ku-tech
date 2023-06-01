@@ -1,19 +1,13 @@
 import { NextPage } from "next";
-import {
-  Button,
-  Navbar,
-  Text,
-  Link,
-  Dropdown,
-  Avatar,
-} from "@nextui-org/react";
+import { Navbar, Text, Link, Dropdown, Avatar } from "@nextui-org/react";
 import Image from "next/image";
 import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
 import { useRouter } from "next/router";
-import LaunchIcon from "@mui/icons-material/Launch";
 import { signOut, useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { findLastKey } from "lodash";
+import React, { useState } from "react";
+import { Icon } from "@iconify/react";
+import { useRecoilState } from "recoil";
+import { scrollSelectState } from "@/store/scrollTriger";
 
 interface Props {}
 
@@ -26,19 +20,20 @@ const NavbarComponent: NextPage<Props> = () => {
       name: string;
       href: string;
       coreProtected?: boolean;
+      isMobile?: boolean;
     }[]
   >([
     {
-      name: "เกี่ยวกับชมรม",
-      href: "/about-club",
+        name: "หน้าแรก",
+        href: "/",
+    },
+    {
+        name: "สมัครเป็นสมาชิก",
+        href: "/join",
     },
     {
       name: "ข่าวสาร",
       href: "/news",
-    },
-    {
-      name: "กิจกรรม",
-      href: "/activities",
     },
     {
       name: "สมาชิก",
@@ -50,11 +45,13 @@ const NavbarComponent: NextPage<Props> = () => {
     },
   ]);
 
+  const [targetScroll, setTargetScroll] = useRecoilState(scrollSelectState);
+
   return (
-    <Navbar isBordered variant="sticky">
+    <Navbar isBordered variant="sticky" className="bg-transparent">
       <Navbar.Brand onClick={() => push("/")} className="cursor-pointer">
-        <Navbar.Toggle showIn={"md"} aria-label="toggle navigation" />
-        <Text hideIn={"md"}>
+        <Navbar.Toggle showIn={"sm"} aria-label="toggle navigation" />
+        <Text hideIn={"sm"}>
           <Image src={LogoIcon} alt="ku tech logo" width={50} />
         </Text>
         <Text b size={"$2xl"} className="ml-3" color="inherit">
@@ -63,7 +60,7 @@ const NavbarComponent: NextPage<Props> = () => {
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
-        hideIn="md"
+        hideIn="sm"
         variant="highlight-rounded"
       >
         {collapseItems
@@ -73,7 +70,9 @@ const NavbarComponent: NextPage<Props> = () => {
               href={item.href}
               onClick={(e) => {
                 e.preventDefault();
+                setTargetScroll((pre) => ({ ...pre, target: null }));
                 push(item.href);
+                
               }}
               isActive={pathname === item.href}
               key={index}
@@ -81,6 +80,7 @@ const NavbarComponent: NextPage<Props> = () => {
               {item.name}
             </Navbar.Link>
           ))}
+
         {collapseItems
           .filter((item) => item.coreProtected)
           .map((item, index) =>
@@ -89,6 +89,7 @@ const NavbarComponent: NextPage<Props> = () => {
                 href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
+                  setTargetScroll((pre) => ({ ...pre, target: null }));
                   push(item.href);
                 }}
                 isActive={pathname === item.href}
@@ -114,7 +115,11 @@ const NavbarComponent: NextPage<Props> = () => {
                     as="button"
                     color="primary"
                     size="md"
-                    src={session.user.customProfileImage ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}` : session.user.picture}
+                    src={
+                      session.user.customProfileImage
+                        ? `https://s3.kutech.club/production-core-team/${session.user.customProfileImage}`
+                        : session.user.picture
+                    }
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
@@ -151,18 +156,16 @@ const NavbarComponent: NextPage<Props> = () => {
             </Dropdown>
           </>
         ) : (
-          <Button
-            auto
-            size={"md"}
-            rounded
-            color="gradient"
-            shadow
-            bordered
-            as={Link}
+          <a
             href={`/sign-in?callbackUrl=/`}
+            className="flex cursor-pointer items-center gap-1 rounded-lg p-3 text-white duration-200 hover:bg-white/5"
           >
-            เข้าสู่ระบบ
-          </Button>
+            <Icon
+              className="text-2xl"
+              icon="material-symbols:last-page-rounded"
+            />
+            <div>เข้าสู่ระบบ</div>
+          </a>
         )}
       </Navbar.Content>
       <Navbar.Collapse>
