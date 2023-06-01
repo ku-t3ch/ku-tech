@@ -33,7 +33,7 @@ const Members: NextPage<Props> = () => {
       {!coreTeamApi.isLoading ? (
         <>
           <div className="mx-auto w-full max-w-[73rem] flex-col gap-3 p-5 md:flex-row md:p-10">
-            <div className="flex flex-col gap-14">
+            <div className="flex flex-col gap-[8rem]">
               {countUser("ฝ่ายบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>

@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import { Button } from "antd";
-import LastPageIcon from "@mui/icons-material/LastPage";
+import { useRecoilState } from "recoil";
+import { scrollSelectState } from "@/store/scrollTriger";
 
 interface Props {}
 
@@ -20,19 +20,20 @@ const NavbarComponent: NextPage<Props> = () => {
       name: string;
       href: string;
       coreProtected?: boolean;
+      isMobile?: boolean;
     }[]
   >([
     {
-      name: "เกี่ยวกับชมรม",
-      href: "/about-club",
+        name: "หน้าแรก",
+        href: "/",
+    },
+    {
+        name: "สมัครเป็นสมาชิก",
+        href: "/join",
     },
     {
       name: "ข่าวสาร",
       href: "/news",
-    },
-    {
-      name: "กิจกรรม",
-      href: "/activities",
     },
     {
       name: "สมาชิก",
@@ -43,6 +44,8 @@ const NavbarComponent: NextPage<Props> = () => {
       href: "/contact",
     },
   ]);
+
+  const [targetScroll, setTargetScroll] = useRecoilState(scrollSelectState);
 
   return (
     <Navbar isBordered variant="sticky" className="bg-transparent">
@@ -67,7 +70,9 @@ const NavbarComponent: NextPage<Props> = () => {
               href={item.href}
               onClick={(e) => {
                 e.preventDefault();
+                setTargetScroll((pre) => ({ ...pre, target: null }));
                 push(item.href);
+                
               }}
               isActive={pathname === item.href}
               key={index}
@@ -75,6 +80,7 @@ const NavbarComponent: NextPage<Props> = () => {
               {item.name}
             </Navbar.Link>
           ))}
+
         {collapseItems
           .filter((item) => item.coreProtected)
           .map((item, index) =>
@@ -83,6 +89,7 @@ const NavbarComponent: NextPage<Props> = () => {
                 href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
+                  setTargetScroll((pre) => ({ ...pre, target: null }));
                   push(item.href);
                 }}
                 isActive={pathname === item.href}
@@ -149,21 +156,9 @@ const NavbarComponent: NextPage<Props> = () => {
             </Dropdown>
           </>
         ) : (
-          //   <Button
-          //     auto
-          //     size={"sm"}
-          //     rounded
-          //     color="gradient"
-          //     shadow
-          //     bordered
-          //     as={Link}
-          //     href={`/sign-in?callbackUrl=/`}
-          //   >
-          //     เข้าสู่ระบบ
-          //   </Button>
           <a
             href={`/sign-in?callbackUrl=/`}
-            className="flex cursor-pointer items-center gap-1 rounded-lg p-3 text-white hover:bg-white/5 duration-200"
+            className="flex cursor-pointer items-center gap-1 rounded-lg p-3 text-white duration-200 hover:bg-white/5"
           >
             <Icon
               className="text-2xl"

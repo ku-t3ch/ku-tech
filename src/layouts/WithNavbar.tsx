@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import NavbarComponent from "@/components/Navbar";
 import { NextPage } from "next";
 
@@ -8,8 +9,8 @@ interface Props {
 const WithNavbar: NextPage<Props> = ({ children }) => {
   return (
     <div className="flex h-screen flex-col">
-      <NavbarComponent />
-      {children}
+        <NavbarComponent />
+        {children}
     </div>
   );
 };
