@@ -38,7 +38,7 @@ blockquote {
 
 .nextui-c-egxOLa {
   background-color: #272a3600 !important;
-  backdrop-filter: blur(0px) !important;
+  backdrop-filter: blur(5px) !important;
 }
 
 .rainbow {
@@ -51,4 +51,14 @@ blockquote {
     #e34ba9,
     #f2555a
   );
+}
+
+.clip-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: -3px;
+  margin-right: -3px;
 }
