@@ -19,7 +19,7 @@ const JoinClubBtn: NextPage<Props> = () => {
       as="a"
       icon={<ArrowForwardIcon className="animate-pulse" />}
     >
-      เข้าร่วมชมรม
+      <span className="rainbow clip-text">เข้าร่วมชมรม</span>
     </Button>
   );
 };
