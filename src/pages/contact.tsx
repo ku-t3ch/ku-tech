@@ -24,7 +24,6 @@ const Contact: NextPage<Props> = () => {
             Email : <a href="mailto:ku.t3ch@gmail.com">ku.t3ch@gmail.com</a><br/>
             Ig : <a href="https://instagram.com/ku.t3ch" target="_blank">ku.t3ch</a><br/>
             Facebook : <a href="https://www.facebook.com/profile.php?id=100090902166797" target="_blank">KU Tech</a><br/>
-            Discord : <a href="https://kutech.club/g/DPeocrV" target="_blank">KU Tech</a>
           </Text>
 
         </div>
