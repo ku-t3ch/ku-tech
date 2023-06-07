@@ -183,10 +183,8 @@ const News: NextPage<{}> = () => {
                 <div className="flex w-full flex-col">
                   <div
                     className={clsx(
-                      data?.infos?.length || 0 > 1
-                        ? "grid-cols-1 sm:grid-cols-2"
-                        : "grid-cols-1",
-                      "grid w-full gap-5"
+                      "grid w-full grid-cols-1 gap-5",
+                      (data?.infos?.length || 0) > 1 && "sm:grid-cols-2"
                     )}
                   >
                     {!loading
