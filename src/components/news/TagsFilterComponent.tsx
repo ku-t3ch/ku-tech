@@ -23,7 +23,7 @@ const TagsFilterComponent: FC<Props> = ({
   onClickUpdate,
 }) => {
   return (
-    <div className="rounded-[.7rem] bg-[#212b31] p-[1.5rem] shadow-xl">
+    <div className="rounded-[1rem] bg-[#212b31] p-[1.5rem]">
       <div className="pb-[1rem]">
         <Text size="lg" weight="bold">
           เลือกหัวข้อที่สนใจ
@@ -58,7 +58,7 @@ const TagsFilterComponent: FC<Props> = ({
 
 const TagsFilterSkeleton = () => {
   return (
-    <div className="rounded-[.7rem] bg-[#151b1f] p-[1.5rem] shadow-xl">
+    <div className="rounded-[.7rem] bg-[#151b1f] p-[1.5rem]">
       <div className="pb-[1rem]">
         <div className="h-[1.2rem] w-full animate-pulse rounded-[.3rem] bg-[#212b31]" />
       </div>

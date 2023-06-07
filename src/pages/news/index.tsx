@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import SearchBox from "@/components/news/SearchBox";
@@ -128,99 +129,113 @@ const News: NextPage<{}> = () => {
   }, [autoFetch]);
 
   return (
-    <WithNavbar>
-      <div className="p-[2rem]">
-        <Grid css={{ marginBottom: "$xl" }}>
-          <Text
-            size="$3xl"
-            weight="bold"
-            className="mt-[5rem] mb-[2rem] text-center"
-          >
-            ข่าวสารสำคัญ
-          </Text>
-          <div className="flex justify-center">
-            <SearchBox onChange={(e) => setSearchTerm(e.target.value)} />
-          </div>
-        </Grid>
-        <div className="mx-auto max-w-[70rem]">
-          {data?.infos?.length == 0 ? (
-            <div className="flex flex-col gap-3 p-[5rem]">
-              <Icon
-                icon="icon-park-solid:data"
-                className="mx-auto text-[1.5rem]"
-              />
-              <span className="text-center">ไม่พบข้อมูลข่าวสาร</span>
+    <>
+      <Head>
+        <style>
+          {`
+            .dark-theme {
+              background: #141218 !important;
+            }
+            body {
+              background: #141218 !important;
+            }
+          `}
+        </style>
+      </Head>
+      <WithNavbar>
+        <div className="p-[2rem]">
+          <Grid css={{ marginBottom: "$xl" }}>
+            <Text
+              size="$3xl"
+              weight="bold"
+              className="mt-[5rem] mb-[2rem] text-center"
+            >
+              ข่าวสารสำคัญ
+            </Text>
+            <div className="flex justify-center">
+              <SearchBox onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
-          ) : (
-            <Grid.Container gap={2}>
-              <Grid xs={12} sm={0}>
-                <div className="tags mb-[1rem] flex w-full flex-nowrap gap-3 overflow-x-auto  rounded-[.5rem]">
-                  {!loading
-                    ? data?.tags?.map((tag, index) => {
-                        return (
-                          <CardTag
-                            key={index}
-                            tag={tag}
-                            isActive={tagsId.includes(tag.id)}
-                            onClick={() => {
-                              !tagsId.includes(tag.id)
-                                ? setTagsId((p) => [...p, tag.id])
-                                : setTagsId((p) =>
-                                    p.filter((v) => v != tag.id)
-                                  );
-
-                              setAutoFetch((p) => p + 1);
-                            }}
-                          />
-                        );
-                      })
-                    : [...Array(10)].map((_, index) => (
-                        <CardTagSkeleton key={index} />
-                      ))}
-                </div>
-              </Grid>
-              <Grid xs={12} sm={8}>
-                <div className="flex w-full flex-col">
-                  <div
-                    className={clsx(
-                      "grid w-full grid-cols-1 gap-5",
-                      (data?.infos?.length || 0) > 1 && "sm:grid-cols-2"
-                    )}
-                  >
+          </Grid>
+          <div className="mx-auto max-w-[70rem]">
+            {data?.infos?.length == 0 ? (
+              <div className="flex flex-col gap-3 p-[5rem]">
+                <Icon
+                  icon="icon-park-solid:data"
+                  className="mx-auto text-[1.5rem]"
+                />
+                <span className="text-center">ไม่พบข้อมูลข่าวสาร</span>
+              </div>
+            ) : (
+              <Grid.Container gap={2}>
+                <Grid xs={12} sm={0}>
+                  <div className="tags mb-[1rem] flex w-full flex-nowrap gap-3 overflow-x-auto  rounded-[.5rem]">
                     {!loading
-                      ? data?.infos?.map((info, index) => (
-                          <CardNews
-                            isRequest={isRequest}
-                            info={info}
-                            key={index}
-                          />
-                        ))
-                      : [...Array(4)].map((_, index) => (
-                          <CardNewsSkeleton key={index} />
+                      ? data?.tags?.map((tag, index) => {
+                          return (
+                            <CardTag
+                              key={index}
+                              tag={tag}
+                              isActive={tagsId.includes(tag.id)}
+                              onClick={() => {
+                                !tagsId.includes(tag.id)
+                                  ? setTagsId((p) => [...p, tag.id])
+                                  : setTagsId((p) =>
+                                      p.filter((v) => v != tag.id)
+                                    );
+
+                                setAutoFetch((p) => p + 1);
+                              }}
+                            />
+                          );
+                        })
+                      : [...Array(10)].map((_, index) => (
+                          <CardTagSkeleton key={index} />
                         ))}
                   </div>
-                </div>
-              </Grid>
-              <Grid xs={0} sm={4}>
-                <div className="flex w-full flex-col">
-                  {!loading ? (
-                    <TagsFilterComponent
-                      tags={data?.tags || []}
-                      tagsId={tagsId}
-                      isRequest={isRequest}
-                      onClickSelectTag={handleClickSelectTag}
-                      onClickUpdate={handleFetchWithTags}
-                    />
-                  ) : (
-                    <TagsFilterSkeleton />
-                  )}
-                </div>
-              </Grid>
-            </Grid.Container>
-          )}
+                </Grid>
+                <Grid xs={12} sm={8}>
+                  <div className="flex w-full flex-col">
+                    <div
+                      className={clsx(
+                        "grid w-full grid-cols-1 gap-5",
+                        (data?.infos?.length || 2) > 1 && "sm:grid-cols-2"
+                      )}
+                    >
+                      {!loading
+                        ? data?.infos?.map((info, index) => (
+                            <CardNews
+                              isRequest={isRequest}
+                              info={info}
+                              key={index}
+                            />
+                          ))
+                        : [...Array(4)].map((_, index) => (
+                            <CardNewsSkeleton key={index} />
+                          ))}
+                    </div>
+                  </div>
+                </Grid>
+                <Grid xs={0} sm={4}>
+                  <div className="flex w-full flex-col">
+                    {!loading ? (
+                      <TagsFilterComponent
+                        tags={data?.tags || []}
+                        tagsId={tagsId}
+                        isRequest={isRequest}
+                        onClickSelectTag={handleClickSelectTag}
+                        onClickUpdate={handleFetchWithTags}
+                      />
+                    ) : (
+                      <TagsFilterSkeleton />
+                    )}
+                  </div>
+                </Grid>
+              </Grid.Container>
+            )}
+          </div>
         </div>
-      </div>
-    </WithNavbar>
+      </WithNavbar>
+    </>
   );
 };
 

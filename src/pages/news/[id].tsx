@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import NewsTag from "@/components/news/NewsTag";
@@ -87,6 +88,18 @@ const News: NextPage<Props> = ({ id, data }) => {
           cardType: "summary_large_image",
         }}
       />
+      <Head>
+        <style>
+          {`
+            .dark-theme {
+              background: #1d1b20 !important;
+            }
+            body {
+              background: #1d1b20 !important;
+            }
+          `}
+        </style>
+      </Head>
       <WithNavbar>
         <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
           <div className="flex w-full flex-col gap-5 pb-20">

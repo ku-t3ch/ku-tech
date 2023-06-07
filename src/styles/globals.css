@@ -30,6 +30,8 @@ pre {
 
 blockquote {
   @apply truncate whitespace-normal;
+  color: #e6e0e9 !important;
+  background: #36323b !important;
 }
 
 .grecaptcha-badge {

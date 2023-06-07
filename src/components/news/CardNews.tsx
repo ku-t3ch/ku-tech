@@ -19,7 +19,7 @@ const CardNews: NextPage<Props> = ({ isRequest = false, info }) => {
         isHoverable
         variant="bordered"
         css={{
-          borderRadius: "$xs",
+          borderRadius: "$lg",
           height: "100%",
           background: "transparent",
         }}
