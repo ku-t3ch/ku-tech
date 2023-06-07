@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 
 import SearchBox from "@/components/news/SearchBox";
@@ -8,7 +9,7 @@ import TagsFilterComponent, {
 } from "@/components/news/TagsFilterComponent";
 
 import { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { gql, useQuery } from "@apollo/client";
 
@@ -180,7 +181,14 @@ const News: NextPage<{}> = () => {
               </Grid>
               <Grid xs={12} sm={8}>
                 <div className="flex w-full flex-col">
-                  <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div
+                    className={clsx(
+                      data?.infos?.length || 0 > 1
+                        ? "grid-cols-1 sm:grid-cols-2"
+                        : "grid-cols-1",
+                      "grid w-full gap-5"
+                    )}
+                  >
                     {!loading
                       ? data?.infos?.map((info, index) => (
                           <CardNews
