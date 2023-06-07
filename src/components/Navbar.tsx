@@ -9,41 +9,26 @@ import { Icon } from "@iconify/react";
 import { useRecoilState } from "recoil";
 import { scrollSelectState } from "@/store/scrollTriger";
 
-interface Props {}
+interface Props { }
 
 const NavbarComponent: NextPage<Props> = () => {
   const { push, pathname } = useRouter();
   const { data: session, status } = useSession();
 
-  const [collapseItems, setCollapseItems] = useState<
+  const [dropdownItems, setDropdownItems] = useState<
     {
       name: string;
       href: string;
       coreProtected?: boolean;
       isMobile?: boolean;
+      isMember?: boolean;
     }[]
   >([
     {
-        name: "หน้าแรก",
-        href: "/",
-    },
-    {
-        name: "สมัครเป็นสมาชิก",
-        href: "/join",
-    },
-    {
-      name: "ข่าวสาร",
-      href: "/news",
-    },
-    {
-      name: "สมาชิก",
-      href: "/members",
-    },
-    {
-      name: "ติดต่อเรา",
-      href: "/contact",
-    },
-  ]);
+      name: "ย่อลิงก์",
+      href: "/user/short-link"
+    }
+  ])
 
   const [targetScroll, setTargetScroll] = useRecoilState(scrollSelectState);
 
@@ -61,46 +46,91 @@ const NavbarComponent: NextPage<Props> = () => {
       <Navbar.Content
         enableCursorHighlight
         hideIn="sm"
-        variant="highlight-rounded"
+        variant="default"
       >
-        {collapseItems
-          .filter((item) => !item.coreProtected)
-          .map((item, index) => (
-            <Navbar.Link
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                setTargetScroll((pre) => ({ ...pre, target: null }));
-                push(item.href);
-                
-              }}
-              isActive={pathname === item.href}
-              key={index}
-            >
-              {item.name}
-            </Navbar.Link>
-          ))}
+        <Navbar.Link
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            setTargetScroll((pre) => ({ ...pre, target: null }));
+            push("/");
+          }}
+          isActive={pathname === "/"}
+          key={0}
+        >
+          หน้าแรก
+        </Navbar.Link>
 
-        {collapseItems
-          .filter((item) => item.coreProtected)
-          .map((item, index) =>
-            session?.user.isCoreTeam ? (
-              <Navbar.Link
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setTargetScroll((pre) => ({ ...pre, target: null }));
-                  push(item.href);
-                }}
-                isActive={pathname === item.href}
-                key={index}
-              >
-                {item.name}
-              </Navbar.Link>
-            ) : (
-              ""
-            )
-          )}
+        <Navbar.Link
+          href="/join"
+          onClick={(e) => {
+            e.preventDefault();
+            setTargetScroll((pre) => ({ ...pre, target: null }));
+            push("/join");
+          }}
+          isActive={pathname === "/join"}
+          key={1}
+        >
+          {session?.user.isMember ? "ประกาศ" : "สมัครสมาชิก"}
+        </Navbar.Link>
+
+        <Navbar.Link
+          href="/news"
+          onClick={(e) => {
+            e.preventDefault();
+            setTargetScroll((pre) => ({ ...pre, target: null }));
+            push("/news");
+          }}
+          isActive={pathname === "/news"}
+          key={2}
+        >
+          ข่าวสาร
+        </Navbar.Link>
+
+        <Navbar.Link
+          href="/members"
+          onClick={(e) => {
+            e.preventDefault();
+            setTargetScroll((pre) => ({ ...pre, target: null }));
+            push("/members");
+          }}
+          isActive={pathname === "/members"}
+          key={3}
+        >
+          สมาชิก
+        </Navbar.Link>
+
+        <Navbar.Link
+          href="/contact"
+          onClick={(e) => {
+            e.preventDefault();
+            setTargetScroll((pre) => ({ ...pre, target: null }));
+            push("/contact");
+          }}
+          isActive={pathname === "/contact"}
+          key={4}
+        >
+          ติดต่อเรา
+        </Navbar.Link>
+
+        {session?.user.isMember && status === "authenticated" ? (
+          <Navbar.Link>
+            <Dropdown>
+              <Navbar.Item >
+                <Dropdown.Trigger>
+                  ระบบ
+                </Dropdown.Trigger>
+              </Navbar.Item>
+              <Dropdown.Menu aria-label="User menu actions" color="secondary">
+                {dropdownItems.map((item, index) => (
+                  <Dropdown.Item key={index} color="primary">
+                    <div onClick={() => push(item.href)}>{item.name}</div>
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </Navbar.Link>
+        ) : null!}
       </Navbar.Content>
 
       <Navbar.Content>
@@ -123,34 +153,26 @@ const NavbarComponent: NextPage<Props> = () => {
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
-              <Dropdown.Menu aria-label="User menu actions" color="secondary">
-                <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                  <Text b color="inherit" css={{ d: "flex" }}>
+              <Dropdown.Menu aria-label="User menu actions" color="secondary" disabledKeys={["profile"]}>
+                <Dropdown.Item key="profile" css={{ height: "$18" }} >
+                  <Text b color="gray" css={{ d: "flex" }}>
                     Signed in as
                   </Text>
-                  <Text b color="inherit" css={{ d: "flex" }}>
+                  <Text b color="gray" css={{ d: "flex" }}>
                     {session.user.email}
                   </Text>
                 </Dropdown.Item>
 
                 {session?.user.isCoreTeam ? (
                   <Dropdown.Item key="core" withDivider color="primary">
-                    <div onClick={() => push("/core")}> Core</div>
-                  </Dropdown.Item>
-                ) : (
-                  null!
-                )}
-
-                {session?.user.isMember ? (
-                  <Dropdown.Item key="short-link" withDivider color="primary">
-                    <div onClick={() => push("/user/short-link")}>ย่อลิงก์</div>
+                    <div onClick={() => push("/core")}>โพรไฟล์</div>
                   </Dropdown.Item>
                 ) : (
                   null!
                 )}
 
                 <Dropdown.Item key="logout" withDivider color="error">
-                  <div onClick={() => signOut()}>Log Out</div>
+                  <div onClick={() => signOut()}>ล็อกเอาท์</div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -169,10 +191,84 @@ const NavbarComponent: NextPage<Props> = () => {
         )}
       </Navbar.Content>
       <Navbar.Collapse>
-        {collapseItems
-          .filter((item) => !item.coreProtected)
-          .map((item, index) => (
-            <Navbar.CollapseItem key={index}>
+        <Navbar.CollapseItem key={0}>
+          <Link
+            color="inherit"
+            css={{
+              minWidth: "100%",
+            }}
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              push("/");
+            }}
+          >
+            หน้าแรก
+          </Link>
+        </Navbar.CollapseItem>
+        <Navbar.CollapseItem key={1}>
+          <Link
+            color="inherit"
+            css={{
+              minWidth: "100%",
+            }}
+            href="/join"
+            onClick={(e) => {
+              e.preventDefault();
+              push("/join");
+            }}
+          >
+            {session?.user.isMember ? "ประกาศ" : "สมัครสมาชิก"}
+          </Link>
+        </Navbar.CollapseItem>
+        <Navbar.CollapseItem key={2}>
+          <Link
+            color="inherit"
+            css={{
+              minWidth: "100%",
+            }}
+            href="/news"
+            onClick={(e) => {
+              e.preventDefault();
+              push("/news");
+            }}
+          >
+            ข่าวสาร
+          </Link>
+        </Navbar.CollapseItem>
+        <Navbar.CollapseItem key={3}>
+          <Link
+            color="inherit"
+            css={{
+              minWidth: "100%",
+            }}
+            href="/members"
+            onClick={(e) => {
+              e.preventDefault();
+              push("/members");
+            }}
+          >
+            สมาชิก
+          </Link>
+        </Navbar.CollapseItem>
+        <Navbar.CollapseItem key={4}>
+          <Link
+            color="inherit"
+            css={{
+              minWidth: "100%",
+            }}
+            href="/contact"
+            onClick={(e) => {
+              e.preventDefault();
+              push("/contact");
+            }}
+          >
+            ติดต่อเรา
+          </Link>
+        </Navbar.CollapseItem>
+        {session?.user.isMember && status === "authenticated" ? (
+          dropdownItems.map((item, index) => (
+            <Navbar.CollapseItem key={5+index}>
               <Link
                 color="inherit"
                 css={{
@@ -184,33 +280,11 @@ const NavbarComponent: NextPage<Props> = () => {
                   push(item.href);
                 }}
               >
-                {item.name}
+                ระบบ: {item.name}
               </Link>
             </Navbar.CollapseItem>
-          ))}
-        {collapseItems
-          .filter((item) => item.coreProtected)
-          .map((item, index) =>
-            session?.user.isCoreTeam ? (
-              <Navbar.CollapseItem key={index}>
-                <Link
-                  color="inherit"
-                  css={{
-                    minWidth: "100%",
-                  }}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    push(item.href);
-                  }}
-                >
-                  {item.name}
-                </Link>
-              </Navbar.CollapseItem>
-            ) : (
-              ""
-            )
-          )}
+          ))
+        ) : null!}
       </Navbar.Collapse>
     </Navbar>
   );

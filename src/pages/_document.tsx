@@ -22,6 +22,7 @@ const _document: NextPage<Props> = () => {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+        <script async src="https://umami-teerut.vercel.app/script.js" data-website-id="1d278cc7-aa50-4fba-932b-853a26ec0197"></script>
       </Head>
       <body>
         <Main />
