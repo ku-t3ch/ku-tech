@@ -1,24 +1,29 @@
-import { Info } from "@/interfaces/NewsInterface";
-import { css } from "@emotion/css";
-import { Card, Col, Row, Text } from "@nextui-org/react";
-import { NextPage } from "next";
+import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+
+import { NextPage } from "next";
+import { Info } from "@/interfaces/NewsInterface";
+
+import { Icon } from "@iconify/react";
+import { Card, Text } from "@nextui-org/react";
 
 interface Props {
+  isRequest?: boolean;
   info: Info;
 }
 
-const CardNews: NextPage<Props> = ({ info }) => {
-  const { push } = useRouter();
+const CardNews: NextPage<Props> = ({ isRequest = false, info }) => {
   return (
     <a href={`/news/${info.id}`}>
       <Card
-        className={css`
-          height: 100% !important;
-          border-width: 0rem;
-        `}
+        isHoverable
+        variant="bordered"
+        css={{
+          borderRadius: "$lg",
+          height: "100%",
+          background: "transparent",
+        }}
+        className={clsx("hover:bg-[#2d3d44]", isRequest && "saturate-50")}
       >
         <Card.Body css={{ p: 0 }}>
           <div className="h-[20rem]" style={{ position: "relative" }}>
@@ -30,29 +35,56 @@ const CardNews: NextPage<Props> = ({ info }) => {
             />
           </div>
         </Card.Body>
-        <Card.Footer css={{ justifyItems: "flex-start" }}>
-          <Row wrap="wrap" justify="space-between" align="center">
-            <Text b>{info.title}</Text>
-            <Text
-              css={{
-                color: "$accents7",
-                fontWeight: "$semibold",
-                fontSize: "$sm",
-              }}
-            >
-              {new Date(info.createdAt).toLocaleString("th-TH", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })}
+        <Card.Footer css={{ display: "inline-grid" }}>
+          <Text b className="truncate">
+            <span className="drop-shadow-sm">{info.title}</span>
+          </Text>
+          <div className="flex items-center gap-1">
+            <Text size="$md">
+              <Icon icon="ri:time-line" />
             </Text>
-          </Row>
+            <Text size="$xs">
+              <span className="drop-shadow-sm">
+                {new Date(info.createdAt).toLocaleString("th-TH", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+              </span>
+            </Text>
+          </div>
         </Card.Footer>
       </Card>
     </a>
   );
 };
 
+const CardNewsSkeleton: React.FC<{}> = () => {
+  return (
+    <Card
+      css={{
+        borderRadius: "$xs",
+        height: "100%",
+        border: 0,
+      }}
+    >
+      <Card.Body css={{ p: 0 }}>
+        <div className="flex h-[20rem] w-full items-center justify-center bg-[#212b31]">
+          <Icon
+            icon="ion:image"
+            className="h-12 w-12 animate-pulse text-[#364650]"
+          />
+        </div>
+      </Card.Body>
+      <Card.Footer css={{ display: "inline-grid", background: "#151b1f" }}>
+        <div className="mb-[.4rem] h-[1rem] w-full animate-pulse rounded-[.3rem] bg-[#212b31]" />
+        <div className="mb-[.4rem] h-[1rem] w-[50%] animate-pulse rounded-[.3rem] bg-[#212b31]" />
+      </Card.Footer>
+    </Card>
+  );
+};
+
 export default CardNews;
+export { CardNewsSkeleton };
