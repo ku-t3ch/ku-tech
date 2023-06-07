@@ -8,7 +8,7 @@ interface Props {
 }
 
 const SearchBox: React.FC<Props> = ({ onChange }) => {
-  let borderStyle = "border  border-[#6b9aac]";
+  let borderStyle = "border border-[#6b9aac]";
 
   return (
     <div className={`flex w-full max-w-[34rem]`}>
@@ -21,7 +21,7 @@ const SearchBox: React.FC<Props> = ({ onChange }) => {
       <input
         type="text"
         onChange={onChange}
-        className={`w-full rounded-r-[2rem] border-l-0 ${borderStyle} bg-[#1d2325] text-[.9rem]`}
+        className={`h-full w-full rounded-r-[2rem] border-l-0 ${borderStyle} bg-[#1d2325] text-[.9rem]`}
       />
     </div>
   );
