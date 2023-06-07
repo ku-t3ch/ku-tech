@@ -153,26 +153,26 @@ const NavbarComponent: NextPage<Props> = () => {
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
-              <Dropdown.Menu aria-label="User menu actions" color="secondary">
-                <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                  <Text b color="inherit" css={{ d: "flex" }}>
+              <Dropdown.Menu aria-label="User menu actions" color="secondary" disabledKeys={["profile"]}>
+                <Dropdown.Item key="profile" css={{ height: "$18" }} >
+                  <Text b color="gray" css={{ d: "flex" }}>
                     Signed in as
                   </Text>
-                  <Text b color="inherit" css={{ d: "flex" }}>
+                  <Text b color="gray" css={{ d: "flex" }}>
                     {session.user.email}
                   </Text>
                 </Dropdown.Item>
 
                 {session?.user.isCoreTeam ? (
                   <Dropdown.Item key="core" withDivider color="primary">
-                    <div onClick={() => push("/core")}> โปรไฟล์</div>
+                    <div onClick={() => push("/core")}>โพรไฟล์</div>
                   </Dropdown.Item>
                 ) : (
                   null!
                 )}
 
                 <Dropdown.Item key="logout" withDivider color="error">
-                  <div onClick={() => signOut()}>Log Out</div>
+                  <div onClick={() => signOut()}>ล็อกเอาท์</div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
