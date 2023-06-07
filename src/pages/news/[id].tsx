@@ -1,10 +1,13 @@
-import { Info, NewsInterface } from "@/interfaces/NewsInterface";
-import { Text } from "@nextui-org/react";
 import axios from "axios";
-import { NextPage, NextPageContext } from "next";
-import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
-import Head from "next/head";
+
+import NewsTag from "@/components/news/NewsTag";
+
+import { NextSeo } from "next-seo";
+import { NextPage, NextPageContext } from "next";
+import { Info, NewsInterface } from "@/interfaces/NewsInterface";
+
+import { Text } from "@nextui-org/react";
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
@@ -16,7 +19,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let data = JSON.stringify({
     operationName: "MyQuery",
     variables: {},
-    query: `query MyQuery {\n  info(where: {id: \"${id}\"}) {\n    title\n    createdAt\n    cover {\n      url\n      __typename\n    }\n    content {\n      text\n    html\n     __typename\n    }\n    createdBy {\n      name\n      __typename\n    }\n    __typename\n  }\n}`,
+    query: `query MyQuery {\n  info(where: {id: \"${id}\"}) {\n    title\n    createdAt\n    cover {\n      url\n      __typename\n    }\n    content {\n      text\n    html\n     __typename\n    }\n    createdBy {\n      name\n      __typename\n    }\n    __typename\n    tag {\n      ... on Tag {\n      name\n    }\n    }  }\n}`,
   });
 
   const res = await axios({
@@ -87,16 +90,16 @@ const News: NextPage<Props> = ({ id, data }) => {
       <WithNavbar>
         <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
           <div className="flex w-full flex-col gap-5 pb-20">
-            <Text className="prompt self-start" size={"$3xl"}>
+            <Text className="prompt self-start" size={"$3xl"} weight="bold">
               {data?.info?.title}
             </Text>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-5">
               <div>
                 <img src="/avatar.png" className="w-[3rem]" alt="" />
               </div>
               <div className="flex flex-col">
-                <div>{data?.info?.createdBy?.name}</div>
-                <div>
+                <div className="text-sm">{data?.info?.createdBy?.name}</div>
+                <div className="text-sm">
                   {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
                     year: "numeric",
                     month: "long",
@@ -107,12 +110,19 @@ const News: NextPage<Props> = ({ id, data }) => {
                 </div>
               </div>
             </div>
+            <div className="mb-[1.5rem] flex flex-col">
+              <div className="flex gap-3">
+                {data?.info?.tag?.map((tag, index) => {
+                  return <NewsTag key={index} tag={tag} />;
+                })}
+              </div>
+            </div>
             <img
-              className="h-full w-full md:max-w-md object-contain "
+              className="h-full w-full object-contain md:max-w-md "
               src={data?.info?.cover.url}
               alt=""
             />
-             <div className="prose-dark">
+            <div className="prose-dark">
               <div
                 dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
               ></div>
