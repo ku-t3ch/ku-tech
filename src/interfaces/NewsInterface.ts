@@ -8,7 +8,8 @@ export interface Info {
   title: string;
   content: Content;
   cover: Cover;
-  createdBy?: CreatedBy
+  tag: Tag[];
+  createdBy?: CreatedBy;
 }
 
 export interface Content {
@@ -21,7 +22,11 @@ export interface Cover {
   url: string;
 }
 
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 export interface CreatedBy {
-    name: string
-  }
-  
+  name: string;
+}
