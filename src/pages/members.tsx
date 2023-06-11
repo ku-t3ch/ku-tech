@@ -48,7 +48,7 @@ const Members: NextPage<Props> = () => {
                       />
                     ))}
                   </div>
-                  <div className="flex flex-wrap w-full justify-center items-center gap-5">
+                  <div className="flex w-full justify-center items-center gap-5">
                     {findName("รองประธาน")?.map((tag, index) => (
                       <AvatarComponent
                         {...tag}
@@ -78,7 +78,7 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายสารสนเทศ
                   </Text>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                     {findName("ฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent
                         {...tag}
@@ -96,7 +96,7 @@ const Members: NextPage<Props> = () => {
                       ฝ่ายกิจกรรม
                     </Text>
                     <div
-                      className="flex flex-wrap w-full justify-center items-center gap-5"
+                      className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                     >
                       {findName("ฝ่ายกิจกรรม")?.map((tag, index) => (
                         <AvatarComponent
@@ -115,7 +115,7 @@ const Members: NextPage<Props> = () => {
                     ฝ่ายโสตฯ
                   </Text>
                   <div
-                    className="flex flex-wrap w-full justify-center items-center gap-5"
+                    className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                   >
                     {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent
@@ -133,7 +133,7 @@ const Members: NextPage<Props> = () => {
                     เหรัญญิก
                   </Text>
                   <div
-                    className="flex flex-wrap w-full justify-center items-center gap-5"
+                    className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                   >
                     {findName("เหรัญญิก")?.map((tag, index) => (
                       <AvatarComponent
@@ -151,7 +151,7 @@ const Members: NextPage<Props> = () => {
                     ฝ่ายประชาสัมพันธ์
                   </Text>
                   <div
-                    className="flex flex-wrap w-full justify-center items-center gap-5"
+                    className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                   >
                     {findName("ฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
                       <AvatarComponent
@@ -169,7 +169,7 @@ const Members: NextPage<Props> = () => {
                     ผู้ร่วมก่อตั้ง
                   </Text>
                   <div
-                    className="flex flex-wrap w-full justify-center items-center gap-5"
+                    className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                   >
                     {findName("ผู้ร่วมก่อตั้ง")?.map((tag, index) => (
                       <AvatarComponent
