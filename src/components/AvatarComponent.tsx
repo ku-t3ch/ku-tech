@@ -28,7 +28,7 @@ const AvatarComponent: NextPage<AvatarComponentProps> = ({
 }) => {
   return (
     <>
-      <div id={id ?? "default"} className="flex flex-col items-center justify-center gap-3 z-0 max-w-[21rem]">
+      <div id={id ?? "default"} className="flex flex-col items-center justify-center gap-3 z-0 max-w-[21rem] min-w-[18rem] py-4">
         <Avatar
           css={{ size: "$20" }}
           src={core_team_profile_image_path ? `https://s3.kutech.club/production-core-team/${core_team_profile_image_path}` : `/avatar.png`}

@@ -45,7 +45,7 @@ const Members: NextPage<Props> = () => {
           <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
           {width > 1000 ? 
               <MembersComponent findName={findName} findTag={findTag} tagName="ประธาน" id="ประธาน" headTagName="ประธาน"/> :
-              // Please remove this condition and line after this when new mobile design is ready
+              // Please remove this condition and old organize design after new mobile view is ready
             <div className="flex flex-col gap-[8rem]">
               
                 {countUser("ฝ่ายบริหาร") > 0 && (

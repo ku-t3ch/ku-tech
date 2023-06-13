@@ -47,7 +47,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
   })
 
   const getChildClassName = (parentTagName: string | undefined) => {
-    return parentTagName == undefined ? "flex w-full justify-center gap-20 mt-20 content-start" : "flex flex-col mt-20 ml-[14rem] relative bottom-0";
+    return parentTagName == undefined ? "flex w-full justify-center gap-20 mt-20 content-start" : "flex flex-col mt-10 ml-[14rem] relative bottom-0";
   }
 
   const getClassName = (parentTagName: string | undefined) => {
@@ -82,7 +82,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
   return (
     <div className={getClassName(props.parentTagName)}>
       {currentTag?.request_user?.map((tag, index) => (
-        <div className="mb-8">
+        <div className="mt-8">
           <AvatarComponent
             id={props.id + "-" + index}
             {...tag}
@@ -96,7 +96,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
               startAnchor={"bottom"}
               endAnchor={props.parentTagName == props.headTagName ? "top" : "left"}
               color={"grey"}
-              strokeWidth={1.5}
+              strokeWidth={2}
               path={"grid"}
               showHead={false}
             />}
