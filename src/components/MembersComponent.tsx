@@ -59,7 +59,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
       <div className={getChildClassName(props.parentTagName)}>
         {currentTag?.childTags?.map((tag, index) => {
           return (
-            <div className="mt-4" key={index}>
+            <div className="mt-10" key={index}>
               {props.findName(tag.name).length > 0 &&
                 <>
                   <MembersComponent
@@ -82,7 +82,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
   return (
     <div className={getClassName(props.parentTagName)}>
       {currentTag?.request_user?.map((tag, index) => (
-        <>
+        <div className="mb-8">
           <AvatarComponent
             id={props.id + "-" + index}
             {...tag}
@@ -100,8 +100,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
               path={"grid"}
               showHead={false}
             />}
-            {console.log(props.parentTagName, props.headTagName)}
-        </>
+        </div>
 
       ))}
       {currentTag!.childTags?.length > 0 && childSection()}

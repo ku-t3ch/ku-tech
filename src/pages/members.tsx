@@ -42,7 +42,7 @@ const Members: NextPage<Props> = () => {
     <WithNavbar>
       {!coreTeamApi.isLoading ? (
         <>
-          <div className="mx-auto w-full max-w-[73rem] flex-col gap-3 p-5 md:flex-row md:p-10">
+          <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
           {width > 1000 ? 
               <MembersComponent findName={findName} findTag={findTag} tagName="ประธาน" id="ประธาน" headTagName="ประธาน"/> :
               // Please remove this condition and line after this when new mobile design is ready
