@@ -1,13 +1,10 @@
 import AvatarComponent from "@/components/AvatarComponent";
 import MembersComponent from "@/components/MembersComponent";
 import { api } from "@/utils/api";
-import { Avatar, Loading, Text } from "@nextui-org/react";
-import clsx from "clsx";
+import { Loading, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import useViewport from "@/hooks/useViewport"
-import Xarrow from "react-xarrows";
 
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {

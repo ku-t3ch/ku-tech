@@ -1,8 +1,7 @@
-import { Avatar, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import AvatarComponent from "@/components/AvatarComponent";
 import { Tag } from "@/interfaces/TagsInterface";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Xarrow from "react-xarrows";
 
 interface Member {
@@ -15,18 +14,8 @@ interface Member {
   core_team_profile_image_path: string | null;
 }
 
-interface RequestUser {
-  first_name_th: string | null;
-  last_name_th: string | null;
-  nick_name: string | null;
-  year: number | null;
-  faculty: string | null;
-  major: string | null;
-  core_team_profile_image_path: string | null;
-}
-
 interface FindTagResponse {
-  request_user: RequestUser[];
+  request_user: Member[];
   childTags: {
     name: string;
   }[];
