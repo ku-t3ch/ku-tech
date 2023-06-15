@@ -5,6 +5,7 @@ import { Loading, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import useViewport from "@/hooks/useViewport"
+import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 
 
 const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
@@ -40,8 +41,10 @@ const Members: NextPage<Props> = () => {
       {!coreTeamApi.isLoading ? (
         <>
           <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
-          {width > 1000 ? 
-              <MembersComponent findName={findName} findTag={findTag} tagName="ประธาน" id="ประธาน" headTagName="ประธาน"/> :
+          {width > 1000 ?
+            <Xwrapper>
+              <MembersComponent findName={findName} findTag={findTag} tagName="ประธาน" id="ประธาน" headTagName="ประธาน"/> 
+            </Xwrapper> :
               // Please remove this condition and old organize design after new mobile view is ready
             <div className="flex flex-col gap-[8rem]">
               
