@@ -135,7 +135,7 @@ const Members: NextPage<Props> = () => {
                       ฝ่ายโสตฯ
                     </Text>
                     <div
-                      className="flex flex-wrap w-full justify-center items-center gap-5"
+                      className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
                     >
                       {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                         <AvatarComponent
