@@ -116,7 +116,7 @@ const MembersComponent: NextPage<MemberComponentProps> = (props) => {
                 end={props.id + "-" + index}
                 startAnchor={"bottom"}
                 endAnchor={props.parentTagName == props.headTagName ? "top" : "left"}
-                color={"grey"}
+                color={"#3D3D3D"}
                 strokeWidth={2}
                 path={"grid"}
                 showHead={false}
