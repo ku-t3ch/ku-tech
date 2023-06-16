@@ -19,6 +19,9 @@ const Members: NextPage<Props> = () => {
   const { width } = useViewport();
 
   const findName = (name: string) => {
+    if (coreTeamApi.data === undefined) {
+      return [];
+    }
     return (
       coreTeamApi.data![0]?.tags.filter((tag) => tag.name === name)![0]
         ?.request_user || []
@@ -33,6 +36,9 @@ const Members: NextPage<Props> = () => {
   };
 
   const findTag = (name: string) => {
+    if (coreTeamApi.data === undefined) {
+      return [];
+    }
     return coreTeamApi.data![0]?.tags.filter((tag) => tag.name === name) || [];
   }
 
