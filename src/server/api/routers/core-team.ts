@@ -26,6 +26,11 @@ export const coreTeamRouter = createTRPCRouter({
                 core_team_profile_image_path: true,
               },
             },
+            childTags: {
+              select: {
+                name: true,
+              },
+            }
           },
         },
       },
