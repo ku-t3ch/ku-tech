@@ -1,16 +1,20 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { prisma } from "@/server/db";
 
 export const coreTeamRouter = createTRPCRouter({
   get: publicProcedure.query(async ({ ctx }) => {
     const coreTeam = await prisma.tagType.findMany({
       where: {
-        name: "core-team",
+        OR: [
+          {
+            name: "core-team",
+          },
+          {
+            name: "co-founder",
+          },
+        ],
       },
       include: {
         tags: {
