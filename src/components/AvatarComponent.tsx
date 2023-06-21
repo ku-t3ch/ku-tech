@@ -1,7 +1,8 @@
 import { Avatar, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 
-interface Props {
+interface AvatarComponentProps {
+  id?: string | null;
   first_name_th?: string | null;
   last_name_th?: string | null;
   nick_name?: string | null;
@@ -11,9 +12,12 @@ interface Props {
   major?: string | null;
   year?: number | null;
   core_team_profile_image_path?: string | null;
+  button?: JSX.Element | null;
+  showButton?: boolean;
 }
 
-const AvatarComponent: NextPage<Props> = ({ 
+const AvatarComponent: NextPage<AvatarComponentProps> = ({
+  id, 
   faculty,
   first_name_th,
   google_id,
@@ -23,17 +27,19 @@ const AvatarComponent: NextPage<Props> = ({
   nick_name,
   position,
   core_team_profile_image_path,
+  button,
+  showButton
 }) => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-3 z-0 w-[21rem]">
+      <div id={id ?? "default"} className="flex flex-col items-center justify-center gap-1 z-0 max-w-[21rem] min-w-[18rem] pt-4 pb-6 relative">
         <Avatar
           css={{ size: "$20" }}
           src={core_team_profile_image_path ? `https://s3.kutech.club/production-core-team/${core_team_profile_image_path}` : `/avatar.png`}
           color="primary"
           bordered
         />
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mt-2">
           <Text b size={"$2xl"}>
             {first_name_th} {last_name_th} ({nick_name})
           </Text>
@@ -51,6 +57,7 @@ const AvatarComponent: NextPage<Props> = ({
             </div>
           </Text>
         </div>
+          {showButton && button}
       </div>
     </>
   );
