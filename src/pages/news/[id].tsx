@@ -1,7 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 
+import NoSSR from "@/components/NoSSR";
 import NewsTag from "@/components/news/NewsTag";
 
 import { NextSeo } from "next-seo";
@@ -9,10 +9,6 @@ import { NextPage, NextPageContext } from "next";
 import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 
 import { Text } from "@nextui-org/react";
-
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
 
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
@@ -45,15 +41,13 @@ interface Props {
 const News: NextPage<Props> = ({ id, data }) => {
   if (data?.info === null) {
     return (
-      <WithNavbar>
-        <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-          <div className="flex w-full flex-col gap-5">
-            <Text className="prompt self-center" size={"$3xl"}>
-              ไม่พบข้อมูล
-            </Text>
-          </div>
+      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+        <div className="flex w-full flex-col gap-5">
+          <Text className="prompt self-center" size={"$3xl"}>
+            ไม่พบข้อมูล
+          </Text>
         </div>
-      </WithNavbar>
+      </div>
     );
   }
 
@@ -100,19 +94,19 @@ const News: NextPage<Props> = ({ id, data }) => {
           `}
         </style>
       </Head>
-      <WithNavbar>
-        <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-          <div className="flex w-full flex-col gap-5 pb-20">
-            <Text className="prompt self-start" size={"$3xl"} weight="bold">
-              {data?.info?.title}
-            </Text>
-            <div className="flex items-center gap-5">
-              <div>
-                <img src="/avatar.png" className="w-[3rem]" alt="" />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-sm">{data?.info?.createdBy?.name}</div>
-                <div className="text-sm">
+      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+        <div className="flex w-full flex-col gap-5 pb-20">
+          <Text className="prompt self-start" size={"$3xl"} weight="bold">
+            {data?.info?.title}
+          </Text>
+          <div className="flex items-center gap-5">
+            <div>
+              <img src="/avatar.png" className="w-[3rem]" alt="" />
+            </div>
+            <div className="flex flex-col">
+              <div className="text-sm">{data?.info?.createdBy?.name}</div>
+              <div className="text-sm">
+                <NoSSR>
                   {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
                     year: "numeric",
                     month: "long",
@@ -120,29 +114,29 @@ const News: NextPage<Props> = ({ id, data }) => {
                     hour: "numeric",
                     minute: "numeric",
                   })}
-                </div>
+                </NoSSR>
               </div>
-            </div>
-            <div className="mb-[1.5rem] flex flex-col">
-              <div className="flex gap-3">
-                {data?.info?.tag?.map((tag, index) => {
-                  return <NewsTag key={index} tag={tag} />;
-                })}
-              </div>
-            </div>
-            <img
-              className="h-full w-full object-contain md:max-w-md "
-              src={data?.info?.cover.url}
-              alt=""
-            />
-            <div className="prose-dark">
-              <div
-                dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
-              ></div>
             </div>
           </div>
+          <div className="mb-[1.5rem] flex flex-col">
+            <div className="flex gap-3">
+              {data?.info?.tag?.map((tag, index) => {
+                return <NewsTag key={index} tag={tag} />;
+              })}
+            </div>
+          </div>
+          <img
+            className="h-full w-full object-contain md:max-w-md "
+            src={data?.info?.cover.url}
+            alt=""
+          />
+          <div className="prose-dark">
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
+            ></div>
+          </div>
         </div>
-      </WithNavbar>
+      </div>
     </>
   );
 };

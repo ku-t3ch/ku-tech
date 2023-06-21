@@ -3,14 +3,8 @@ import MembersComponent from "@/components/MembersComponent";
 import { api } from "@/utils/api";
 import { Loading, Text } from "@nextui-org/react";
 import { NextPage } from "next";
-import dynamic from "next/dynamic";
-import useViewport from "@/hooks/useViewport"
+import useViewport from "@/hooks/useViewport";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
-
-
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
 
 interface Props {}
 
@@ -40,26 +34,32 @@ const Members: NextPage<Props> = () => {
       return [];
     }
     return coreTeamApi.data![0]?.tags.filter((tag) => tag.name === name) || [];
-  }
+  };
 
   return (
-    <WithNavbar>
+    <>
       {!coreTeamApi.isLoading ? (
         <>
           <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
-          {width > 1000 ?
-            <Xwrapper>
-              <MembersComponent findName={findName} findTag={findTag} tagName="ประธาน" id="ประธาน" headTagName="ประธาน"/> 
-            </Xwrapper> :
+            {width > 1000 ? (
+              <Xwrapper>
+                <MembersComponent
+                  findName={findName}
+                  findTag={findTag}
+                  tagName="ประธาน"
+                  id="ประธาน"
+                  headTagName="ประธาน"
+                />
+              </Xwrapper>
+            ) : (
               // Please remove this condition and old organize design after new mobile view is ready
-            <div className="flex flex-col gap-[8rem]">
-              
+              <div className="flex flex-col gap-[8rem]">
                 {countUser("ฝ่ายบริหาร") > 0 && (
                   <div className="flex flex-col items-center gap-3">
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       ฝ่ายบริหาร
                     </Text>
-                    <div className="flex flex-wrap w-full justify-center items-center gap-5">
+                    <div className="flex w-full flex-wrap items-center justify-center gap-5">
                       {findName("ประธาน")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -68,7 +68,7 @@ const Members: NextPage<Props> = () => {
                         />
                       ))}
                     </div>
-                    <div className="flex flex-wrap w-full justify-center items-center gap-5">
+                    <div className="flex w-full flex-wrap items-center justify-center gap-5">
                       {findName("รองประธาน")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -115,9 +115,7 @@ const Members: NextPage<Props> = () => {
                       <Text weight={"bold"} className="prompt" size={"$4xl"}>
                         ฝ่ายกิจกรรม
                       </Text>
-                      <div
-                        className="flex flex-wrap w-full justify-center items-center gap-5"
-                      >
+                      <div className="flex w-full flex-wrap items-center justify-center gap-5">
                         {findName("ฝ่ายกิจกรรม")?.map((tag, index) => (
                           <AvatarComponent
                             {...tag}
@@ -134,9 +132,7 @@ const Members: NextPage<Props> = () => {
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       ฝ่ายโสตฯ
                     </Text>
-                    <div
-                      className="flex flex-wrap-reverse w-full justify-center items-center gap-5"
-                    >
+                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                       {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -152,9 +148,7 @@ const Members: NextPage<Props> = () => {
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       เหรัญญิก
                     </Text>
-                    <div
-                      className="flex flex-wrap w-full justify-center items-center gap-5"
-                    >
+                    <div className="flex w-full flex-wrap items-center justify-center gap-5">
                       {findName("เหรัญญิก")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -170,9 +164,7 @@ const Members: NextPage<Props> = () => {
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       ฝ่ายประชาสัมพันธ์
                     </Text>
-                    <div
-                      className="flex flex-wrap w-full justify-center items-center gap-5"
-                    >
+                    <div className="flex w-full flex-wrap items-center justify-center gap-5">
                       {findName("ฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -188,9 +180,7 @@ const Members: NextPage<Props> = () => {
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       ผู้ร่วมก่อตั้ง
                     </Text>
-                    <div
-                      className="flex flex-wrap w-full justify-center items-center gap-5"
-                    >
+                    <div className="flex w-full flex-wrap items-center justify-center gap-5">
                       {findName("ผู้ร่วมก่อตั้ง")?.map((tag, index) => (
                         <AvatarComponent
                           {...tag}
@@ -201,8 +191,8 @@ const Members: NextPage<Props> = () => {
                     </div>
                   </div>
                 )}
-            </div>
-            }
+              </div>
+            )}
           </div>
         </>
       ) : (
@@ -214,7 +204,7 @@ const Members: NextPage<Props> = () => {
           </div>
         </div>
       )}
-    </WithNavbar>
+    </>
   );
 };
 

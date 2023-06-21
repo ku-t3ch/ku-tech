@@ -1,20 +1,27 @@
+import "@/styles/globals.css";
+
+import SEO from "../next-seo.config";
+import CookieConsentFooter from "@/components/CookieConsentFooter";
+
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-import { NextUIProvider, createTheme } from "@nextui-org/react";
+
 import { ConfigProvider, theme } from "antd";
-import { api } from "@/utils/api";
-import "@/styles/globals.css";
+import { NextUIProvider, createTheme } from "@nextui-org/react";
+
+import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { SessionProvider } from "next-auth/react";
 import { GoogleAnalytics } from "nextjs-google-analytics";
-import { Toaster } from "react-hot-toast";
+
+import { api } from "@/utils/api";
+import { RecoilRoot } from "recoil";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import SEO from "../next-seo.config";
-import { DefaultSeo } from "next-seo";
-import CookieConsentFooter from "@/components/CookieConsentFooter";
-import { RecoilRoot } from "recoil";
+
+import { Toaster } from "react-hot-toast";
+import { NavbarContextProvider } from "@/contexts/NavbarContext";
 
 const darkTheme = createTheme({
   type: "dark",
@@ -69,8 +76,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
                     algorithm: theme.darkAlgorithm,
                   }}
                 >
-                  <Toaster position="top-right" reverseOrder={false} />
-                  <Component {...pageProps} />
+                  <NavbarContextProvider>
+                    <Toaster position="top-right" reverseOrder={false} />
+                    <Component {...pageProps} />
+                  </NavbarContextProvider>
                 </ConfigProvider>
               </NextUIProvider>
             </ReCaptchaProvider>

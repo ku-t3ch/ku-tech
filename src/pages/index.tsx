@@ -1,20 +1,16 @@
-import { type NextPage } from "next";
-import { Text } from "@nextui-org/react";
 import Image from "next/image";
 import Logo from "@/assets/KU-TECH-Logo-TW.png";
-import { useRef } from "react";
-import dynamic from "next/dynamic";
-import JoinClubBtn from "@/components/JoinClubBtn";
+
+import { type NextPage } from "next";
+
 import { css } from "@emotion/css";
-import ActivityCard from "@/components/home/ActivityCard";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import WithFooter from "@/layouts/WithFooter";
+import { Text } from "@nextui-org/react";
 
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
+import Footer from "@/components/Footer";
+import JoinClubBtn from "@/components/JoinClubBtn";
+import ActivityCard from "@/components/home/ActivityCard";
 
 const activitys = [
   {
@@ -70,116 +66,110 @@ const cssColorGradient = css`
 `;
 
 const Home: NextPage = () => {
-  const content = useRef<HTMLDivElement>(null);
-
   return (
     <>
-      <WithNavbar>
-        <div className="mx-auto min-h-screen max-w-[73rem] p-5 md:p-10">
-          <div className="h-full">
-            <div className="flex h-[80%] flex-col items-center justify-center gap-5">
-              <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
-                <div className={cssColorGradient}>
-                  <div className={cssImageGrid}></div>
-                </div>
+      <div className="mx-auto min-h-screen max-w-[73rem] p-5 md:p-10">
+        <div className="h-full">
+          <div className="flex h-[80%] flex-col items-center justify-center gap-5">
+            <div className="absolute top-0 right-0 left-0 bottom-0 z-0 w-full">
+              <div className={cssColorGradient}>
+                <div className={cssImageGrid}></div>
               </div>
+            </div>
 
-              <div className="relative z-10 flex justify-center">
-                <Image src={Logo} alt="logo" width={400}></Image>
-              </div>
-              <div>
-                <JoinClubBtn />
-              </div>
+            <div className="relative z-10 flex justify-center">
+              <Image src={Logo} alt="logo" width={400}></Image>
+            </div>
+            <div>
+              <JoinClubBtn />
             </div>
           </div>
+        </div>
 
-          <div className="flex flex-col gap-[3rem] pb-[5rem] sm:gap-[5rem] md:gap-[10rem]">
-            <div className="z-10 flex-col items-center">
-              <div className="flex flex-col items-center gap-10 md:flex-row">
-                <motion.div
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col items-start gap-3 md:items-center"
+        <div className="flex flex-col gap-[3rem] pb-[5rem] sm:gap-[5rem] md:gap-[10rem]">
+          <div className="z-10 flex-col items-center">
+            <div className="flex flex-col items-center gap-10 md:flex-row">
+              <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-start gap-3 md:items-center"
+              >
+                <Text
+                  b
+                  className="rainbow clip-text text-[2rem] transition-all duration-200 md:text-[3rem]"
                 >
-                  <Text
-                    b
-                    className="text-[2rem] transition-all duration-200 md:text-[3rem] rainbow clip-text"
-                  >
-                    {/* <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"> */}
-                      KU Tech คืออะไร ?
-                    {/* </span> */}
-                  </Text>
-                  <div className="text-[1.2rem] md:text-[1.5rem]">
-                    KU Tech คือ
-                    การรวมกลุ่มนิสิตที่มีความสนใจด้านเทคโนโลยีเข้าด้วยกันเพื่อสร้างและพัฒนาเทคโนโลยีที่สามารถใช้งานได้จริงและสร้างประโยชน์ต่อมหาวิทยาลัยและสังคม
-                    โดยให้เน้นการพัฒนาศักยภาพของนิสิตด้านเทคโนโลยี
-                    นอกจากนี้ยังเป็นที่รวบรวมนิสิตที่มีความสนใจด้านเทคโนโลยีเพื่อสร้างพื้นที่ในการแลกเปลี่ยนความรู้
-                    และสร้างความสัมพันธ์ที่ดีกันระหว่างนิสิตในชมรม KU Tech
-                    อีกด้วย
-                  </div>
-                </motion.div>
+                  {/* <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"> */}
+                  KU Tech คืออะไร ?{/* </span> */}
+                </Text>
+                <div className="text-[1.2rem] md:text-[1.5rem]">
+                  KU Tech คือ
+                  การรวมกลุ่มนิสิตที่มีความสนใจด้านเทคโนโลยีเข้าด้วยกันเพื่อสร้างและพัฒนาเทคโนโลยีที่สามารถใช้งานได้จริงและสร้างประโยชน์ต่อมหาวิทยาลัยและสังคม
+                  โดยให้เน้นการพัฒนาศักยภาพของนิสิตด้านเทคโนโลยี
+                  นอกจากนี้ยังเป็นที่รวบรวมนิสิตที่มีความสนใจด้านเทคโนโลยีเพื่อสร้างพื้นที่ในการแลกเปลี่ยนความรู้
+                  และสร้างความสัมพันธ์ที่ดีกันระหว่างนิสิตในชมรม KU Tech อีกด้วย
+                </div>
+              </motion.div>
+            </div>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <div className="flex flex-col items-center justify-center gap-5">
+              <Text b size={"$4xl"} className="rainbow clip-text">
+                กิจกรรม
+              </Text>
+              <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
+                {activitys.map((activity, index) => (
+                  <ActivityCard {...activity} key={index} />
+                ))}
               </div>
             </div>
-            <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="z-10 flex-col items-center"
-            >
-              <div className="flex flex-col items-center justify-center gap-5">
-                <Text b size={"$4xl"} className="rainbow clip-text">
-                  กิจกรรม
-                </Text>
-                <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
-                  {activitys.map((activity, index) => (
-                    <ActivityCard {...activity} key={index} />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="z-10 flex-col items-center"
-            >
-              <div className="flex flex-col items-center justify-center gap-5">
-                <Text b size={"$2xl"} className="rainbow clip-text">
-                  ช่องทางติดต่อ
-                </Text>
-                <div className="flex gap-5 text-white">
-                  <a
-                    href="https://www.facebook.com/profile.php?id=100090902166797"
-                    target="_blank"
-                  >
-                    <Icon
-                      icon="ic:baseline-facebook"
-                      className="text-[4rem] text-white "
-                    />
-                  </a>
-                  <a href="https://instagram.com/ku.t3ch" target="_blank">
-                    <Icon
-                      icon="mdi:instagram"
-                      className="text-[4rem] text-white "
-                    />
-                  </a>
-                  {/* <a href="">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <div className="flex flex-col items-center justify-center gap-5">
+              <Text b size={"$2xl"} className="rainbow clip-text">
+                ช่องทางติดต่อ
+              </Text>
+              <div className="flex gap-5 text-white">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100090902166797"
+                  target="_blank"
+                >
+                  <Icon
+                    icon="ic:baseline-facebook"
+                    className="text-[4rem] text-white "
+                  />
+                </a>
+                <a href="https://instagram.com/ku.t3ch" target="_blank">
+                  <Icon
+                    icon="mdi:instagram"
+                    className="text-[4rem] text-white "
+                  />
+                </a>
+                {/* <a href="">
                     <Icon
                       icon="ic:baseline-tiktok"
                       className="text-[4rem] text-white "
                     />
                   </a> */}
-                </div>
               </div>
-            </motion.div>
-          </div>
-          <Footer />
+            </div>
+          </motion.div>
         </div>
-      </WithNavbar>
+        <Footer />
+      </div>
     </>
   );
 };
