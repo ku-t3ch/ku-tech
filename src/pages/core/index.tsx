@@ -1,5 +1,4 @@
 import { NextPage, NextPageContext } from "next";
-import dynamic from "next/dynamic";
 
 import _ from "lodash";
 import { getToken } from "next-auth/jwt";
@@ -23,21 +22,15 @@ export async function getServerSideProps(ctx: NextPageContext) {
   };
 }
 
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
-
 interface Props {}
 
 const Core: NextPage<Props> = () => {
   return (
-    <WithNavbar>
-      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="flex w-full flex-col gap-5">
-          <ChangeProfileCore />
-        </div>
+    <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+      <div className="flex w-full flex-col gap-5">
+        <ChangeProfileCore />
       </div>
-    </WithNavbar>
+    </div>
   );
 };
 
