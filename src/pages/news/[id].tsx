@@ -64,7 +64,7 @@ const News: NextPage<Props> = ({ id, data }) => {
         description={shortDescription(data?.info?.content.text!)}
         openGraph={{
           title: data?.info?.title,
-          url: "http://kutech.club/news/" + id,
+          url: "http://tech.nisit.ku.ac.th/news/" + id,
           type: "website",
           description: shortDescription(data?.info?.content.text!),
           images: [
