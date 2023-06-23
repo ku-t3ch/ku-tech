@@ -15,7 +15,7 @@ const ImageCarousel: NextPage<Props> = () => {
       }}
     >
       {new Array(9).fill(0).map((_, i) => (
-        <SplideSlide className="relative overflow-hidden rounded-2xl">
+        <SplideSlide className="relative overflow-hidden rounded-2xl" key={i}>
           <Image
             className="h-[30rem] w-full object-cover"
             width={1500}
