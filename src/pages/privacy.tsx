@@ -234,7 +234,7 @@ const Privacy: NextPage<Props> = () => {
           </p>
           <p>อีเมล ku.t3ch@gmail.com</p>
           <p>
-            เว็บไซต์ <a href="https://kutech.club/">kutech.club</a>
+            เว็บไซต์ <a href="https://tech.nisit.ku.ac.th/">kutech.club</a>
           </p>
           <p>หมายเลขโทรศัพท์&nbsp;025790113</p>
           <p>

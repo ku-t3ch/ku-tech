@@ -12,7 +12,7 @@ const Contact: NextPage<Props> = () => {
         </Text>
 
         <Text className="prompt" size={"$2xl"}>
-          Website : <a href="https://kutech.club">kutech.club</a>
+          Website : <a href="https://tech.nisit.ku.ac.th">kutech.club</a>
           <br />
           Email : <a href="mailto:ku.t3ch@gmail.com">ku.t3ch@gmail.com</a>
           <br />

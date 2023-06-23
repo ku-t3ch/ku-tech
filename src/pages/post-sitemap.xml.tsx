@@ -3,7 +3,7 @@ import { prisma } from "@/server/db";
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
 
-const URL = "https://kutech.club";
+const URL = "https://tech.nisit.ku.ac.th";
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const { res } = ctx;

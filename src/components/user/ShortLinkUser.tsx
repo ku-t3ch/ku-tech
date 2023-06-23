@@ -24,8 +24,8 @@ const ShortLinkUser: NextPage<Props> = () => {
   };
 
   const clipboard = (item: ShortLink) => {
-    navigator.clipboard.writeText(`https://kutech.club/g/${item.short_link}`);
-    toast.success(`Copied https://kutech.club/g/${item.short_link}`);
+    navigator.clipboard.writeText(`https://tech.nisit.ku.ac.th/g/${item.short_link}`);
+    toast.success(`Copied https://tech.nisit.ku.ac.th/g/${item.short_link}`);
   };
 
   const URLValidator = async (_: any, value: any) => {
