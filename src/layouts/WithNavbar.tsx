@@ -9,8 +9,8 @@ interface Props {
 const WithNavbar: NextPage<Props> = ({ children }) => {
   return (
     <div className="flex h-screen flex-col">
-        <NavbarComponent />
-        {children}
+      <NavbarComponent />
+      {children}
     </div>
   );
 };

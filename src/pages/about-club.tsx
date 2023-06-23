@@ -1,16 +1,11 @@
-import { Text } from "@nextui-org/react";
 import { NextPage } from "next";
-import dynamic from "next/dynamic";
-
-const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
-  ssr: false,
-});
+import { Text } from "@nextui-org/react";
 
 interface Props {}
 
 const AboutClub: NextPage<Props> = () => {
   return (
-    <WithNavbar>
+    <>
       <div className="mx-auto flex max-w-[73rem] flex-col gap-10 md:gap-20 p-5 md:p-10">
         <div className="flex flex-col gap-3">
           <Text className="prompt" size={"$3xl"}>
@@ -37,7 +32,7 @@ const AboutClub: NextPage<Props> = () => {
           </Text>
         </div>
       </div>
-    </WithNavbar>
+    </>
   );
 };
 

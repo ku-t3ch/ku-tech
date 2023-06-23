@@ -1,9 +1,11 @@
-import { Button } from "@nextui-org/react";
-import { NextPage } from "next";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
+import { NextPage } from "next";
 import { useRouter } from "next/router";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { signIn } from "next-auth/react";
+
+import { Button } from "@nextui-org/react";
 
 interface Props {}
 
@@ -24,7 +26,10 @@ const SignIn: NextPage<Props> = () => {
         >
           Sign with Google (@ku.th)
         </Button>
-        <Link href={"/"} className="text-red-400 text-lg"><ChevronLeftIcon />กลับหน้าหลัก</Link>
+        <Link href={"/"} className="text-lg text-red-400">
+          <ChevronLeftIcon />
+          กลับหน้าหลัก
+        </Link>
       </div>
     </div>
   );

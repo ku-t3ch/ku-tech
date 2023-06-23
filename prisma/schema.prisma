@@ -80,6 +80,9 @@ model Tag {
     request_user Request[]
     tag_type_id  String?
     tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
+    parentTag    Tag? @relation("TagRelationId", fields: [parentTagId], references: [id])
+    parentTagId String?
+    childTags    Tag[] @relation("TagRelationId")
 }
 
 model TagType {
