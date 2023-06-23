@@ -11,6 +11,7 @@ import { Text } from "@nextui-org/react";
 import Footer from "@/components/Footer";
 import JoinClubBtn from "@/components/JoinClubBtn";
 import ActivityCard from "@/components/home/ActivityCard";
+import ImageCarousel from "@/components/home/ImageCarousel";
 
 const activitys = [
   {
@@ -129,6 +130,20 @@ const Home: NextPage = () => {
                   <ActivityCard {...activity} key={index} />
                 ))}
               </div>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <div className="flex flex-col items-center justify-center gap-5">
+              <Text b size={"$4xl"} className="rainbow clip-text">
+                ภาพถ่ายกิจกรรม
+              </Text>
+              <ImageCarousel />
             </div>
           </motion.div>
           <motion.div
