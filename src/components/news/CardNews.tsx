@@ -28,10 +28,14 @@ const CardNews: NextPage<Props> = ({ isRequest = false, info }) => {
         <Card.Body css={{ p: 0 }}>
           <div className="h-[20rem]" style={{ position: "relative" }}>
             <Image
-              src={info.cover.url}
-              alt=""
+              className="object-cover"
+              width={0}
+              height={0}
+              loading="lazy"
               fill
-              style={{ objectFit: "cover" }}
+              sizes="100vw"
+              src={info.cover.url}
+              alt={info.title}
             />
           </div>
         </Card.Body>

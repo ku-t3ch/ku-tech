@@ -9,6 +9,7 @@ import { NextPage, NextPageContext } from "next";
 import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 
 import { Text } from "@nextui-org/react";
+import Image from "next/image";
 
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
@@ -125,10 +126,14 @@ const News: NextPage<Props> = ({ id, data }) => {
               })}
             </div>
           </div>
-          <img
-            className="h-full w-full object-contain md:max-w-md "
-            src={data?.info?.cover.url}
-            alt=""
+          <Image
+            className="h-full w-full object-contain md:max-w-md"
+            width={0}
+            height={0}
+            loading="lazy"
+            sizes="100vw"
+            src={data?.info?.cover.url!}
+            alt={data?.info?.title!}
           />
           <div className="prose-dark">
             <div
