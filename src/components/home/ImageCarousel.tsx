@@ -18,10 +18,9 @@ const ImageCarousel: NextPage<Props> = () => {
         <SplideSlide className="relative overflow-hidden rounded-2xl" key={i}>
           <Image
             className="h-[30rem] w-full object-cover"
-            width={1500}
+            width={1080} height={1920}
             src={`/activities/${i + 1}.jpg`}
             alt={`Image ${i + 1}`}
-            height={1500}
           />
           <div
             className={clsx(
