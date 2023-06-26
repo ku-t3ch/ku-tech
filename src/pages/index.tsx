@@ -99,7 +99,7 @@ const Home: NextPage = () => {
               >
                 <Text
                   b
-                  className="rainbow clip-text text-[2rem] transition-all duration-200 md:text-[3rem]"
+                  className=" text-[2rem] transition-all duration-200 md:text-[3rem]"
                 >
                   {/* <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"> */}
                   KU Tech คืออะไร ?{/* </span> */}
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
             className="z-10 flex-col items-center"
           >
             <div className="flex flex-col items-center justify-center gap-5">
-              <Text b size={"$4xl"} className="rainbow clip-text">
+              <Text b size={"$4xl"} className="">
                 กิจกรรม
               </Text>
               <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
@@ -140,7 +140,7 @@ const Home: NextPage = () => {
             className="z-10 flex-col items-center"
           >
             <div className="flex flex-col items-center justify-center gap-5">
-              <Text b size={"$4xl"} className="rainbow clip-text">
+              <Text b size={"$4xl"} className="">
                 ภาพถ่ายกิจกรรม
               </Text>
               <ImageCarousel />
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
             className="z-10 flex-col items-center"
           >
             <div className="flex flex-col items-center justify-center gap-5">
-              <Text b size={"$2xl"} className="rainbow clip-text">
+              <Text b size={"$2xl"} className="">
                 ช่องทางติดต่อ
               </Text>
               <div className="flex gap-5 text-white">

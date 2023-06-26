@@ -39,7 +39,7 @@ const NavbarComponent: NextPage<Props> = () => {
         <Text hideIn={"sm"}>
           <Image src={LogoIcon} alt="ku tech logo" width={50} />
         </Text>
-        <Text b size={"$2xl"} className="ml-3 rainbow clip-text" color="inherit">
+        <Text b size={"$2xl"} className="ml-3 " color="inherit">
           KU Tech
         </Text>
       </Navbar.Brand>
