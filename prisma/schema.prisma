@@ -8,29 +8,29 @@ datasource db {
 }
 
 model Request {
-    id            String   @id @default(cuid())
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-    first_name_th String?  @unique
-    last_name_th  String?  @unique
-    first_name_en String?  @unique
-    last_name_en  String?  @unique
-    nick_name     String?
-    ojectives     String?
-    email         String?  @unique
-    year          Int?
-    faculty       String?
-    major         String?
-    image_path    String?  @unique
-    google_id     String?  @unique
-    discord_tag   String?
-    google_email  String?
-    is_approved   Boolean? @default(false)
-    email_history Email[]
-    tags          Tag[]
+    id                           String      @id @default(cuid())
+    createdAt                    DateTime    @default(now())
+    updatedAt                    DateTime    @updatedAt
+    first_name_th                String?     @unique
+    last_name_th                 String?     @unique
+    first_name_en                String?     @unique
+    last_name_en                 String?     @unique
+    nick_name                    String?
+    ojectives                    String?
+    email                        String?     @unique
+    year                         Int?
+    faculty                      String?
+    major                        String?
+    image_path                   String?     @unique
+    google_id                    String?     @unique
+    discord_tag                  String?
+    google_email                 String?
+    is_approved                  Boolean?    @default(false)
+    email_history                Email[]
+    tags                         Tag[]
     core_team_profile_image_path String?
-    isActive      Boolean? @default(true)
-    short_link    ShortLink[]
+    isActive                     Boolean?    @default(true)
+    short_link                   ShortLink[]
 }
 
 model Email {
@@ -80,9 +80,9 @@ model Tag {
     request_user Request[]
     tag_type_id  String?
     tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
-    parentTag    Tag? @relation("TagRelationId", fields: [parentTagId], references: [id])
-    parentTagId String?
-    childTags    Tag[] @relation("TagRelationId")
+    parentTag    Tag?      @relation("TagRelationId", fields: [parentTagId], references: [id])
+    parentTagId  String?
+    childTags    Tag[]     @relation("TagRelationId")
 }
 
 model TagType {
@@ -110,13 +110,65 @@ model WebConfig {
 }
 
 model ShortLink {
-    id            String   @id @default(cuid())
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-    original_link String?  @unique
-    short_link    String?  @unique
-    request_user  Request? @relation(fields: [request_user_id], references: [id])
+    id              String   @id @default(cuid())
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    original_link   String?  @unique
+    short_link      String?  @unique
+    request_user    Request? @relation(fields: [request_user_id], references: [id])
     request_user_id String?
-    is_active     Boolean? @default(false)
-    count         Int?     @default(0)
+    is_active       Boolean? @default(false)
+    count           Int?     @default(0)
+}
+
+// budget section
+
+model Budget {
+    id             String    @id @default(cuid())
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+    name           String?
+    amount         Float?
+    is_active      Boolean?  @default(true)
+    budget_type_id String?
+    projectUse     Project[]
+}
+
+model Project {
+    id           String        @id @default(cuid())
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    name         String?
+    amount       Float?
+    is_active    Boolean?      @default(true)
+    project_type ProjectType[]
+    budgetUse    Budget[]
+    spendingUse  Spending[]
+}
+
+model ProjectType {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    name      String?
+    project   Project[]
+}
+
+model Spending {
+    id            String         @id @default(cuid())
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    name          String?
+    amount        Float?
+    is_active     Boolean?       @default(true)
+    spending_type SpendingType[]
+    projectUse    Project[]
+}
+
+model SpendingType {
+    id        String     @id @default(cuid())
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    name      String?
+    spending  Spending[]
 }
