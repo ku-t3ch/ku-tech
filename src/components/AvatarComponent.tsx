@@ -35,7 +35,7 @@ const AvatarComponent: NextPage<AvatarComponentProps> = ({
       <div id={id ?? "default"} className="flex flex-col items-center justify-center gap-1 z-0 max-w-[21rem] min-w-[18rem] pt-4 pb-6 relative">
         <Avatar
           css={{ size: "$20" }}
-          src={core_team_profile_image_path ? `https://s3.kutech.club/production-core-team/${core_team_profile_image_path}` : `/avatar.png`}
+          src={core_team_profile_image_path ? `https://s3.tech.nisit.ku.ac.th/core-team/${core_team_profile_image_path}` : `/avatar.png`}
           color="primary"
           bordered
         />

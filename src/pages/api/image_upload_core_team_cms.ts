@@ -117,11 +117,11 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
         region: "ap-southeast-1",
       });
 
-      logger.info(`upload : ${env.S3_ENV_TYPE}-core-team/${token.sub}.png`);
+      logger.info(`upload : core-team/${token.sub}.png`);
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: `${env.S3_ENV_TYPE}-core-team`,
+          Bucket: `core-team`,
           Key: `${token.sub}.png`,
           Body: await constraintImage(file.data),
         })

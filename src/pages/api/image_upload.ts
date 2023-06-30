@@ -105,11 +105,11 @@ const handler = nc<FileUploadRequest, NextApiResponse>({
           },
         });
       }
-      logger.info(`upload : ${env.S3_ENV_TYPE}-idcard/${dbData.image_path!}`);
+      logger.info(`upload : idcard/${dbData.image_path!}`);
 
       await s3.send(
         new PutObjectCommand({
-          Bucket: `${env.S3_ENV_TYPE}-idcard`,
+          Bucket: `idcard`,
           Key: dbData.image_path!,
           Body: await constraintImage(file.data),
         })
