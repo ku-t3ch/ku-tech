@@ -18,7 +18,7 @@ const navbarItems: NavItem[] = [
   {
     to: '/join',
     label: 'สมัครสมาชิก',
-    onlyNotRegisterd: true,
+    onlyNotRegistered: true,
   },
   {
     to: '/',
@@ -111,7 +111,7 @@ const NavbarComponent: NextPage<{}> = () => {
           if (v.onlyMember && !session?.user.isMember) return null!;
 
           // require not registered
-          if (v.onlyNotRegisterd && session?.user.isMember) return null!;
+          if (v.onlyNotRegistered && session?.user.isMember) return null!;
 
           if (!v.dropdownItems) {
             return (
@@ -168,7 +168,7 @@ const NavbarComponent: NextPage<{}> = () => {
                         return null!;
 
                       // require not registered
-                      if (v.onlyNotRegisterd && session?.user.isMember)
+                      if (v.onlyNotRegistered && session?.user.isMember)
                         return null!;
 
                       return (
@@ -203,7 +203,7 @@ const NavbarComponent: NextPage<{}> = () => {
           if (v.onlyMember && !session?.user.isMember) return null!;
 
           // require not registered
-          if (v.onlyNotRegisterd && session?.user.isMember) return null!;
+          if (v.onlyNotRegistered && session?.user.isMember) return null!;
 
           if (!v.dropdownItems) {
             return (
@@ -266,7 +266,7 @@ const NavbarComponent: NextPage<{}> = () => {
                         return null!;
 
                       // require not registered
-                      if (v.onlyNotRegisterd && session?.user.isMember)
+                      if (v.onlyNotRegistered && session?.user.isMember)
                         return null!;
 
                       return (

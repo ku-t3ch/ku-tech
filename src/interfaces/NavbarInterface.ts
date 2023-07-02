@@ -4,7 +4,7 @@ export interface NavItem {
     to: string;
     label: string;
     onlyMember?: boolean;
-    onlyNotRegisterd?: boolean;
+    onlyNotRegistered?: boolean;
     dropdownItems?: DropdownItem[];
     newTab?: boolean;
 }
