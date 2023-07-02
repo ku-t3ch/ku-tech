@@ -1,6 +1,5 @@
-import Footer from "@/components/Footer";
-import NavbarComponent from "@/components/Navbar";
-import { NextPage } from "next";
+import { NextPage } from 'next';
+import NavbarComponent from '@/components/Navbar';
 
 interface Props {
   children: React.ReactNode;

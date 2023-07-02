@@ -1,140 +1,302 @@
-import { NextPage } from "next";
-import { Navbar, Text, Link, Dropdown, Avatar } from "@nextui-org/react";
-import Image from "next/image";
-import LogoIcon from "@/assets/KU-TECH-Logo-TW.png";
-import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
-import React, { useState } from "react";
-import { Icon } from "@iconify/react";
-import { useRecoilState } from "recoil";
-import { scrollSelectState } from "@/store/scrollTriger";
+import Image from 'next/image';
+import LogoIcon from '@/assets/KU-TECH-Logo-TW.png';
 
-interface Props { }
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/react';
 
-const NavbarComponent: NextPage<Props> = () => {
+import { type NavItem } from '@/interfaces/NavbarInterface';
+
+import { Icon } from '@iconify/react';
+import { Navbar, Text, Dropdown, Avatar, Link } from '@nextui-org/react';
+
+const navbarItems: NavItem[] = [
+  {
+    to: '/',
+    label: 'หน้าแรก',
+  },
+  {
+    to: '/join',
+    label: 'สมัครสมาชิก',
+    onlyNotRegistered: true,
+  },
+  {
+    to: '/',
+    label: 'ข่าวสารชมรม',
+    dropdownItems: [
+      {
+        to: '/news',
+        label: 'General News',
+        icon: <Icon icon="mingcute:announcement-line" />,
+        description: 'ข่าวสารทั่วไปเกี่ยวกับชมรม',
+      },
+      {
+        to: '/join',
+        label: 'Member News',
+        icon: <Icon icon="iconamoon:news" />,
+        description: 'ข่าวสารสำหรับสมาชิกภายในชมรม',
+        onlyMember: true,
+      },
+    ],
+  },
+  {
+    to: '/',
+    label: 'ระบบบริการสมาชิก',
+    onlyMember: true,
+    dropdownItems: [
+      {
+        to: '/user/short-link',
+        icon: <Icon icon="gg:link" />,
+        label: 'Shortcut Link',
+        description: 'ระบบย่อลิงก์สำหรับสมาชิกชมรม',
+      },
+    ],
+  },
+  {
+    to: '/members',
+    label: 'สมาชิกชมรม',
+  },
+  {
+    to: '/contact',
+    label: 'ติดต่อเรา',
+    dropdownItems: [
+      {
+        to: 'https://tech.nisit.ku.ac.th',
+        icon: <Icon icon="mdi:web" />,
+        label: 'Website',
+        description: 'tech.nisit.ku.ac.th',
+      },
+      {
+        to: 'mailto:ku.t3ch@gmail.com',
+        icon: <Icon icon="tabler:mail" />,
+        label: 'Email',
+        description: 'ku.t3ch@gmail.com',
+      },
+      {
+        to: 'https://www.facebook.com/ku.t3ch',
+        icon: <Icon icon="ic:baseline-facebook" />,
+        label: 'Facebook',
+        description: 'KU Tech',
+        newTab: true,
+      },
+      {
+        to: 'https://www.instagram.com/ku.t3ch/',
+        icon: <Icon icon="mdi:instagram" />,
+        label: 'Instagram',
+        description: 'ku.t3ch',
+        newTab: true,
+      },
+    ],
+  },
+];
+
+const NavbarComponent: NextPage<{}> = () => {
   const { push, pathname } = useRouter();
   const { data: session, status } = useSession();
 
-  const [dropdownItems, setDropdownItems] = useState<
-    {
-      name: string;
-      href: string;
-      coreProtected?: boolean;
-      isMobile?: boolean;
-      isMember?: boolean;
-    }[]
-  >([
-    {
-      name: "ย่อลิงก์",
-      href: "/user/short-link"
-    }
-  ])
-
-  const [targetScroll, setTargetScroll] = useRecoilState(scrollSelectState);
-
   return (
     <Navbar isBordered variant="sticky" className="bg-transparent">
-      <Navbar.Brand onClick={() => push("/")} className="cursor-pointer">
-        <Navbar.Toggle showIn={"sm"} aria-label="toggle navigation" />
-        <Text hideIn={"sm"}>
+      <Navbar.Brand onClick={() => push('/')} className="cursor-pointer">
+        <Navbar.Toggle showIn={'sm'} aria-label="toggle navigation" />
+        <Text hideIn={'sm'}>
           <Image src={LogoIcon} alt="ku tech logo" width={50} />
         </Text>
-        <Text b size={"$2xl"} className="ml-3 " color="inherit">
+        <Text b size={'$2xl'} className="ml-3 " color="inherit">
           KU Tech
         </Text>
       </Navbar.Brand>
-      <Navbar.Content
-        enableCursorHighlight
-        hideIn="sm"
-        variant="default"
-      >
-        <Navbar.Link
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            setTargetScroll((pre) => ({ ...pre, target: null }));
-            push("/");
-          }}
-          isActive={pathname === "/"}
-          key={0}
-        >
-          หน้าแรก
-        </Navbar.Link>
+      <Navbar.Content enableCursorHighlight hideIn="sm" variant="default">
+        {navbarItems?.map((v, idx) => {
+          // require isMember
+          if (v.onlyMember && !session?.user.isMember) return null!;
 
-        <Navbar.Link
-          href="/join"
-          onClick={(e) => {
-            e.preventDefault();
-            setTargetScroll((pre) => ({ ...pre, target: null }));
-            push("/join");
-          }}
-          isActive={pathname === "/join"}
-          key={1}
-        >
-          {session?.user.isMember ? "ประกาศ" : "สมัครสมาชิก"}
-        </Navbar.Link>
+          // require not registered
+          if (v.onlyNotRegistered && session?.user.isMember) return null!;
 
-        <Navbar.Link
-          href="/news"
-          onClick={(e) => {
-            e.preventDefault();
-            setTargetScroll((pre) => ({ ...pre, target: null }));
-            push("/news");
-          }}
-          isActive={pathname === "/news"}
-          key={2}
-        >
-          ข่าวสาร
-        </Navbar.Link>
+          if (!v.dropdownItems) {
+            return (
+              <Navbar.Link
+                key={idx}
+                href={v.to.toString()}
+                isActive={v.to === pathname}
+              >
+                {v.label}
+              </Navbar.Link>
+            );
+          } else {
+            return (
+              <Navbar.Item key={idx}>
+                <Dropdown>
+                  <Dropdown.Button
+                    css={{
+                      px: 0,
+                    }}
+                    auto
+                    light
+                    ripple={false}
+                  >
+                    {v.label}
+                  </Dropdown.Button>
+                  <Dropdown.Menu
+                    containerCss={{
+                      border: '0.25px solid #2E3941',
+                    }}
+                    css={{
+                      $$dropdownMenuWidth: '300px',
+                      $$dropdownItemHeight: '50px',
+                      '& .nextui-dropdown-item': {
+                        py: '$4',
+                        color: '#fff',
+                        // dropdown item left icon
+                        svg: {
+                          color: '#3694FF',
+                          mr: '$4',
+                          fontSize: '$2xl',
+                        },
+                        // dropdown item title
+                        '& .nextui-dropdown-item-content': {
+                          w: '100%',
+                          fontSize: '$sm',
+                          fontWeight: '$bold',
+                        },
+                      },
+                    }}
+                  >
+                    {(v?.dropdownItems ?? []).map((dropdown, idx) => {
+                      // require isMember
+                      if (dropdown.onlyMember && !session?.user.isMember)
+                        return null!;
 
-        <Navbar.Link
-          href="/members"
-          onClick={(e) => {
-            e.preventDefault();
-            setTargetScroll((pre) => ({ ...pre, target: null }));
-            push("/members");
-          }}
-          isActive={pathname === "/members"}
-          key={3}
-        >
-          สมาชิก
-        </Navbar.Link>
+                      // require not registered
+                      if (v.onlyNotRegistered && session?.user.isMember)
+                        return null!;
 
-        <Navbar.Link
-          href="/contact"
-          onClick={(e) => {
-            e.preventDefault();
-            setTargetScroll((pre) => ({ ...pre, target: null }));
-            push("/contact");
-          }}
-          isActive={pathname === "/contact"}
-          key={4}
-        >
-          ติดต่อเรา
-        </Navbar.Link>
-
-        {session?.user.isMember && status === "authenticated" ? (
-          <Navbar.Link>
-            <Dropdown>
-              <Navbar.Item >
-                <Dropdown.Trigger>
-                  ระบบ
-                </Dropdown.Trigger>
+                      return (
+                        <Dropdown.Item
+                          key={idx}
+                          showFullDescription
+                          description={dropdown.description}
+                          icon={dropdown.icon}
+                        >
+                          <div
+                            className="absolute top-0 left-0 h-full w-full"
+                            onClick={() =>
+                              dropdown.newTab
+                                ? window.open(dropdown.to, '_blank')
+                                : push(dropdown.to)
+                            }
+                          />
+                          {dropdown.label}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
               </Navbar.Item>
-              <Dropdown.Menu aria-label="User menu actions" color="secondary">
-                {dropdownItems.map((item, index) => (
-                  <Dropdown.Item key={index} color="primary">
-                    <div onClick={() => push(item.href)}>{item.name}</div>
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          </Navbar.Link>
-        ) : null!}
+            );
+          }
+        })}
       </Navbar.Content>
+      <Navbar.Collapse>
+        {navbarItems?.map((v, idx) => {
+          // require isMember
+          if (v.onlyMember && !session?.user.isMember) return null!;
 
+          // require not registered
+          if (v.onlyNotRegistered && session?.user.isMember) return null!;
+
+          if (!v.dropdownItems) {
+            return (
+              <Navbar.CollapseItem key={idx} isActive={v.to === pathname}>
+                <Link
+                  href={v.to.toString()}
+                  css={{
+                    color: '$white',
+                    fontSize: '$lg',
+                    fontWeight: '$normal',
+                  }}
+                >
+                  {v.label}
+                </Link>
+              </Navbar.CollapseItem>
+            );
+          } else {
+            return (
+              <Navbar.CollapseItem key={idx}>
+                <Dropdown>
+                  <Dropdown.Button
+                    css={{
+                      px: 0,
+                      fontSize: '$lg',
+                    }}
+                    auto
+                    light
+                    ripple={false}
+                  >
+                    {v.label}
+                  </Dropdown.Button>
+                  <Dropdown.Menu
+                    containerCss={{
+                      border: '0.25px solid #2E3941',
+                    }}
+                    css={{
+                      $$dropdownMenuWidth: '300px',
+                      $$dropdownItemHeight: '50px',
+                      '& .nextui-dropdown-item': {
+                        py: '$4',
+                        color: '#fff',
+                        // dropdown item left icon
+                        svg: {
+                          color: '#3694FF',
+                          mr: '$4',
+                          fontSize: '$2xl',
+                        },
+                        // dropdown item title
+                        '& .nextui-dropdown-item-content': {
+                          w: '100%',
+                          fontSize: '$sm',
+                          fontWeight: '$bold',
+                        },
+                      },
+                    }}
+                  >
+                    {(v?.dropdownItems ?? []).map((dropdown, idx) => {
+                      // require isMember
+                      if (dropdown.onlyMember && !session?.user.isMember)
+                        return null!;
+
+                      // require not registered
+                      if (v.onlyNotRegistered && session?.user.isMember)
+                        return null!;
+
+                      return (
+                        <Dropdown.Item
+                          key={idx}
+                          showFullDescription
+                          description={dropdown.description}
+                          icon={dropdown.icon}
+                        >
+                          <div
+                            className="absolute top-0 left-0 h-full w-full"
+                            onClick={() =>
+                              dropdown.newTab
+                                ? window.open(dropdown.to, '_blank')
+                                : push(dropdown.to)
+                            }
+                          />
+                          {dropdown.label}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Navbar.CollapseItem>
+            );
+          }
+        })}
+      </Navbar.Collapse>
       <Navbar.Content>
-        {status === "authenticated" ? (
+        {status === 'authenticated' ? (
           <>
             {session.user.given_name}
             <Dropdown placement="bottom-right">
@@ -153,26 +315,32 @@ const NavbarComponent: NextPage<Props> = () => {
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>
-              <Dropdown.Menu aria-label="User menu actions" color="secondary" disabledKeys={["profile"]}>
-                <Dropdown.Item key="profile" css={{ height: "$18" }} >
-                  <Text b color="gray" css={{ d: "flex" }}>
+              <Dropdown.Menu
+                aria-label="User menu actions"
+                color="secondary"
+                disabledKeys={['profile']}
+              >
+                <Dropdown.Item key="profile" css={{ height: '$18' }}>
+                  <Text b color="gray" css={{ d: 'flex' }}>
                     Signed in as
                   </Text>
-                  <Text b color="gray" css={{ d: "flex" }}>
+                  <Text b color="gray" css={{ d: 'flex' }}>
                     {session.user.email}
                   </Text>
                 </Dropdown.Item>
 
                 {session?.user.isCoreTeam ? (
                   <Dropdown.Item key="core" withDivider color="primary">
-                    <div onClick={() => push("/core")}>โพรไฟล์</div>
+                    <div onClick={() => push('/core')}>โพรไฟล์</div>
                   </Dropdown.Item>
                 ) : (
                   null!
                 )}
 
                 <Dropdown.Item key="logout" withDivider color="error">
-                  <div onClick={() => signOut()}>ล็อกเอาท์</div>
+                  <div onClick={() => signOut()} className="font-bold">
+                    ล็อกเอาท์
+                  </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -190,102 +358,6 @@ const NavbarComponent: NextPage<Props> = () => {
           </a>
         )}
       </Navbar.Content>
-      <Navbar.Collapse>
-        <Navbar.CollapseItem key={0}>
-          <Link
-            color="inherit"
-            css={{
-              minWidth: "100%",
-            }}
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              push("/");
-            }}
-          >
-            หน้าแรก
-          </Link>
-        </Navbar.CollapseItem>
-        <Navbar.CollapseItem key={1}>
-          <Link
-            color="inherit"
-            css={{
-              minWidth: "100%",
-            }}
-            href="/join"
-            onClick={(e) => {
-              e.preventDefault();
-              push("/join");
-            }}
-          >
-            {session?.user.isMember ? "ประกาศ" : "สมัครสมาชิก"}
-          </Link>
-        </Navbar.CollapseItem>
-        <Navbar.CollapseItem key={2}>
-          <Link
-            color="inherit"
-            css={{
-              minWidth: "100%",
-            }}
-            href="/news"
-            onClick={(e) => {
-              e.preventDefault();
-              push("/news");
-            }}
-          >
-            ข่าวสาร
-          </Link>
-        </Navbar.CollapseItem>
-        <Navbar.CollapseItem key={3}>
-          <Link
-            color="inherit"
-            css={{
-              minWidth: "100%",
-            }}
-            href="/members"
-            onClick={(e) => {
-              e.preventDefault();
-              push("/members");
-            }}
-          >
-            สมาชิก
-          </Link>
-        </Navbar.CollapseItem>
-        <Navbar.CollapseItem key={4}>
-          <Link
-            color="inherit"
-            css={{
-              minWidth: "100%",
-            }}
-            href="/contact"
-            onClick={(e) => {
-              e.preventDefault();
-              push("/contact");
-            }}
-          >
-            ติดต่อเรา
-          </Link>
-        </Navbar.CollapseItem>
-        {session?.user.isMember && status === "authenticated" ? (
-          dropdownItems.map((item, index) => (
-            <Navbar.CollapseItem key={5+index}>
-              <Link
-                color="inherit"
-                css={{
-                  minWidth: "100%",
-                }}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  push(item.href);
-                }}
-              >
-                ระบบ: {item.name}
-              </Link>
-            </Navbar.CollapseItem>
-          ))
-        ) : null!}
-      </Navbar.Collapse>
     </Navbar>
   );
 };
