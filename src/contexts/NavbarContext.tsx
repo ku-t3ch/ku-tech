@@ -22,7 +22,6 @@ const withNavbar: Array<string> = [
   '/404',
   '/about-club',
   '/activities',
-  '/contact',
   '/events',
   '/join',
   '/members',
