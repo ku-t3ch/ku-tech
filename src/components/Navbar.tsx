@@ -20,21 +20,28 @@ const navbarItems: NavItem[] = [
     label: 'สมัครสมาชิก',
     onlyNotRegistered: true,
   },
+
   {
     to: '/',
-    label: 'ข่าวสารชมรม',
+    label: 'ข่าวสาร',
     dropdownItems: [
       {
         to: '/news',
         label: 'General News',
         icon: <Icon icon="mingcute:announcement-line" />,
-        description: 'ข่าวสารทั่วไปเกี่ยวกับชมรม',
+        description: 'ข่าวสารทั่วไป',
+      },
+      {
+        to: '/projects-budget',
+        label: 'Projects Budget',
+        icon: <Icon icon="material-symbols:paid-outline" />,
+        description: 'โครงการและงบประมาณต่างๆของชมรม',
       },
       {
         to: '/join',
         label: 'Member News',
         icon: <Icon icon="iconamoon:news" />,
-        description: 'ข่าวสารสำหรับสมาชิกภายในชมรม',
+        description: 'ข่าวสารสำหรับสมาชิก',
         onlyMember: true,
       },
     ],
@@ -319,6 +326,9 @@ const NavbarComponent: NextPage<{}> = () => {
                 aria-label="User menu actions"
                 color="secondary"
                 disabledKeys={['profile']}
+                containerCss={{
+                  border: '0.25px solid #2E3941',
+                }}
               >
                 <Dropdown.Item key="profile" css={{ height: '$18' }}>
                   <Text b color="gray" css={{ d: 'flex' }}>
