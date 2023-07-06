@@ -32,12 +32,6 @@ const navbarItems: NavItem[] = [
         description: 'ข่าวสารทั่วไป',
       },
       {
-        to: '/projects-budget',
-        label: 'Projects Budget',
-        icon: <Icon icon="material-symbols:paid-outline" />,
-        description: 'โครงการและงบประมาณต่างๆของชมรม',
-      },
-      {
         to: '/join',
         label: 'Member News',
         icon: <Icon icon="iconamoon:news" />,
