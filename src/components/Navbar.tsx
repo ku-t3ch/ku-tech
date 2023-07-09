@@ -66,6 +66,12 @@ const navbarItems: NavItem[] = [
         icon: <Icon icon="material-symbols:imagesmode-outline" />,
         description: "ตราสัญลักษณ์ของชมรม",
       },
+      {
+        to: "/documents-download",
+        label: "เอกสารชมรม",
+        icon: <Icon icon="mdi:file-document-outline" />,
+        description: "เอกสารต่างๆ ของชมรม",
+      },
     ],
   },
   {
