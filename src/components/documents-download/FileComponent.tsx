@@ -23,7 +23,7 @@ const FileComponent: NextPage<Props> = ({ document: documentFile }) => {
   };
 
   return (
-    <div className="flex w-full flex-row justify-between gap-2 md:gap-5">
+    <div className="flex w-full flex-col lg:flex-row justify-between gap-2 md:gap-5">
       <div className="flex gap-5 items-center">
         <div className="w-[48px]">
           <FileIcon extension={fileMimeTypeToType(documentFile.file[0]!.mimeType!)!} type="document" color="aliceblue" />
