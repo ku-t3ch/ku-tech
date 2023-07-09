@@ -30,6 +30,8 @@ const withNavbar: Array<string> = [
   '/works',
   '/core',
   '/user/short-link',
+  '/logo',
+  '/documents-download',
 ];
 
 export const NavbarContextProvider: NextPage<Props> = ({ children }) => {
