@@ -33,6 +33,7 @@ const activitys = [
     ),
     title: "KU Tech Camp",
     content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
+    href: "https://camp.tech.nisit.ku.ac.th",
   },
   {
     icon: (
