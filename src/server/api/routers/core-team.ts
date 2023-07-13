@@ -49,7 +49,7 @@ export const coreTeamRouter = createTRPCRouter({
         ...tag,
         request_user: tag.request_user.map((request_user) => ({
             ...request_user,
-            core_team_profile_image_path: imageBaseUrl + request_user.core_team_profile_image_path,
+            core_team_profile_image_path: request_user.core_team_profile_image_path ? imageBaseUrl + request_user.core_team_profile_image_path : null,
         }))
       })),
     }));
