@@ -26,9 +26,11 @@ export const coreRouter = createTRPCRouter({
         region: "ap-southeast-1",
       });
 
+      const Bucket = env.S3_ENV_TYPE === "development" ? "core-team-development" : "core-team"
+
       await s3.send(
         new DeleteObjectCommand({
-          Bucket: "core-team",
+          Bucket: Bucket,
           Key: `${ctx.session?.user.sub}.png`,
         })
       );

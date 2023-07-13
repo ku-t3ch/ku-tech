@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { prisma } from "@/server/db";
+import { env } from "@/env.mjs";
 
 export const coreTeamRouter = createTRPCRouter({
   get: publicProcedure.query(async ({ ctx }) => {
@@ -34,11 +35,23 @@ export const coreTeamRouter = createTRPCRouter({
               select: {
                 name: true,
               },
-            }
+            },
           },
         },
       },
     });
-    return coreTeam;
+
+    const imageBaseUrl = env.S3_ENV_TYPE === "development" ? "https://s3.tech.nisit.ku.ac.th/core-team-development/" : "https://s3.tech.nisit.ku.ac.th/core-team/"
+
+    return coreTeam.map((coreTeam) => ({
+      ...coreTeam,
+      tags: coreTeam.tags.map((tag) => ({
+        ...tag,
+        request_user: tag.request_user.map((request_user) => ({
+            ...request_user,
+            core_team_profile_image_path: request_user.core_team_profile_image_path ? imageBaseUrl + request_user.core_team_profile_image_path : null,
+        }))
+      })),
+    }));
   }),
 });

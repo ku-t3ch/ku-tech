@@ -319,7 +319,7 @@ const NavbarComponent: NextPage<{}> = () => {
                     size="md"
                     src={
                       session.user.customProfileImage
-                        ? `https://s3.tech.nisit.ku.ac.th/core-team/${session.user.customProfileImage}`
+                        ? session.user.customProfileImage
                         : session.user.picture
                     }
                   />

@@ -1,9 +1,5 @@
 import { type GetServerSidePropsContext } from "next";
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-} from "next-auth";
+import { getServerSession, type NextAuthOptions, type DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "@/env.mjs";
@@ -117,15 +113,21 @@ export const authOptions: NextAuthOptions = {
         };
       } else {
         const isCoreTeam =
-          userData?.tags.filter((tag) => tag.tag_type?.name === "core-team")
-            .length! > 0 || false;
+          userData?.tags.filter((tag) => tag.tag_type?.name === "core-team").length! > 0 || false;
+
+        const imageBaseUrl =
+          env.S3_ENV_TYPE === "development"
+            ? "https://s3.tech.nisit.ku.ac.th/core-team-development/"
+            : "https://s3.tech.nisit.ku.ac.th/core-team/";
 
         return {
           ...token,
           ...profile,
           isCoreTeam,
           isMember: userData?.is_approved || false,
-          customProfileImage: userData?.core_team_profile_image_path || null,
+          customProfileImage: userData?.core_team_profile_image_path
+            ? imageBaseUrl + userData?.core_team_profile_image_path
+            : null,
         };
       }
     },
