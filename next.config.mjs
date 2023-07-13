@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.activities/techcamp/01/1.jpg
  * This is especially useful for Docker builds.
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
@@ -20,6 +20,10 @@ const config = {
       {
         protocol: "https",
         hostname: "media.graphassets.com",
+      },
+      {
+        protocol: "https",
+        hostname: "s3.tech.nisit.ku.ac.th",
       },
     ],
   },
