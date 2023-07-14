@@ -11,10 +11,10 @@ model Request {
     id                           String      @id @default(cuid())
     createdAt                    DateTime    @default(now())
     updatedAt                    DateTime    @updatedAt
-    first_name_th                String?     @unique
-    last_name_th                 String?     @unique
-    first_name_en                String?     @unique
-    last_name_en                 String?     @unique
+    first_name_th                String?  
+    last_name_th                 String?  
+    first_name_en                String?  
+    last_name_en                 String?  
     nick_name                    String?
     ojectives                    String?
     email                        String?     @unique
