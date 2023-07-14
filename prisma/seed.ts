@@ -1,15 +1,28 @@
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
+
 async function main() {
-  const budget1 = await prisma.budget.create({
+  await prisma.budget.create({
     data: {
-      name: "Budget 1",
+      name: "งบประมาณประจำปี 2566",
       amount: 120_000,
+      projectUse: {
+        create: [
+          {
+            name: 'TechCamp #1',
+            amount: 50_000
+          },
+          {
+            name: 'FirstMeet #1',
+            amount: 10_000
+          }
+        ]
+      }
     },
   });
 }
 
-//https://www.prisma.io/docs/guides/migrate/seed-database
 
 main()
   .then(async () => {
