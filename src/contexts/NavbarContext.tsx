@@ -32,6 +32,7 @@ const withNavbar: Array<string> = [
   '/user/short-link',
   '/logo',
   '/documents-download',
+  '/budget',
 ];
 
 export const NavbarContextProvider: NextPage<Props> = ({ children }) => {
