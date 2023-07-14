@@ -2,6 +2,7 @@ import CountUp from 'react-countup';
 
 import { NextPage } from 'next';
 import { Card } from '@nextui-org/react';
+import { Loading } from '@nextui-org/react';
 import { PieChart } from '@/components/Charts/PieChart';
 
 import { api } from '@/utils/api';
@@ -9,6 +10,14 @@ import { api } from '@/utils/api';
 const Budget: NextPage<{}> = () => {
   const budget = api.budgets.getBudgetCurrentYears.useQuery();
   const allProjectCount = api.budgets.getAllProejectCount.useQuery();
+
+  if (budget.isLoading || allProjectCount.isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Loading size="lg" />
+      </div>
+    );
+  }
 
   return (
     <>
