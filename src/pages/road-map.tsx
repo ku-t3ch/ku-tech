@@ -62,9 +62,21 @@ const roadMapData = [
   },
 ];
 
-const RoadMap: NextPage<Props> = () => {
+const planData = [
+  {
+    title: "Tech Discuss",
+    description: "พูดคุยด้าน Tech ร่วมกันถกข้อคิดเห็นต่าง ๆ",
+    date: "Every Week",
+  },
+  {
+    title: "Tech Space",
+    description: "แชร์ความรู้ภายในสมาชิกกลุ่มกิจกรรม",
+    date: "Every Month",
+  },
+];
 
-    const isMobile = useMediaQuery("(max-width: 768px)");
+const RoadMap: NextPage<Props> = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const checkMothisPassed = (month: string) => {
     const monthSplit = month.split(" ");
@@ -88,7 +100,7 @@ const RoadMap: NextPage<Props> = () => {
   return (
     <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
       <div className="flex w-full flex-col gap-5">
-        <Text className="prompt" size={"$3xl"}>
+        <Text className="prompt self-center" b size={"$4xl"}>
           Road Map
         </Text>
         <Timeline
@@ -108,6 +120,29 @@ const RoadMap: NextPage<Props> = () => {
               </div>
             ),
             color: !checkMothisPassed(data.date) ? (data.notMain ? "red" : "blue") : "gray",
+          }))}
+        />
+      </div>
+      <div className="flex w-full flex-col gap-5">
+        <Text className="prompt self-center" b size={"$4xl"}>
+          Plan
+        </Text>
+        <Timeline
+          mode={isMobile ? "left" : "alternate"}
+          items={planData.map((data) => ({
+            children: (
+              <div className="flex flex-col">
+                <Text className="prompt" b size={"$xl"}>
+                  {data.title}
+                </Text>
+                <Text className="prompt" size={"$md"}>
+                  {data.description}
+                </Text>
+                <Text className="prompt" color="gray" size={"$sm"}>
+                  {data.date}
+                </Text>
+              </div>
+            )
           }))}
         />
       </div>
