@@ -12,36 +12,23 @@ import Footer from "@/components/Footer";
 import JoinClubBtn from "@/components/JoinClubBtn";
 import ActivityCard from "@/components/home/ActivityCard";
 import ImageCarousel from "@/components/home/ImageCarousel";
+import { Tooltip } from "antd";
+import Partner from "@/components/home/Partner";
 
 const activitys = [
   {
-    icon: (
-      <Icon
-        icon="material-symbols:keyboard-double-arrow-up-rounded"
-        className="text-[4rem]"
-      />
-    ),
+    icon: <Icon icon="material-symbols:keyboard-double-arrow-up-rounded" className="text-[4rem]" />,
     title: "Tech Upskill",
     content: "อบรมสมาชิกด้านเทคโนโลยีต่าง ๆ ที่น่าสนใจ และเป็นประโยชน์ต่อนิสิต",
   },
   {
-    icon: (
-      <Icon
-        icon="material-symbols:directions-bus-outline"
-        className="text-[4rem]"
-      />
-    ),
+    icon: <Icon icon="material-symbols:directions-bus-outline" className="text-[4rem]" />,
     title: "KU Tech Camp",
     content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
     href: "https://camp.tech.nisit.ku.ac.th",
   },
   {
-    icon: (
-      <Icon
-        icon="material-symbols:interpreter-mode-outline"
-        className="text-[4rem]"
-      />
-    ),
+    icon: <Icon icon="material-symbols:interpreter-mode-outline" className="text-[4rem]" />,
     title: "KU Tech Talk",
     content:
       "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
@@ -98,10 +85,7 @@ const Home: NextPage = () => {
                 viewport={{ once: true }}
                 className="flex flex-col items-start gap-3 md:items-center"
               >
-                <Text
-                  b
-                  className=" text-[2rem] transition-all duration-200 md:text-[3rem]"
-                >
+                <Text b className=" text-[2rem] transition-all duration-200 md:text-[3rem]">
                   {/* <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"> */}
                   KU Tech คืออะไร ?{/* </span> */}
                 </Text>
@@ -154,32 +138,26 @@ const Home: NextPage = () => {
             viewport={{ once: true }}
             className="z-10 flex-col items-center"
           >
+            <Partner />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
             <div className="flex flex-col items-center justify-center gap-5">
               <Text b size={"$2xl"} className="">
                 ช่องทางติดต่อ
               </Text>
               <div className="flex gap-5 text-white">
-                <a
-                  href="https://www.facebook.com/profile.php?id=100090902166797"
-                  target="_blank"
-                >
-                  <Icon
-                    icon="ic:baseline-facebook"
-                    className="text-[4rem] text-white "
-                  />
+                <a href="https://www.facebook.com/profile.php?id=100090902166797" target="_blank">
+                  <Icon icon="ic:baseline-facebook" className="text-[4rem] text-white " />
                 </a>
                 <a href="https://instagram.com/ku.t3ch" target="_blank">
-                  <Icon
-                    icon="mdi:instagram"
-                    className="text-[4rem] text-white "
-                  />
+                  <Icon icon="mdi:instagram" className="text-[4rem] text-white " />
                 </a>
-                {/* <a href="">
-                    <Icon
-                      icon="ic:baseline-tiktok"
-                      className="text-[4rem] text-white "
-                    />
-                  </a> */}
               </div>
             </div>
           </motion.div>
