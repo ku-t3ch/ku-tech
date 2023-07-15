@@ -1,9 +1,17 @@
 import CountUp from 'react-countup';
+import tw from 'tailwind-styled-components';
 
 import { type FC, type ReactNode } from 'react';
 
 import { Icon } from '@iconify/react';
 import { Card } from '@nextui-org/react';
+
+const Grid = tw.div`
+  grid
+  grid-cols-1
+  gap-[1rem]
+  md:grid-cols-3
+`;
 
 interface Props {
   totalProject: number;
@@ -13,7 +21,7 @@ interface Props {
 
 const BudgetSummary: FC<Props> = ({ totalProject, expense, balance }) => {
   return (
-    <div className="grid grid-cols-1 gap-[1rem] md:grid-cols-3">
+    <Grid>
       <BudgetReport
         icon={<Icon icon="mdi:list-box-outline" className="text-[1.5rem]" />}
         title="โครงการทั้งหมด"
@@ -31,7 +39,7 @@ const BudgetSummary: FC<Props> = ({ totalProject, expense, balance }) => {
         title="งบประมาณคงเหลือ"
         amount={balance}
       />
-    </div>
+    </Grid>
   );
 };
 

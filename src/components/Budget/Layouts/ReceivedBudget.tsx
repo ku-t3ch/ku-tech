@@ -1,9 +1,25 @@
 import CountUp from 'react-countup';
 
+import tw from 'tailwind-styled-components';
+
 import { type FC } from 'react';
 
 import { Card } from '@nextui-org/react';
 import { PieChartReceivedBudget } from '../PieChartReceivedBudget';
+
+const ChartContainer = tw.div`
+  flex
+  flex-col
+  items-center
+  justify-center
+`;
+
+const ChartTitle = tw.div`
+  py-[.5rem]
+  text-center
+  text-[1.5rem]
+  font-semibold
+`;
 
 interface Props {
   titleBudget?: string;
@@ -36,10 +52,8 @@ const ReceiveBudget: FC<Props> = ({
           padding: '1.5rem',
         }}
       >
-        <div className="py-[.5rem] text-center text-[1.5rem] font-semibold">
-          แผนภูมิแสดงที่มางบประมาณ
-        </div>
-        <div className="flex flex-col items-center justify-center">
+        <ChartTitle>แผนภูมิแสดงที่มางบประมาณ</ChartTitle>
+        <ChartContainer>
           <PieChartReceivedBudget
             data={[
               {
@@ -52,7 +66,7 @@ const ReceiveBudget: FC<Props> = ({
               },
             ]}
           />
-        </div>
+        </ChartContainer>
       </Card>
     </>
   );
