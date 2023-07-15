@@ -1,13 +1,13 @@
-const WithNavbar = dynamic(() => import('@/layouts/WithNavbar'), {
+const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
   ssr: false,
 });
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 
-import { type ReactNode, createContext } from 'react';
+import { type ReactNode, createContext } from "react";
 
 const NavbarContext = createContext(null);
 
@@ -16,22 +16,23 @@ interface Props {
 }
 
 const withNavbar: Array<string> = [
-  '/',
-  '/news',
-  '/news/[id]',
-  '/404',
-  '/about-club',
-  '/activities',
-  '/events',
-  '/join',
-  '/members',
-  '/privacy',
-  '/sponsors',
-  '/works',
-  '/core',
-  '/user/short-link',
-  '/logo',
-  '/documents-download',
+  "/",
+  "/news",
+  "/news/[id]",
+  "/404",
+  "/about-club",
+  "/activities",
+  "/events",
+  "/join",
+  "/members",
+  "/privacy",
+  "/sponsors",
+  "/works",
+  "/core",
+  "/user/short-link",
+  "/logo",
+  "/documents-download",
+  "/road-map",
 ];
 
 export const NavbarContextProvider: NextPage<Props> = ({ children }) => {
@@ -39,11 +40,7 @@ export const NavbarContextProvider: NextPage<Props> = ({ children }) => {
 
   return (
     <NavbarContext.Provider value={null}>
-      {withNavbar.includes(pathname) ? (
-        <WithNavbar>{children}</WithNavbar>
-      ) : (
-        children
-      )}
+      {withNavbar.includes(pathname) ? <WithNavbar>{children}</WithNavbar> : children}
     </NavbarContext.Provider>
   );
 };
