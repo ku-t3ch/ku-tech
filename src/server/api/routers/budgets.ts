@@ -12,26 +12,31 @@ export const budgetRouters = createTRPCRouter({
           select: {
             id: true,
             name: true,
-            amount: true
+            spendingUse: true
           }
         }
       }
     });
   }),
-  getBudgetCurrentYears: publicProcedure.query(async ({ ctx }) => {
+  getLastBudget: publicProcedure.query(async ({ ctx }) => {
     return await prisma.budget.findFirst({
       include: {
         projectUse: {
           select: {
             id: true,
             name: true,
-            amount: true,
+            is_active: true,
+            spendingUse: true
           }
         }
       }
     })
   }),
-  getAllProejectCount: publicProcedure.query(async ({ ctx }) => {
-    return await prisma.project.count();
+  getPartySpending: publicProcedure.query(async ({ ctx }) => {
+    return await prisma.party.findMany({
+      include: {
+        spendingUse: true
+      }
+    })
   })
 })

@@ -1,17 +1,48 @@
-import CountUp from 'react-countup';
+import tw from 'tailwind-styled-components';
+
+import BudgetSummary from '@/components/Budget/Layouts/BudgetSummary';
+import ReceiveBudget from '@/components/Budget/Layouts/ReceivedBudget';
 
 import { NextPage } from 'next';
-import { Card } from '@nextui-org/react';
-import { Loading } from '@nextui-org/react';
-import { PieChart } from '@/components/Charts/PieChart';
-
 import { api } from '@/utils/api';
 
-const Budget: NextPage<{}> = () => {
-  const budget = api.budgets.getBudgetCurrentYears.useQuery();
-  const allProjectCount = api.budgets.getAllProejectCount.useQuery();
+import { Card } from '@nextui-org/react';
+import { Loading } from '@nextui-org/react';
 
-  if (budget.isLoading || allProjectCount.isLoading) {
+import { BarChartPartySpending } from '@/components/Budget/BarChartPartySpending';
+
+const Container = tw.div`
+  mx-auto
+  flex
+  w-full
+  max-w-[65rem]
+  xl:max-w-[90rem]
+  flex-col
+  px-[1rem]
+`;
+
+const Grid = tw.div`
+  grid
+  gap-[1rem]
+  grid-cols-1
+  xl:grid-cols-3
+`;
+
+const Col = tw.div`
+  col-span-3
+  flex
+  flex-col
+  gap-[1rem]
+`;
+
+const Budget: NextPage<{}> = () => {
+  const budget = api.budgets.getLastBudget.useQuery();
+  const party = api.budgets.getPartySpending.useQuery();
+
+  const totalBudget =
+    (budget.data?.common_amount ?? 0) + (budget.data?.others_amount ?? 0);
+
+  if (budget.isLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center">
         <Loading size="lg" />
@@ -19,110 +50,75 @@ const Budget: NextPage<{}> = () => {
     );
   }
 
+  const getTotalBudget: () => number = () => {
+    const data = budget.data;
+    return (data?.common_amount ?? 0) + (data?.others_amount ?? 0);
+  };
+
+  const getExpenseBudget: () => number = () => {
+    let sum = 0;
+
+    budget.data?.projectUse.map(({ spendingUse }) => {
+      sum += spendingUse.reduce(
+        (total, { amount }) => total + (amount ?? 0),
+        0,
+      );
+    });
+
+    return sum;
+  };
+
   return (
     <>
       <div className="py-[6rem] text-center">
-        <div className="text-[2rem] font-bold">งบประมาณรายจ่าย</div>
+        <div className="text-[2rem] font-bold">รายงานงบประมาณ</div>
       </div>
-      <div className="mx-auto flex w-full max-w-[70rem] flex-col px-[1rem]">
-        <div className="grid grid-cols-1 gap-[1.5rem] md:grid-cols-2">
-          <section>
+      <Container>
+        <Grid>
+          <Col className="xl:col-span-1">
+            <ReceiveBudget
+              titleBudget={budget.data?.name ?? ''}
+              commonBudget={budget.data?.common_amount ?? 0}
+              othersBudget={budget.data?.others_amount ?? 0}
+            />
+          </Col>
+          <Col className="xl:col-span-2">
+            <BudgetSummary
+              totalProject={budget.data?.projectUse?.length ?? 0}
+              expense={-1 * getExpenseBudget()}
+              balance={getTotalBudget() - getExpenseBudget()}
+            />
             <Card
               css={{
-                border: 0,
                 padding: '1.5rem',
-                marginBottom: '1rem',
-                textAlign: 'center',
+                border: 0,
               }}
             >
-              <div className="text-[1.8rem] font-semibold">
-                {budget.data?.name}
+              <div className="pt-[.5rem] pb-[1.5rem] text-center text-[1.5rem] font-semibold">
+                แผนภูมิแท่งแสดงการใช้งบประมาณของฝ่ายต่างๆ
               </div>
-              <div className="text-[2.25rem] font-bold text-[#17BFF4]">
-                + <CountUp end={budget.data?.amount ?? 0} /> THB
-              </div>
-            </Card>
-            <Card
-              css={{
-                border: 0,
-                padding: '1.5rem',
-              }}
-            >
-              <div className="flex items-center justify-center">
-                <PieChart
-                  width={500}
-                  height={300}
-                  data={budget?.data?.projectUse ?? []}
+              <div className="overflow-x-auto md:flex md:flex-col md:items-center">
+                <BarChartPartySpending
+                  height={310}
+                  width={800}
+                  maxYAmount={totalBudget}
+                  data={
+                    party.data?.map((v) => {
+                      return {
+                        name: v.name,
+                        amount: v.spendingUse.reduce(
+                          (total, v) => total + (v?.amount ?? 0),
+                          0,
+                        ),
+                      };
+                    }) ?? []
+                  }
                 />
               </div>
-              <div className="text-center">
-                กราฟวงกลมแสดงการใช้งบประมาณในแต่ละโครงการ
-              </div>
             </Card>
-          </section>
-          <section>
-            <Card
-              css={{
-                border: 0,
-                padding: '2rem',
-                textAlign: 'center',
-                marginBottom: '1rem',
-              }}
-            >
-              <div className="flex text-[1.3rem]">
-                <div className="flex flex-1 items-center justify-start">
-                  <span className="text-start text-[1.8rem] font-semibold">
-                    ใช้ไปทั้งสิ้น
-                  </span>
-                </div>
-                <div className="flex flex-1 items-center justify-end">
-                  <div className="text-end text-[1.8rem] font-bold text-[#A889FF]">
-                    <span className="mr-[.5rem]">-</span>
-                    <CountUp
-                      end={
-                        budget.data?.projectUse.reduce(
-                          (total, data) => total + data.amount,
-                          0,
-                        ) ?? 0
-                      }
-                    />
-                    <span className="ml-[.5rem]">THB</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-            <Card
-              css={{
-                border: 0,
-                padding: '1.5rem',
-                textAlign: 'center',
-                marginBottom: '1rem',
-              }}
-            >
-              <div className="py-[.5rem] text-[1.5rem] font-semibold">
-                จำนวนโครงการทั้งหมดในปีนี้
-              </div>
-              <div className="text-[4rem] font-bold text-white">
-                <CountUp end={budget.data?.projectUse?.length ?? 0} />
-              </div>
-            </Card>
-            <Card
-              css={{
-                border: 0,
-                padding: '1.5rem',
-                textAlign: 'center',
-              }}
-            >
-              <div className="py-[.5rem] text-[1.5rem] font-semibold">
-                จำนวนโครงการทั้งหมด
-              </div>
-              <div className="text-[4rem] font-bold text-white">
-                <CountUp end={allProjectCount?.data ?? 0} />
-              </div>
-            </Card>
-          </section>
-        </div>
-      </div>
+          </Col>
+        </Grid>
+      </Container>
     </>
   );
 };
