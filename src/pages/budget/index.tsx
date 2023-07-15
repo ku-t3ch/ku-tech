@@ -2,14 +2,12 @@ import tw from 'tailwind-styled-components';
 
 import BudgetSummary from '@/components/Budget/Layouts/BudgetSummary';
 import ReceiveBudget from '@/components/Budget/Layouts/ReceivedBudget';
+import PartySpending from '@/components/Budget/Layouts/PartySpending';
 
 import { NextPage } from 'next';
 import { api } from '@/utils/api';
 
-import { Card } from '@nextui-org/react';
 import { Loading } from '@nextui-org/react';
-
-import { BarChartPartySpending } from '@/components/Budget/BarChartPartySpending';
 
 const Container = tw.div`
   mx-auto
@@ -39,9 +37,6 @@ const Budget: NextPage<{}> = () => {
   const budget = api.budgets.getLastBudget.useQuery();
   const party = api.budgets.getPartySpending.useQuery();
 
-  const totalBudget =
-    (budget.data?.common_amount ?? 0) + (budget.data?.others_amount ?? 0);
-
   if (budget.isLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center">
@@ -68,6 +63,15 @@ const Budget: NextPage<{}> = () => {
     return sum;
   };
 
+  const getPartySpending = () => {
+    return party.data?.map((v) => {
+      return {
+        name: v.name,
+        amount: v.spendingUse.reduce((total, v) => total + (v?.amount ?? 0), 0),
+      };
+    });
+  };
+
   return (
     <>
       <div className="py-[6rem] text-center">
@@ -88,34 +92,10 @@ const Budget: NextPage<{}> = () => {
               expense={-1 * getExpenseBudget()}
               balance={getTotalBudget() - getExpenseBudget()}
             />
-            <Card
-              css={{
-                padding: '1.5rem',
-                border: 0,
-              }}
-            >
-              <div className="pt-[.5rem] pb-[1.5rem] text-center text-[1.5rem] font-semibold">
-                แผนภูมิแท่งแสดงการใช้งบประมาณของฝ่ายต่างๆ
-              </div>
-              <div className="overflow-x-auto md:flex md:flex-col md:items-center">
-                <BarChartPartySpending
-                  height={310}
-                  width={800}
-                  maxYAmount={totalBudget}
-                  data={
-                    party.data?.map((v) => {
-                      return {
-                        name: v.name,
-                        amount: v.spendingUse.reduce(
-                          (total, v) => total + (v?.amount ?? 0),
-                          0,
-                        ),
-                      };
-                    }) ?? []
-                  }
-                />
-              </div>
-            </Card>
+            <PartySpending
+              totalBudget={getTotalBudget()}
+              data={getPartySpending()}
+            />
           </Col>
         </Grid>
       </Container>
