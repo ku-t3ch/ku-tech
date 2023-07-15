@@ -128,7 +128,8 @@ model Budget {
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
     name           String?
-    amount         Float?
+    common_amount  Float
+    others_amount  Float     @default(0)
     is_active      Boolean?  @default(true)
     budget_type_id String?
     projectUse     Project[]
@@ -140,7 +141,7 @@ model Project {
     updatedAt    DateTime      @updatedAt
     name         String
     amount       Float         @default(0)
-    is_active    Boolean?      @default(true)
+    is_active    Boolean?      @default(false)
     project_type ProjectType[]
     budgetUse    Budget[]
     spendingUse  Spending[]

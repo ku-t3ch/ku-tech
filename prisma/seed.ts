@@ -6,7 +6,8 @@ async function main() {
   await prisma.budget.create({
     data: {
       name: "งบประมาณประจำปี 2566",
-      amount: 120_000,
+      common_amount: 120_000,
+      others_amount: 20_000,
       projectUse: {
         create: [
           {
