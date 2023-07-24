@@ -1,174 +1,190 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Request {
-    id                           String      @id @default(cuid())
-    createdAt                    DateTime    @default(now())
-    updatedAt                    DateTime    @updatedAt
-    first_name_th                String?  
-    last_name_th                 String?  
-    first_name_en                String?  
-    last_name_en                 String?  
-    nick_name                    String?
-    ojectives                    String?
-    email                        String?     @unique
-    year                         Int?
-    faculty                      String?
-    major                        String?
-    image_path                   String?     @unique
-    google_id                    String?     @unique
-    discord_tag                  String?
-    google_email                 String?
-    is_approved                  Boolean?    @default(false)
-    email_history                Email[]
-    tags                         Tag[]
-    core_team_profile_image_path String?
-    isActive                     Boolean?    @default(true)
-    short_link                   ShortLink[]
+  id                           String      @id @default(cuid())
+  createdAt                    DateTime    @default(now())
+  updatedAt                    DateTime    @updatedAt
+  first_name_th                String?
+  last_name_th                 String?
+  first_name_en                String?
+  last_name_en                 String?
+  nick_name                    String?
+  ojectives                    String?
+  email                        String?     @unique
+  year                         Int?
+  faculty                      String?
+  major                        String?
+  image_path                   String?     @unique
+  google_id                    String?     @unique
+  discord_tag                  String?
+  google_email                 String?
+  is_approved                  Boolean?    @default(false)
+  email_history                Email[]
+  tags                         Tag[]
+  core_team_profile_image_path String?
+  isActive                     Boolean?    @default(true)
+  short_link                   ShortLink[]
 }
 
 model Email {
-    id           String   @id @default(cuid())
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    title        String?
-    content      String?
-    to           String?
-    is_sent      Boolean? @default(false)
-    requestId    String?
-    request_user Request? @relation(fields: [requestId], references: [id])
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  title        String?
+  content      String?
+  to           String?
+  is_sent      Boolean? @default(false)
+  requestId    String?
+  request_user Request? @relation(fields: [requestId], references: [id])
 }
 
 model RequestDelete {
-    id            String   @id @default(cuid())
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-    first_name_th String?
-    last_name_th  String?
-    first_name_en String?
-    last_name_en  String?
-    nick_name     String?
-    ojectives     String?
-    email         String?
-    year          Int?
-    faculty       String?
-    major         String?
-    image_path    String?
-    google_id     String?
-    discord_tag   String?
-    google_email  String?
-    is_approved   Boolean? @default(false)
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  first_name_th String?
+  last_name_th  String?
+  first_name_en String?
+  last_name_en  String?
+  nick_name     String?
+  ojectives     String?
+  email         String?
+  year          Int?
+  faculty       String?
+  major         String?
+  image_path    String?
+  google_id     String?
+  discord_tag   String?
+  google_email  String?
+  is_approved   Boolean? @default(false)
 }
 
 model Admin {
-    id    Int    @id @default(autoincrement())
-    email String @unique
+  id    Int    @id @default(autoincrement())
+  email String @unique
 }
 
 model Tag {
-    id           String    @id @default(cuid())
-    createdAt    DateTime  @default(now())
-    name         String
-    color_id     String?
-    color        TagColor? @relation(fields: [color_id], references: [id])
-    request_user Request[]
-    tag_type_id  String?
-    tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
-    parentTag    Tag?      @relation("TagRelationId", fields: [parentTagId], references: [id])
-    parentTagId  String?
-    childTags    Tag[]     @relation("TagRelationId")
+  id           String    @id @default(cuid())
+  createdAt    DateTime  @default(now())
+  name         String
+  color_id     String?
+  color        TagColor? @relation(fields: [color_id], references: [id])
+  request_user Request[]
+  tag_type_id  String?
+  tag_type     TagType?  @relation(fields: [tag_type_id], references: [id])
+  parentTag    Tag?      @relation("TagRelationId", fields: [parentTagId], references: [id])
+  parentTagId  String?
+  childTags    Tag[]     @relation("TagRelationId")
 }
 
 model TagType {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    name      String?  @unique
-    tags      Tag[]
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  name      String?  @unique
+  tags      Tag[]
 }
 
 model TagColor {
-    id         String   @id @default(cuid())
-    createdAt  DateTime @default(now())
-    color_bg   String?
-    color_text String?
-    tags       Tag[]
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  color_bg   String?
+  color_text String?
+  tags       Tag[]
 }
 
 model WebConfig {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    title     String?  @unique
-    key       String?  @unique
-    status    Boolean? @default(false)
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String?  @unique
+  key       String?  @unique
+  status    Boolean? @default(false)
 }
 
 model ShortLink {
-    id              String   @id @default(cuid())
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
-    original_link   String?  @unique
-    short_link      String?  @unique
-    request_user    Request? @relation(fields: [request_user_id], references: [id])
-    request_user_id String?
-    is_active       Boolean? @default(false)
-    count           Int?     @default(0)
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  original_link   String?  @unique
+  short_link      String?  @unique
+  request_user    Request? @relation(fields: [request_user_id], references: [id])
+  request_user_id String?
+  is_active       Boolean? @default(false)
+  count           Int?     @default(0)
 }
 
 // budget section
 
 model Budget {
-    id             String    @id @default(cuid())
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
-    name           String?
-    amount         Float?
-    is_active      Boolean?  @default(true)
-    budget_type_id String?
-    projectUse     Project[]
+  id              String           @id @default(cuid())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  name            String?
+  amount          Float            @default(0)
+  received_amount ReceivedBudget[]
+  is_active       Boolean?         @default(true)
+  budget_type_id  String?
+  projectUse      Project[]
+}
+
+model ReceivedBudget {
+  id       String  @id @default(cuid())
+  name     String?
+  amount   Float   @default(0.0)
+  Budget   Budget? @relation(fields: [budgetId], references: [id])
+  budgetId String?
+}
+
+model Sponsor {
+  id         String @id @default(cuid())
+  brand_name String
+  brand_logo String
 }
 
 model Project {
-    id           String        @id @default(cuid())
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-    name         String?
-    amount       Float?
-    is_active    Boolean?      @default(true)
-    project_type ProjectType[]
-    budgetUse    Budget[]
-    spendingUse  Spending[]
+  id           String        @id @default(cuid())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  name         String?
+  amount       Float?
+  is_active    Boolean?      @default(true)
+  project_type ProjectType[]
+  budgetUse    Budget[]
+  spendingUse  Spending[]
+  document     String?
 }
 
 model ProjectType {
-    id        String    @id @default(cuid())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    name      String?
-    project   Project[]
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String?
+  project   Project[]
 }
 
 model Spending {
-    id            String         @id @default(cuid())
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @updatedAt
-    name          String?
-    amount        Float?
-    is_active     Boolean?       @default(true)
-    spending_type SpendingType[]
-    projectUse    Project[]
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  name          String?
+  amount        Float?
+  is_active     Boolean?       @default(true)
+  spending_type SpendingType[]
+  projectUse    Project[]
 }
 
 model SpendingType {
-    id        String     @id @default(cuid())
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-    name      String?
-    spending  Spending[]
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String?
+  spending  Spending[]
 }
