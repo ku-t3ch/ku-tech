@@ -18,7 +18,6 @@ interface Props {
 const withNavbar: Array<string> = [
   "/",
   "/news",
-  "/news/[id]",
   "/404",
   "/about-club",
   "/activities",

@@ -11,6 +11,11 @@ import { Info, NewsInterface } from "@/interfaces/NewsInterface";
 import { Text } from "@nextui-org/react";
 import Image from "next/image";
 
+import dynamic from "next/dynamic";
+const WithNavbar = dynamic(() => import("@/layouts/WithNavbar"), {
+  ssr: false,
+});
+
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
 
@@ -53,9 +58,7 @@ const News: NextPage<Props> = ({ id, data }) => {
   }
 
   const shortDescription = (description: string) => {
-    return description.length > 100
-      ? description.substring(0, 100) + "..."
-      : description;
+    return description.length > 100 ? description.substring(0, 100) + "..." : description;
   };
 
   return (
@@ -95,53 +98,53 @@ const News: NextPage<Props> = ({ id, data }) => {
           `}
         </style>
       </Head>
-      <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
-        <div className="flex w-full flex-col gap-5 pb-20">
-          <Text className="prompt self-start" size={"$3xl"} weight="bold">
-            {data?.info?.title}
-          </Text>
-          <div className="flex items-center gap-5">
-            <div>
-              <img src="/avatar.png" className="w-[3rem]" alt="" />
-            </div>
-            <div className="flex flex-col">
-              <div className="text-sm">{data?.info?.createdBy?.name}</div>
-              <div className="text-sm">
-                <NoSSR>
-                  {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
-                </NoSSR>
+      <WithNavbar>
+        <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
+          <div className="flex w-full flex-col gap-5 pb-20">
+            <Text className="prompt self-start" size={"$3xl"} weight="bold">
+              {data?.info?.title}
+            </Text>
+            <div className="flex items-center gap-5">
+              <div>
+                <img src="/avatar.png" className="w-[3rem]" alt="" />
+              </div>
+              <div className="flex flex-col">
+                <div className="text-sm">{data?.info?.createdBy?.name}</div>
+                <div className="text-sm">
+                  <NoSSR>
+                    {new Date(data?.info?.createdAt!).toLocaleString("th-TH", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}
+                  </NoSSR>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mb-[1.5rem] flex flex-col">
-            <div className="flex gap-3">
-              {data?.info?.tag?.map((tag, index) => {
-                return <NewsTag key={index} tag={tag} />;
-              })}
+            <div className="mb-[1.5rem] flex flex-col">
+              <div className="flex gap-3">
+                {data?.info?.tag?.map((tag, index) => {
+                  return <NewsTag key={index} tag={tag} />;
+                })}
+              </div>
+            </div>
+            <Image
+              className="h-full w-full object-contain md:max-w-md"
+              width={0}
+              height={0}
+              loading="lazy"
+              sizes="100vw"
+              src={data?.info?.cover.url!}
+              alt={data?.info?.title!}
+            />
+            <div className="prose-dark">
+              <div dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}></div>
             </div>
           </div>
-          <Image
-            className="h-full w-full object-contain md:max-w-md"
-            width={0}
-            height={0}
-            loading="lazy"
-            sizes="100vw"
-            src={data?.info?.cover.url!}
-            alt={data?.info?.title!}
-          />
-          <div className="prose-dark">
-            <div
-              dangerouslySetInnerHTML={{ __html: data?.info?.content.html! }}
-            ></div>
-          </div>
         </div>
-      </div>
+      </WithNavbar>
     </>
   );
 };
