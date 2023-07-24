@@ -58,7 +58,7 @@ const News: NextPage<Props> = ({ id, data }) => {
   }
 
   const shortDescription = (description: string) => {
-    return description.length > 100 ? description.substring(0, 100) + "..." : description;
+    return description.length > 100 ? description.substring(0, 100).replaceAll("\n","") + "..." : description.replaceAll("\n","");
   };
 
   return (
