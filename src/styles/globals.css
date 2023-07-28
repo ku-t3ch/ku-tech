@@ -72,3 +72,28 @@ blockquote {
 .splide__pagination__page.is-active {
     background: #ffffff57 !important;
 }
+
+tr {
+  outline: thin solid transparent;
+  height: .5rem;
+}
+
+td {
+  background-color: #16181A;
+}
+
+tr:first-child td:first-child {
+  @apply rounded-tl-lg
+}
+
+tr:first-child td:last-child {
+  @apply rounded-tr-lg
+}
+
+tr:last-child td:first-child {
+  @apply rounded-bl-lg
+}
+
+tr:last-child td:last-child {
+  @apply rounded-br-lg
+}
