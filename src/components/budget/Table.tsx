@@ -3,13 +3,13 @@ import tw from "tailwind-styled-components";
 export const Table = {
   Container: tw.div`
     relative
-    w-auto
     overflow-auto
     rounded-lg
   `,
   Main: tw.table`
     w-full
     h-full
+    table-auto
   `,
 };
 
@@ -34,10 +34,10 @@ export const Thead = {
 export const TBody = {
   Main: tw.tbody``,
   Tr: tw.tr`
-    last:border-0
   `,
   Td: tw.td`
-    py-[1.2rem]
+    whitespace-nowrap
+    text-sm
     px-[.85rem]
     text-center
   `,
