@@ -1,5 +1,7 @@
 import { NextPage } from "next";
 import { api } from "@/utils/api";
+import { Icon } from "@iconify/react";
+import { Text, Loading } from "@nextui-org/react";
 
 import tw from "tailwind-styled-components";
 
@@ -28,6 +30,33 @@ const Budget: NextPage<Props> = () => {
   const getAllProjects = () => {
     return budget.data?.projectUse ?? [];
   };
+
+  if (budget.isLoading || sponsor.isLoading) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Text className="prompt" size={"$4xl"}>
+            <Loading size="lg" />
+          </Text>
+        </div>
+      </div>
+    );
+  }
+
+  if (!budget.data) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Text className="prompt" size={"$4xl"}>
+            <Icon icon="mdi:money-off" />
+          </Text>
+          <Text className="prompt" size={"$xl"} b>
+            งบประมาณยังไม่มีการอัพเดท
+          </Text>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
