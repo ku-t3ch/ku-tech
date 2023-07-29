@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Tooltip } from "antd";
+import { Avatar } from "@nextui-org/react";
 
 import tw from "tailwind-styled-components";
 
@@ -20,7 +21,15 @@ const Sponsor: FC<Props> = ({ data = [] }) => {
         {data.map((v, idx) => {
           return (
             <Tooltip key={`brand-logo-${idx}`} title={v.brand_name}>
-              <Brand.Image src={v.brand_logo} />
+              <Avatar
+                src={v.brand_logo}
+                color="gradient"
+                bordered
+                css={{
+                  height: "5rem",
+                  width: "5rem",
+                }}
+              />
             </Tooltip>
           );
         })}
@@ -37,20 +46,15 @@ const Title = tw.div`
   font-bold
   text-[1.8rem]
   text-center
+  mb-[2rem]
 `;
 
 const Brand = {
   List: tw.div`
-    py-[2.5rem]
     flex
     flex-wrap
     gap-5
     justify-center
-  `,
-  Image: tw.img`
-    rounded-full
-    h-[5rem]
-    w-[5rem]
   `,
 };
 
