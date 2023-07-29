@@ -22,6 +22,9 @@ export const budgetRouter = createTRPCRouter({
             id: true,
             name: true,
             amount: true,
+            document_url: true,
+            start_date: true,
+            ended_date: true,
             spendingUse: {
               select: {
                 name: true,
