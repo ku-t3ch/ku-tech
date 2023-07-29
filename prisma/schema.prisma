@@ -160,7 +160,9 @@ model Project {
   project_type ProjectType[]
   budgetUse    Budget[]
   spendingUse  Spending[]
-  document     String?
+  document_url String?
+  start_date   DateTime      @default(now())
+  ended_date   DateTime      @default(now())
 }
 
 model ProjectType {

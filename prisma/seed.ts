@@ -30,6 +30,7 @@ const main = async () => {
           {
             name: 'โครงการ Techcamp ครั้งที่ 1',
             amount: 9_000,
+            ended_date: new Date(new Date().getTime() + (5 * 24 * 3600 * 1000)),
             spendingUse: {
               create: [
                 {
@@ -49,7 +50,8 @@ const main = async () => {
           },
           {
             name: 'โครงการ FirstMeet',
-            amount: 0
+            amount: 0,
+            ended_date: new Date(new Date().getTime() + (5 * 24 * 3600 * 1000)),
           }
         ]
       }
