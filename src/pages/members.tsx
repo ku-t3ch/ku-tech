@@ -124,18 +124,6 @@ const Members: NextPage<Props> = () => {
                   </div>
                 </div>
               )}
-              {countUser("เหรัญญิก") > 0 && (
-                <div className="flex flex-col items-center gap-3">
-                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    เหรัญญิก
-                  </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                    {findName("เหรัญญิก")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
-                    ))}
-                  </div>
-                </div>
-              )}
               {countUser("ฝ่ายประชาสัมพันธ์") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
