@@ -47,11 +47,6 @@ const roadMapData = [
     description: "แชร์ความรู้โดยวิทยากร (For Everyone)",
   },
   {
-    title: "UpSkill #1",
-    date: "Oct 2023",
-    description: "ทัศนศึกษาทักษะด้าน Tech ภายในกลุ่มกิจกรรม",
-  },
-  {
     title: "Mini Project",
     date: "Jan 2024",
     description: "นำไอเดียจาก Hackathon มาพัฒนาต่อโดยกลุ่มกิจกรรม",
