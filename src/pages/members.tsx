@@ -42,6 +42,24 @@ const Members: NextPage<Props> = () => {
               {countUser("ฝ่ายบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
+                    อาจารย์ที่ปรึกษา
+                  </Text>
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                    <AvatarComponent
+                      href="https://www.linkedin.com/in/usa-sammapun/"
+                      core_team_profile_image_path={
+                        "https://s3.tech.nisit.ku.ac.th/assets/professor/1578207460360.jpeg"
+                      }
+                      first_name_th="ผศ.ดร.อุษา สัมมาพันธ์"
+                      position={"อาจารย์ที่ปรึกษาชมรม"}
+                      major="ภาควิชาวิทยาการคอมพิวเตอร์"
+                    />
+                  </div>
+                </div>
+              )}
+              {countUser("ฝ่ายบริหาร") > 0 && (
+                <div className="flex flex-col items-center gap-3">
+                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายบริหาร
                   </Text>
                   <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
@@ -61,6 +79,9 @@ const Members: NextPage<Props> = () => {
                     ))}
                     {findName("สื่อสารองค์กร")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"สื่อสารองค์กร"} />
+                    ))}
+                    {findName("เหรัญญิก")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
                   </div>
                 </div>
@@ -99,18 +120,6 @@ const Members: NextPage<Props> = () => {
                   <div className="flex-wrap-reverse-reverse flex w-full items-center justify-center gap-5">
                     {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              {countUser("เหรัญญิก") > 0 && (
-                <div className="flex flex-col items-center gap-3">
-                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    เหรัญญิก
-                  </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                    {findName("เหรัญญิก")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
                   </div>
                 </div>
