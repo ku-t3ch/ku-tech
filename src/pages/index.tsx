@@ -14,6 +14,7 @@ import ActivityCard from "@/components/home/ActivityCard";
 import ImageCarousel from "@/components/home/ImageCarousel";
 import { Tooltip } from "antd";
 import Partner from "@/components/home/Partner";
+import Sponsor from "@/components/home/Sponsor";
 
 const activitys = [
   {
@@ -139,6 +140,15 @@ const Home: NextPage = () => {
             className="z-10 flex-col items-center"
           >
             <Partner />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <Sponsor />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 100 }}
