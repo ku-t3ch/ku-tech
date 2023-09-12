@@ -64,6 +64,12 @@ const ShortLinkUser: NextPage<Props> = () => {
             columns={
               [
                 {
+                  title: "QR Code",
+                  dataIndex: "qr_code",
+                  key: "qr_code",
+                  render: (qr_code) => (<>sdf</>)
+                },
+                {
                   title: "Short Link ID",
                   dataIndex: "short_link",
                   key: "short_link",
