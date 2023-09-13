@@ -62,15 +62,18 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายบริหาร
                   </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
                     {findName("ประธาน")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ประธาน"} />
                     ))}
                     {findName("รองประธาน")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"รองประธาน"} />
                     ))}
+                    {findName("เหรัญญิก")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
+                    ))}
                   </div>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
                     {findName("เลขานุการ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
                     ))}
@@ -79,9 +82,6 @@ const Members: NextPage<Props> = () => {
                     ))}
                     {findName("สื่อสารองค์กร")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"สื่อสารองค์กร"} />
-                    ))}
-                    {findName("เหรัญญิก")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
                   </div>
                 </div>
