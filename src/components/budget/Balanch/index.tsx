@@ -3,14 +3,30 @@ import { Bag } from "./Bag";
 
 import tw from "tailwind-styled-components";
 
-interface Props {}
+interface Balanch {
+  name: string | null;
+  amount: number;
+}
 
-const Balanch: FC<Props> = () => {
+interface Props {
+  data: Balanch[];
+}
+
+const ICONS = ["bx:money-withdraw", "solar:hand-money-outline", "uil:money-withdrawal"];
+
+const Balanch: FC<Props> = ({ data }) => {
   return (
     <Grid>
-      <Bag icon="bx:money-withdraw" title="งบกิจกรรมนิสิต" amount={7_000_000} />
-      <Bag icon="solar:hand-money-outline" title="ได้รับจัดสรร" amount={7_000_000} />
-      <Bag icon="uil:money-withdrawal" title="คงเหลือ" amount={7_000_000} />
+      {data.map((val, idx) => {
+        return (
+          <Bag
+            key={idx}
+            icon={ICONS[idx] ?? "fluent-mdl2:unknown"}
+            title={val?.name || `ไม่ระบุ (${idx + 1})`}
+            amount={val.amount}
+          />
+        );
+      })}
     </Grid>
   );
 };
