@@ -34,6 +34,8 @@ export const Thead = {
 export const TBody = {
   Main: tw.tbody``,
   Tr: tw.tr`
+    bg-[#16181A]
+    hover:bg-[#25292C]
   `,
   Td: tw.td`
     whitespace-nowrap
