@@ -23,6 +23,10 @@ const Budget: NextPage<Props> = () => {
   const budget = api.budget.getBudget.useQuery();
   const sponsor = api.budget.getSponsor.useQuery();
 
+  const getCurrentBudgetName = () => {
+    return budget?.data?.name ?? "ยังไม่มีชื่อโครงการประจำปี";
+  };
+
   const getCurrentBudgetId = () => {
     return budget?.data?.id ?? null;
   };
@@ -46,7 +50,7 @@ const Budget: NextPage<Props> = () => {
     return <LoadingScreen />;
   }
 
-  if (!budget.data) {
+  if (!budget.data || budget.data.projectUse.length < 1) {
     return (
       <div className="flex h-screen flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-3">
@@ -54,7 +58,7 @@ const Budget: NextPage<Props> = () => {
             <Icon icon="mdi:money-off" />
           </Text>
           <Text className="prompt" size={"$xl"} b>
-            งบประมาณยังไม่มีการอัพเดท
+            ยังไม่มีข้อมูลงบประมาณประจำปี
           </Text>
         </div>
       </div>
@@ -64,7 +68,7 @@ const Budget: NextPage<Props> = () => {
   return (
     <>
       <div className="py-[5rem] text-center">
-        <span className="text-[1.8rem] font-bold">งบประมาณรายจ่าย</span>
+        <span className="text-[1.8rem] font-bold">{getCurrentBudgetName()}</span>
       </div>
       <Container>
         <Grid>
@@ -72,7 +76,7 @@ const Budget: NextPage<Props> = () => {
             <PieChart data={getReceivedBudget()} />
           </div>
           <div className="flex flex-col gap-3 lg:col-span-2">
-            <Balanch />
+            <Balanch data={getReceivedBudget()} />
             <DocumentList data={getProjectDocuments()} />
           </div>
         </Grid>
