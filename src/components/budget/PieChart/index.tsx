@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Card } from "@nextui-org/react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
+import { BadgeText } from "./Badge";
 
 import tw from "tailwind-styled-components";
 
@@ -65,7 +66,7 @@ const PieChart: FC<Props> = ({ data = [] }) => {
       <Chart.Badges>
         {data.map((value, idx) => {
           return (
-            <BadgeItem
+            <BadgeText
               key={`chart-badge-item-${idx}`}
               bgColor={BG_COLORS[idx]}
               bdColor={BD_COLORS[idx]}
@@ -77,24 +78,6 @@ const PieChart: FC<Props> = ({ data = [] }) => {
     </Card>
   );
 };
-
-const BG_COLORS = [
-  "rgba(255, 99, 132, .5)",
-  "rgba(54, 162, 235, .5)",
-  "rgba(255, 206, 86, .5)",
-  "rgba(75, 192, 192, .5)",
-  "rgba(153, 102, 255, .5)",
-  "rgba(255, 159, 64, .5)",
-];
-
-const BD_COLORS = [
-  "rgba(255, 99, 132, 1)",
-  "rgba(54, 162, 235, 1)",
-  "rgba(255, 206, 86, 1)",
-  "rgba(75, 192, 192, 1)",
-  "rgba(153, 102, 255, 1)",
-  "rgba(255, 159, 64, 1)",
-];
 
 const Chart = {
   Title: tw.div`
@@ -121,41 +104,22 @@ const Chart = {
   `,
 };
 
-interface BadgeItemProps {
-  bgColor?: string;
-  bdColor?: string;
-  text?: string;
-}
+const BG_COLORS = [
+  "rgba(255, 99, 132, .5)",
+  "rgba(54, 162, 235, .5)",
+  "rgba(255, 206, 86, .5)",
+  "rgba(75, 192, 192, .5)",
+  "rgba(153, 102, 255, .5)",
+  "rgba(255, 159, 64, .5)",
+];
 
-const BadgeItem: FC<BadgeItemProps> = ({ bgColor = "rgba(255, 255, 255, .2)", bdColor, text }) => {
-  return (
-    <Badge.Main>
-      <Badge.Color
-        style={{
-          backgroundColor: bgColor,
-          borderWidth: 1,
-          borderColor: bdColor,
-        }}
-      />
-      <Badge.Text>{text}</Badge.Text>
-    </Badge.Main>
-  );
-};
-
-const Badge = {
-  Main: tw.div`
-    flex
-    items-center
-    gap-2
-  `,
-  Color: tw.div`
-    h-4
-    w-4
-    rounded
-  `,
-  Text: tw.div`
-    text-sm
-  `,
-};
+const BD_COLORS = [
+  "rgba(255, 99, 132, 1)",
+  "rgba(54, 162, 235, 1)",
+  "rgba(255, 206, 86, 1)",
+  "rgba(75, 192, 192, 1)",
+  "rgba(153, 102, 255, 1)",
+  "rgba(255, 159, 64, 1)",
+];
 
 export default PieChart;
