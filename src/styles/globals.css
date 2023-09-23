@@ -66,34 +66,34 @@ blockquote {
 }
 
 .splide__pagination__page {
-    background: #cccccc49 !important;
+  background: #cccccc49 !important;
 }
 
 .splide__pagination__page.is-active {
-    background: #ffffff57 !important;
+  background: #ffffff57 !important;
 }
 
 tr {
   outline: thin solid transparent;
-  height: .5rem;
-}
-
-td {
-  background-color: #16181A;
+  height: 0.5rem;
 }
 
 tr:first-child td:first-child {
-  @apply rounded-tl-lg
+  @apply rounded-tl-lg;
 }
 
 tr:first-child td:last-child {
-  @apply rounded-tr-lg
+  @apply rounded-tr-lg;
 }
 
 tr:last-child td:first-child {
-  @apply rounded-bl-lg
+  @apply rounded-bl-lg;
 }
 
 tr:last-child td:last-child {
-  @apply rounded-br-lg
+  @apply rounded-br-lg;
+}
+
+.stm_table .ant-table-thead .ant-table-cell {
+  background-color: transparent !important;
 }

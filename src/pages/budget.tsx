@@ -1,20 +1,31 @@
 import { NextPage } from "next";
 import { api } from "@/utils/api";
 import { Icon } from "@iconify/react";
-import { Text, Loading } from "@nextui-org/react";
+import { Text } from "@nextui-org/react";
+import { LoadingScreen } from "@/components/Loading";
 
 import tw from "tailwind-styled-components";
 
 import Sponsor from "@/components/budget/Sponsor";
 import PieChart from "@/components/budget/PieChart";
-import ProjectList from "@/components/budget/ProjectList";
-import ProjectSpending from "@/components/budget/ProjectSpending";
+import DocumentList from "@/components/budget/DocumentList";
+import Balanch from "@/components/budget/Balanch";
+import Statements from "@/components/budget/Statements";
+
+interface ProjectFilter {
+  budgetId?: string;
+  orderBy: "desc" | "asc";
+}
 
 interface Props {}
 
 const Budget: NextPage<Props> = () => {
   const budget = api.budget.getBudget.useQuery();
   const sponsor = api.budget.getSponsor.useQuery();
+
+  const getCurrentBudgetId = () => {
+    return budget?.data?.id ?? null;
+  };
 
   const getReceivedBudget = () => {
     return (
@@ -27,20 +38,12 @@ const Budget: NextPage<Props> = () => {
     );
   };
 
-  const getAllProjects = () => {
+  const getProjectDocuments = () => {
     return budget.data?.projectUse ?? [];
   };
 
   if (budget.isLoading || sponsor.isLoading) {
-    return (
-      <div className="flex h-screen flex-col items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Text className="prompt" size={"$4xl"}>
-            <Loading size="lg" />
-          </Text>
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!budget.data) {
@@ -69,11 +72,12 @@ const Budget: NextPage<Props> = () => {
             <PieChart data={getReceivedBudget()} />
           </div>
           <div className="flex flex-col gap-3 lg:col-span-2">
-            <ProjectSpending />
-            <ProjectList data={getAllProjects()} />
+            <Balanch />
+            <DocumentList data={getProjectDocuments()} />
           </div>
         </Grid>
         <Sponsor data={sponsor.data ?? []} />
+        <Statements budgetId={getCurrentBudgetId()} />
       </Container>
     </>
   );
