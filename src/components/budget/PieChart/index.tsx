@@ -3,6 +3,7 @@ import { Card } from "@nextui-org/react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import { BadgeText } from "./Badge";
+import { Icon } from "@iconify/react";
 
 import tw from "tailwind-styled-components";
 
@@ -57,7 +58,10 @@ const PieChart: FC<Props> = ({ data = [] }) => {
         padding: "1.5rem",
       }}
     >
-      <Chart.Title>แผนภูมิแสดงที่มางบประมาณ</Chart.Title>
+      <Chart.Title>
+        <Icon icon="lucide:pie-chart" />
+        แผนภูมิแสดงที่มางบประมาณ
+      </Chart.Title>
       <Chart.Container>
         <Chart.Body>
           <Doughnut data={chartData} />
@@ -85,6 +89,11 @@ const Chart = {
     text-[1.15rem]
     font-bold
     tracking-wide
+    flex
+    items-center
+    justify-center
+    gap-1
+    h-[1.5rem]
   `,
   Container: tw.div`
     py-[2rem]
