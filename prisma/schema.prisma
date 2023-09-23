@@ -131,7 +131,6 @@ model Budget {
   amount          Float            @default(0)
   received_amount ReceivedBudget[]
   is_active       Boolean?         @default(true)
-  budget_type_id  String?
   projectUse      Project[]
 }
 
