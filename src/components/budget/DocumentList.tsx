@@ -2,8 +2,9 @@ import { NextPage } from "next";
 import { FileIcon } from "react-file-icon";
 
 import { Icon } from "@iconify/react";
-// import { TBody, Table, Thead } from "./Table";
 import { Table } from "@nextui-org/react";
+
+import tw from "tailwind-styled-components";
 
 interface Project {
   name: string | null;
