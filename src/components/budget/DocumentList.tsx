@@ -1,5 +1,3 @@
-import tw from "tailwind-styled-components";
-
 import { NextPage } from "next";
 import { FileIcon } from "react-file-icon";
 
@@ -40,7 +38,7 @@ const columns = [
   },
 ];
 
-const ProjectList: NextPage<Props> = ({ data = [] }) => {
+const DocumentList: NextPage<Props> = ({ data = [] }) => {
   return (
     <Table.Container className="max-h-[18rem]">
       <Table.Main>
@@ -94,4 +92,4 @@ const ProjectList: NextPage<Props> = ({ data = [] }) => {
   );
 };
 
-export default ProjectList;
+export default DocumentList;
