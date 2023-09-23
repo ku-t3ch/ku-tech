@@ -2,7 +2,8 @@ import { NextPage } from "next";
 import { FileIcon } from "react-file-icon";
 
 import { Icon } from "@iconify/react";
-import { TBody, Table, Thead } from "./Table";
+// import { TBody, Table, Thead } from "./Table";
+import { Table } from "@nextui-org/react";
 
 interface Project {
   name: string | null;
@@ -40,55 +41,84 @@ const columns = [
 
 const DocumentList: NextPage<Props> = ({ data = [] }) => {
   return (
-    <Table.Container className="max-h-[18rem]">
-      <Table.Main>
-        <Thead.Main>
-          <Thead.Tr>
-            {columns.map((v, idx) => {
-              return (
-                <Thead.Th key={idx}>
+    <Table
+      lined
+      shadow={false}
+      color="primary"
+      containerCss={{
+        height: "100%",
+        border: 0,
+        borderRadius: "1rem",
+        background: "#16181A",
+      }}
+      css={{
+        minWidth: "100%",
+        height: "100%",
+      }}
+    >
+      <Table.Header>
+        {[...columns].map((val, idx) => {
+          return (
+            <Table.Column
+              key={idx}
+              css={{
+                color: "#9ca6ad",
+                background: "#202325",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <div
+                className="flex h-[2rem] items-center gap-1"
+                style={{
+                  justifyContent: val.align ?? "center",
+                }}
+              >
+                <Icon icon={val.icon} className="text-[1rem]" />
+                <span>{val.label}</span>
+              </div>
+            </Table.Column>
+          );
+        })}
+      </Table.Header>
+      <Table.Body
+        items={data}
+        css={{
+          textAlign: "center",
+        }}
+      >
+        {data.map((val, idx) => {
+          return (
+            <Table.Row key={idx}>
+              <Table.Cell>{idx + 1}</Table.Cell>
+              <Table.Cell css={{ textAlign: "start" }}>{val.name}</Table.Cell>
+              <Table.Cell>
+                {val?.amount || 0 > 0 ? `${val.amount?.toLocaleString()}` : "ไม่มีงบประมาณ"}
+              </Table.Cell>
+              <Table.Cell>
+                <div className="flex justify-center">
                   <div
-                    className="flex items-center justify-center gap-1"
-                    style={{
-                      justifyContent: v.align ?? "center",
+                    role="button"
+                    className="w-[1rem]"
+                    onClick={() => {
+                      if (!val?.document_url) return;
+                      window.open(val.document_url, "_blank", "noreferrer");
                     }}
                   >
-                    <Icon icon={v.icon ?? ""} />
-                    <span className="whitespace-nowrap">{v.label}</span>
+                    <FileIcon type="document" extension="pdf" color="aliceblue" />
                   </div>
-                </Thead.Th>
-              );
-            })}
-          </Thead.Tr>
-          <tr></tr>
-        </Thead.Main>
-        <TBody.Main>
-          {data.map((v, idx) => {
-            return (
-              <TBody.Tr key={idx}>
-                <TBody.Td className="p-[1rem]">{idx + 1}</TBody.Td>
-                <TBody.Td className="text-start">{v.name}</TBody.Td>
-                <TBody.Td>{v.amount?.toLocaleString()} THB</TBody.Td>
-                <TBody.Td>
-                  <div className="flex justify-center">
-                    <div
-                      role="button"
-                      className="w-[1rem]"
-                      onClick={() => {
-                        if (!v?.document_url) return;
-                        window.open(v.document_url, "_blank", "noreferrer");
-                      }}
-                    >
-                      <FileIcon type="document" extension="pdf" color="aliceblue" />
-                    </div>
-                  </div>
-                </TBody.Td>
-              </TBody.Tr>
-            );
-          })}
-        </TBody.Main>
-      </Table.Main>
-    </Table.Container>
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          );
+        })}
+      </Table.Body>
+      <Table.Pagination
+        noMargin
+        align="center"
+        rowsPerPage={3}
+        onPageChange={(page) => console.log({ page })}
+      />
+    </Table>
   );
 };
 
