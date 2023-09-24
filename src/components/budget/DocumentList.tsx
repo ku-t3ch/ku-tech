@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { FileIcon } from "react-file-icon";
 
 import { Icon } from "@iconify/react";
-import { Table } from "@nextui-org/react";
+import { Table, Badge } from "@nextui-org/react";
 
 import tw from "tailwind-styled-components";
 
@@ -45,7 +45,6 @@ const DocumentList: NextPage<Props> = ({ data = [] }) => {
     <Table
       lined
       shadow={false}
-      color="primary"
       containerCss={{
         height: "100%",
         border: 0,
@@ -61,7 +60,7 @@ const DocumentList: NextPage<Props> = ({ data = [] }) => {
         {[...columns].map((val, idx) => {
           return (
             <Table.Column
-              key={idx}
+              key={val.key}
               css={{
                 color: "#9ca6ad",
                 background: "#202325",
@@ -88,12 +87,36 @@ const DocumentList: NextPage<Props> = ({ data = [] }) => {
         }}
       >
         {data.map((val, idx) => {
+          const amount = val?.amount ?? 0;
+
           return (
             <Table.Row key={idx}>
               <Table.Cell>{idx + 1}</Table.Cell>
               <Table.Cell css={{ textAlign: "start" }}>{val.name}</Table.Cell>
               <Table.Cell>
-                {val?.amount || 0 > 0 ? `${val.amount?.toLocaleString()}` : "ไม่มีงบประมาณ"}
+                {amount > 0 ? (
+                  <Badge
+                    variant="flat"
+                    color="primary"
+                    isSquared
+                    css={{
+                      border: 0,
+                    }}
+                  >
+                    {`${val.amount?.toLocaleString()} THB`}
+                  </Badge>
+                ) : (
+                  <Badge
+                    variant="flat"
+                    color="default"
+                    isSquared
+                    css={{
+                      border: 0,
+                    }}
+                  >
+                    ไม่มีรายจ่าย
+                  </Badge>
+                )}
               </Table.Cell>
               <Table.Cell>
                 <div className="flex justify-center">
@@ -113,12 +136,7 @@ const DocumentList: NextPage<Props> = ({ data = [] }) => {
           );
         })}
       </Table.Body>
-      <Table.Pagination
-        noMargin
-        align="center"
-        rowsPerPage={3}
-        onPageChange={(page) => console.log({ page })}
-      />
+      <Table.Pagination size="sm" noMargin align="center" rowsPerPage={3} />
     </Table>
   );
 };
