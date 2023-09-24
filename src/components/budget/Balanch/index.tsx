@@ -18,6 +18,11 @@ const Balanch: FC<Props> = ({ data }) => {
   return (
     <Grid>
       {data.map((val, idx) => {
+        // show only 3 rows
+        if (idx + 1 > 3) {
+          return;
+        }
+
         return (
           <Bag
             key={idx}
