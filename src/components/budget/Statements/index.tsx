@@ -74,10 +74,12 @@ const Statements: FC<Props> = ({ budgetId }) => {
             return (
               <Record
                 key={`expense-${idx}`}
-                isMobile={isMobile}
                 title={v.name}
+                spendingData={v.spendingUse ?? []}
+                receive={v.amount}
                 start_date={v.start_date}
                 ended_date={v.ended_date}
+                isMobile={isMobile}
               />
             );
           })

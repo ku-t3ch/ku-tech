@@ -1,15 +1,22 @@
 import { FC } from "react";
-import { Collapse, Text, Avatar } from "@nextui-org/react";
-import { Table, Tooltip } from "antd";
+import { Tooltip } from "antd";
+import { Icon } from "@iconify/react";
+import { Collapse, Text, Avatar, Badge, Divider, Progress } from "@nextui-org/react";
+import type { Spending } from "@/interfaces/BudgetInterface";
+
+import SpendingList from "./SpendingList";
+import tw from "tailwind-styled-components";
 
 interface Props {
   title: string | null;
-  isMobile: boolean;
+  spendingData: Spending[];
+  receive: number | null;
   start_date: Date;
   ended_date: Date;
+  isMobile: boolean;
 }
 
-const Record: FC<Props> = ({ title, isMobile, start_date, ended_date }) => {
+const Record: FC<Props> = ({ title, spendingData, receive, start_date, ended_date, isMobile }) => {
   const dateLocale = (dateTime: Date) => {
     return dateTime.toLocaleString("th-TH", {
       year: "numeric",
@@ -18,38 +25,15 @@ const Record: FC<Props> = ({ title, isMobile, start_date, ended_date }) => {
     });
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const getSumSpendingUse = () => {
+    return spendingData.reduce((accumulator, object) => {
+      return accumulator + (object?.amount || 0);
+    }, 0);
+  };
 
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
+  const getBalance = () => {
+    return (receive || 0) - getSumSpendingUse();
+  };
 
   return (
     <Collapse
@@ -76,11 +60,54 @@ const Record: FC<Props> = ({ title, isMobile, start_date, ended_date }) => {
         />
       }
     >
-      <div className="p-5">
-        <Table dataSource={dataSource} columns={columns} className="stm_table" />
+      <div className="lg:py-[1rem] lg:px-[1rem]">
+        {spendingData.length > 0 ? (
+          <>
+            <Section>
+              <div className="flex justify-center gap-2">
+                <Badge size="lg" variant="flat" color="primary" css={{ border: 0 }} isSquared>
+                  {`ใช้จำนวน: ${getSumSpendingUse().toLocaleString()} / ${receive?.toLocaleString()} (THB)`}
+                </Badge>
+                <Badge size="lg" variant="flat" color="warning" css={{ border: 0 }} isSquared>
+                  คงเหลือ: {`${getBalance().toLocaleString()} THB`}
+                </Badge>
+              </div>
+            </Section>
+            <Section className="py-[1rem]">
+              <SpendingList data={spendingData ?? []} />
+            </Section>
+          </>
+        ) : (
+          <div className="flex justify-center">
+            <EmptyRecord />
+          </div>
+        )}
       </div>
     </Collapse>
   );
 };
+
+const EmptyRecord = () => {
+  return (
+    <Badge
+      size="lg"
+      isSquared
+      variant="flat"
+      color="default"
+      css={{
+        border: 0,
+      }}
+    >
+      <div className="flex w-full items-center gap-1">
+        <Icon icon="material-symbols:unknown-document-outline" className="text-[1.25rem]" />
+        <span>ขออภัยไม่พบรายการงบประมาณ</span>
+      </div>
+    </Badge>
+  );
+};
+
+const Section = tw.div`
+  block
+`;
 
 export default Record;
