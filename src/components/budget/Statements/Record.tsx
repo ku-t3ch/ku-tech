@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Tooltip } from "antd";
 import { Icon } from "@iconify/react";
-import { Collapse, Text, Avatar, Badge, Divider, Progress } from "@nextui-org/react";
+import { FileIcon, defaultStyles } from "react-file-icon";
+import { Collapse, Text, Avatar, Badge } from "@nextui-org/react";
 import type { Spending } from "@/interfaces/BudgetInterface";
 
 import SpendingList from "./SpendingList";
@@ -63,19 +64,18 @@ const Record: FC<Props> = ({ title, spendingData, receive, start_date, ended_dat
       <div className="lg:py-[1rem] lg:px-[1rem]">
         {spendingData.length > 0 ? (
           <>
-            <Section>
-              <div className="flex justify-center gap-2">
-                <Badge size="lg" variant="flat" color="primary" css={{ border: 0 }} isSquared>
-                  {`ใช้จำนวน: ${getSumSpendingUse().toLocaleString()} / ${receive?.toLocaleString()} (THB)`}
-                </Badge>
-                <Badge size="lg" variant="flat" color="warning" css={{ border: 0 }} isSquared>
-                  คงเหลือ: {`${getBalance().toLocaleString()} THB`}
-                </Badge>
-              </div>
-            </Section>
-            <Section className="py-[1rem]">
-              <SpendingList data={spendingData ?? []} />
-            </Section>
+            <div className="space-y-[1rem] divide-y divide-dashed divide-[#494949]">
+              <Section>
+                <UsingBudget
+                  spending={getSumSpendingUse()}
+                  receive={receive ?? 0}
+                  balance={getBalance()}
+                />
+              </Section>
+              <Section className="py-[1rem]">
+                <SpendingList data={spendingData ?? []} />
+              </Section>
+            </div>
           </>
         ) : (
           <div className="flex justify-center">
@@ -87,7 +87,7 @@ const Record: FC<Props> = ({ title, spendingData, receive, start_date, ended_dat
   );
 };
 
-const EmptyRecord = () => {
+const EmptyRecord: FC = () => {
   return (
     <Badge
       size="lg"
@@ -103,6 +103,41 @@ const EmptyRecord = () => {
         <span>ขออภัยไม่พบรายการงบประมาณ</span>
       </div>
     </Badge>
+  );
+};
+
+interface UsingBudgetProps {
+  spending: number;
+  receive: number;
+  balance: number;
+}
+
+const UsingBudget: FC<UsingBudgetProps> = ({ spending, receive, balance }) => {
+  return (
+    <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:grid-cols-2 sm:justify-center">
+      <Badge size="lg" variant="flat" color="primary" css={{ border: 0 }} isSquared>
+        {`ใช้จำนวน: ${spending.toLocaleString()} / ${receive?.toLocaleString()} (THB)`}
+      </Badge>
+      <Badge size="lg" variant="flat" color="warning" css={{ border: 0 }} isSquared>
+        คงเหลือ: {`${balance.toLocaleString()} THB`}
+      </Badge>
+    </div>
+  );
+};
+
+const DownloadFiles: FC = () => {
+  return (
+    <div className="flex justify-end gap-2">
+      <div className="w-[1.5rem]">
+        <FileIcon extension="pdf" {...defaultStyles.pdf} />
+      </div>
+      <div className="w-[1.5rem]">
+        <FileIcon extension="xlsx" {...defaultStyles.xlsx} />
+      </div>
+      <div className="w-[1.5rem]">
+        <FileIcon extension="csv" {...defaultStyles.csv} />
+      </div>
+    </div>
   );
 };
 

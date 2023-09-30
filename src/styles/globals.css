@@ -97,3 +97,8 @@ tr:last-child td:last-child {
 .stm_table .ant-table-thead .ant-table-cell {
   background-color: transparent !important;
 }
+
+.nextui-badge {
+  @apply w-full !important;
+  @apply sm:w-fit !important;
+}

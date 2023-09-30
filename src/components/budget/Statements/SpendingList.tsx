@@ -33,7 +33,6 @@ const SpendingList: FC<Props> = ({ data }) => {
   return (
     <Table
       lined
-      headerLined
       shadow={false}
       containerCss={{
         height: "100%",
