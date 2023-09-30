@@ -45,6 +45,7 @@ const SpendingList: FC<Props> = ({ data }) => {
         minWidth: "100%",
         padding: 0,
       }}
+      aria-label="spending-list"
     >
       <Table.Header>
         {columns.map((val) => {

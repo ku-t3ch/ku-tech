@@ -1,13 +1,14 @@
 import { api } from "@/utils/api";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Collapse } from "@nextui-org/react";
 import { Input, Select } from "antd";
 import { useMediaQuery } from "usehooks-ts";
 import { Icon } from "@iconify/react";
 
-import tw from "tailwind-styled-components";
 import dynamic from "next/dynamic";
+import tw from "tailwind-styled-components";
 import LoadingSkeleton from "./LoadingSkeleton";
+import EmptyData from "./EmptyData";
 
 const Record = dynamic(() => import("./Record"));
 
@@ -17,6 +18,7 @@ interface Props {
 
 interface Filter {
   budgetId: string | null;
+  searchTerm: string | null;
   orderBy: "desc" | "asc";
 }
 
@@ -24,6 +26,7 @@ const Statements: FC<Props> = ({ budgetId }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [filter, setFilter] = useState<Filter>({
     budgetId,
+    searchTerm: null,
     orderBy: "desc",
   });
   const [isRequesting, setRequesting] = useState(false);
@@ -37,10 +40,24 @@ const Statements: FC<Props> = ({ budgetId }) => {
 
     setRequesting(true);
     setTimeout(() => {
-      setFilter((p) => ({ ...p, orderBy: value }));
+      setFilter((p) => ({ ...p, searchTerm: "", orderBy: value }));
       setRequesting(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (isRequesting || projects.isInitialLoading) return;
+
+    const timeout = setTimeout(() => {
+      setRequesting(true);
+      setTimeout(() => {
+        setFilter((p) => ({ ...p, searchTerm: search }));
+        setRequesting(false);
+      }, 1000);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [search]);
 
   return (
     <Container>
@@ -49,6 +66,7 @@ const Statements: FC<Props> = ({ budgetId }) => {
           size="large"
           placeholder="ค้นหาโครงการ"
           prefix={<Icon icon="ic:round-search" />}
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <Select
@@ -56,6 +74,7 @@ const Statements: FC<Props> = ({ budgetId }) => {
           defaultValue="desc"
           style={{ width: 120 }}
           onChange={handleOnFilterChange}
+          aria-label="project-filther"
         >
           <Select.Option value="desc">ล่าสุด</Select.Option>
           <Select.Option value="asc">เก่าสุด</Select.Option>
@@ -69,6 +88,8 @@ const Statements: FC<Props> = ({ budgetId }) => {
       >
         {projects.isLoading || isRequesting ? (
           <LoadingSkeleton />
+        ) : projects?.data?.length == 0 ? (
+          <EmptyData />
         ) : (
           projects?.data?.map((v, idx) => {
             return (

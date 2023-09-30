@@ -41,6 +41,7 @@ export const budgetRouter = createTRPCRouter({
     .input(
       z.object({
         budgetId: z.string().nullish(),
+        searchTerm: z.string().nullish(),
         orderBy: z.enum(["desc", "asc"]),
       })
     )
@@ -50,6 +51,9 @@ export const budgetRouter = createTRPCRouter({
           start_date: input?.orderBy ?? "desc",
         },
         where: {
+          name: {
+            contains: input?.searchTerm ?? "",
+          },
           budgetUse: {
             some: {
               id: input.budgetId ?? "",
