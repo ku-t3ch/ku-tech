@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { Tooltip } from "antd";
 import { Icon } from "@iconify/react";
-import { FileIcon, defaultStyles } from "react-file-icon";
 import { Collapse, Text, Avatar, Badge } from "@nextui-org/react";
 import type { Spending } from "@/interfaces/BudgetInterface";
 
 import SpendingList from "./SpendingList";
 import tw from "tailwind-styled-components";
+import KUTechLogo from "@/assets/KU-TECH-Logo-128x128.png";
 
 interface Props {
   title: string | null;
@@ -51,15 +51,7 @@ const Record: FC<Props> = ({ title, spendingData, receive, start_date, ended_dat
           {dateLocale(start_date)} ถึง {dateLocale(ended_date)}
         </Text>
       }
-      contentLeft={
-        <Avatar
-          size="lg"
-          src="https://scontent.fkdt3-1.fna.fbcdn.net/v/t39.30808-6/361608918_204565819250156_4177714372965498165_n.jpg?_nc_cat=102&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHBQ0ZWdVGvY14M6P2utUIGqMqWJEnP0MWoypYkSc_QxUMdAs8y9GOfJSEUPAxMPFRMHGg7LFnPPZZP3nurs6vF&_nc_ohc=GiSRie10hhQAX-5ST8M&_nc_ht=scontent.fkdt3-1.fna&oh=00_AfCvNZfCuRmdp4hpcrrg45kaP_rxntOd6428YI_J57Mksw&oe=64C98DB7"
-          color="secondary"
-          bordered
-          squared
-        />
-      }
+      contentLeft={<Avatar size="lg" src={KUTechLogo.src} color="secondary" bordered squared />}
     >
       <div className="lg:py-[1rem] lg:px-[1rem]">
         {spendingData.length > 0 ? (
@@ -121,22 +113,6 @@ const UsingBudget: FC<UsingBudgetProps> = ({ spending, receive, balance }) => {
       <Badge size="lg" variant="flat" color="warning" css={{ border: 0 }} isSquared>
         คงเหลือ: {`${balance.toLocaleString()} THB`}
       </Badge>
-    </div>
-  );
-};
-
-const DownloadFiles: FC = () => {
-  return (
-    <div className="flex justify-end gap-2">
-      <div className="w-[1.5rem]">
-        <FileIcon extension="pdf" {...defaultStyles.pdf} />
-      </div>
-      <div className="w-[1.5rem]">
-        <FileIcon extension="xlsx" {...defaultStyles.xlsx} />
-      </div>
-      <div className="w-[1.5rem]">
-        <FileIcon extension="csv" {...defaultStyles.csv} />
-      </div>
     </div>
   );
 };
