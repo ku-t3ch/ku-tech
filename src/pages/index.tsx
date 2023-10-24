@@ -38,6 +38,7 @@ const activitys = [
     icon: <Icon icon="material-symbols:code-rounded" className="text-[4rem]" />,
     title: "KU Hackathon",
     content: "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยด้วยเทคโนโลยี",
+    href: "https://hackathon.tech.nisit.ku.ac.th",
   },
 ];
 
