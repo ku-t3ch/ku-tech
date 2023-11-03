@@ -37,6 +37,12 @@ const navbarItems: NavItem[] = [
         description: "แผนกิจกรรม",
       },
       {
+        to: "/budget",
+        label: "Budget",
+        icon: <Icon icon="tabler:report-money" />,
+        description: "งบประมาณประจำปี",
+      },
+      {
         to: "/join",
         label: "Member News",
         icon: <Icon icon="iconamoon:news" />,
