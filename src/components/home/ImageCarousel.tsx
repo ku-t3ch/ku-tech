@@ -26,6 +26,24 @@ const data = [
       "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2023/5.jpg",
     ],
   },
+  {
+    title: "Tech Camp #2",
+    date: "15 กันยายน 2566",
+    images: [
+      "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/1.jpeg",
+      "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/2.jpeg",
+      "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/3.jpeg",
+    ],
+  },
+  {
+    title: "KU Hackathon (Matching Teams)",
+    date: "15 พฤษจิกายน 2566",
+    images: [
+      "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/1.jpeg",
+      "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/2.jpeg",
+      "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/3.jpeg",
+    ],
+  },
 ];
 
 const ImageCarousel: NextPage<Props> = () => {
