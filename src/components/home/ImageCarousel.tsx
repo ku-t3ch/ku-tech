@@ -27,7 +27,7 @@ const data = [
     ],
   },
   {
-    title: "Tech Camp #2",
+    title: `Tech Talk #1 "Google App Sheet"`,
     date: "15 กันยายน 2566",
     images: [
       "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/1.jpeg",
