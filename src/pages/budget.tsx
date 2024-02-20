@@ -2,13 +2,13 @@ import { NextPage } from "next";
 import { api } from "@/utils/api";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+// import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useMediaQuery } from "usehooks-ts";
 import { LoadingScreen } from "@/components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { BudgetResponseInterface } from "@/interfaces/BudgetResponseInterface";
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 type List = {
     name: string;
@@ -163,18 +163,18 @@ function ChartRender(props: Props) {
                             size: 16,
                         }
                     },
-                    datalabels: {
-                        color: 'white', // Set the color of data labels
-                        font: {
-                            family: 'Noto Sans Thai',
-                            size: 14,
-                        },
-                        formatter: (value, ctx: any) => {
-                            //percentage
-                            const percentage = ((value / ctx.dataset.data.reduce((a: any, b: any) => a + b, 0)) * 100).toFixed(2);
-                            return `${percentage}%`;
-                        },
-                    },
+                    // datalabels: {
+                    //     color: 'white', // Set the color of data labels
+                    //     font: {
+                    //         family: 'Noto Sans Thai',
+                    //         size: 14,
+                    //     },
+                    //     formatter: (value, ctx: any) => {
+                    //         //percentage
+                    //         const percentage = ((value / ctx.dataset.data.reduce((a: any, b: any) => a + b, 0)) * 100).toFixed(2);
+                    //         return `${percentage}%`;
+                    //     },
+                    // },
                 }
             }} data={{
                 labels: dataToChart(props.data ?? []).labels,
