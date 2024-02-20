@@ -4,15 +4,15 @@ import clsx from 'clsx';
 import React from 'react'
 
 const content = [
-    {
-        title: "วิสัยทัศน์",
-        content: (
-            <div className='flex flex-col'>
-                <div>“Elevate Tech, Unleash Innovation”</div>
-                <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
-            </div>
-        )
-    },
+    // {
+    //     title: "วิสัยทัศน์",
+    //     content: (
+    //         <div className='flex flex-col'>
+    //             <div>“Elevate Tech, Unleash Innovation”</div>
+    //             <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
+    //         </div>
+    //     )
+    // },
     {
         title: "ประวัติชมรม",
         content: (

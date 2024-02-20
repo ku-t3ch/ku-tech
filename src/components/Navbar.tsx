@@ -31,7 +31,7 @@ const navbarItems: NavItem[] = [
         description: "ข่าวสารทั่วไป",
       },
       {
-        to: "/road-map",
+        to: "/road-map/2566",
         label: "Road Map",
         icon: <Icon icon="carbon:roadmap" />,
         description: "แผนกิจกรรม",
@@ -63,6 +63,10 @@ const navbarItems: NavItem[] = [
         description: "ระบบย่อลิงก์สำหรับสมาชิกชมรม",
       },
     ],
+  },
+  {
+    to: "/history",
+    label: "ประวัติชมรม",
   },
   {
     to: "/members",
