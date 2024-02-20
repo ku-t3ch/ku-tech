@@ -26,6 +26,9 @@ const server = z.object({
   S3: z.string(),
   RECAPTCHA_SECRET: z.string(),
   S3_ENV_TYPE: z.enum(["development", "production"]),
+  GOOGLE_SERVICE_ACCOUNTS: z.string(),
+  BUDGET_SPREADS_SHEET_ID: z.string(),
+  REDIS_URL: z.string(),
 });
 
 /**
@@ -55,6 +58,9 @@ const processEnv = {
   S3: process.env.S3,
   RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET,
   S3_ENV_TYPE: process.env.S3_ENV_TYPE,
+  GOOGLE_SERVICE_ACCOUNTS: process.env.GOOGLE_SERVICE_ACCOUNTS,
+  BUDGET_SPREADS_SHEET_ID: process.env.BUDGET_SPREADS_SHEET_ID,
+  REDIS_URL: process.env.REDIS_URL,
 };
 
 // Don't touch the part below
