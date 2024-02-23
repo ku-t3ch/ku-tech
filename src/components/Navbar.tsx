@@ -71,10 +71,14 @@ const navbarItems: NavItem[] = [
             {
                 to: "/members",
                 label: "สมาชิกชมรม",
+                icon: <Icon icon="mdi:account-group-outline" />,
+                description: "ข้อมูลสมาชิกชมรม",
             },
             {
                 to: "/history",
                 label: "ประวัติชมรม",
+                icon: <Icon icon="material-symbols:history" />,
+                description: "ประวัติชมรม",
             },
         ]
     },
