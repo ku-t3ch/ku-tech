@@ -12,7 +12,8 @@ export default function Messaging() {
     const reportApi = useMutation((message: string) => {
         return axios.post(process.env.externalApi + "/report/website",
             {
-                message: message
+                message: message,
+                token: token
             }
         )
     })
