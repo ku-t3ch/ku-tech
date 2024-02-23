@@ -37,12 +37,6 @@ const navbarItems: NavItem[] = [
                 description: "แผนกิจกรรม",
             },
             {
-                to: "/budget",
-                label: "Budget",
-                icon: <Icon icon="tabler:report-money" />,
-                description: "งบประมาณประจำปี",
-            },
-            {
                 to: "/join",
                 label: "Member News",
                 icon: <Icon icon="iconamoon:news" />,
@@ -69,16 +63,22 @@ const navbarItems: NavItem[] = [
         label: "ข้อมูลองค์กร",
         dropdownItems: [
             {
-                to: "/members",
-                label: "สมาชิกชมรม",
-                icon: <Icon icon="mdi:account-group-outline" />,
-                description: "ข้อมูลสมาชิกชมรม",
-            },
-            {
                 to: "/history",
                 label: "ประวัติชมรม",
                 icon: <Icon icon="material-symbols:history" />,
                 description: "ประวัติชมรม",
+            },
+            {
+                to: "/members",
+                label: "คณะกรรมการ",
+                icon: <Icon icon="mdi:account-group-outline" />,
+                description: "ข้อมูลคณะกรรมการชมรม",
+            },
+            {
+                to: "/budget",
+                label: "งบประมาณ",
+                icon: <Icon icon="tabler:report-money" />,
+                description: "งบประมาณของชมรม",
             },
         ]
     },
@@ -106,6 +106,12 @@ const navbarItems: NavItem[] = [
         label: "ติดต่อเรา",
         dropdownItems: [
             {
+                to: "/messaging",
+                icon: <Icon icon="mdi:message-text" />,
+                label: "ช่องแสดงความเห็น",
+                description: "ช่องแสดงความเห็น และวิจารรณ์",
+            },
+            {
                 to: "https://tech.nisit.ku.ac.th",
                 icon: <Icon icon="mdi:web" />,
                 label: "Website",
@@ -122,6 +128,13 @@ const navbarItems: NavItem[] = [
                 icon: <Icon icon="ic:baseline-facebook" />,
                 label: "Facebook",
                 description: "KU Tech",
+                newTab: true,
+            },
+            {
+                to: "https://www.instagram.com/ku.t3ch/",
+                icon: <Icon icon="mdi:instagram" />,
+                label: "Instagram",
+                description: "ku.t3ch",
                 newTab: true,
             },
             {

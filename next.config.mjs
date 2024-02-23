@@ -11,6 +11,10 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   output: "standalone",
+  env: {
+    externalApi: "https://tech.nisit.ku.ac.th/kutechapi",
+    turnstileSiteKey: "0x4AAAAAAAC3oa09OYsZkfE6",
+  },
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
