@@ -7,6 +7,9 @@ import { useMediaQuery } from "usehooks-ts";
 import { LoadingScreen } from "@/components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { BudgetResponseInterface } from "@/interfaces/BudgetResponseInterface";
+import { Select } from "antd";
+import { useState } from "react";
+import _ from "lodash";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -36,6 +39,9 @@ const BD_COLORS = [
 interface Props { }
 
 const Budget: NextPage<Props> = () => {
+    const [ListTypeBudget, setListTypeBudget] = useState<string>("budget_list_from_income");
+    const [ListTypeExpenses, setListTypeExpenses] = useState<string>("expenses_list_from_income");
+
     const budget = useQuery<BudgetResponseInterface>({
         queryKey: ['repoData'],
         queryFn: () =>
@@ -101,6 +107,59 @@ const Budget: NextPage<Props> = () => {
                         <div className="flex flex-col">
                             <div className="text-xl">งบอุดหนุน</div>
                             <div className="text-3xl text-red-500 font-bold">- {convertToCurrency(budget.data?.expanses_from_subsidize!!)} {CurrencyRender}</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="grid md:grid-cols-3 gap-5 grid-cols-1">
+                    <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 w-full overflow-y-auto overflow-x-hidden relative max-h-[30rem] min-h-[30rem]">
+                        <Select value={ListTypeBudget} defaultValue={ListTypeBudget} size="large" className="w-fit" onChange={(v) => {
+                            setListTypeBudget(v)
+                        }}>
+                            <option value="budget_list_from_income">รายได้จากเงินรายได้</option>
+                            <option value="budget_list_form_subsidize">รายได้จากงบอุดหนุน</option>
+                        </Select>
+                        <div className="flex flex-col gap-3">
+                            {
+                                budget.data![ListTypeBudget].map((v: any, i: any) => (
+                                    <div className="flex flex-col bg-gray-800 rounded-xl p-3 px-4" key={i}>
+                                        <div className="" >{v.name}</div>
+                                        <div className="text-xl text-green-500 font-bold" >+ {convertToCurrency(v.amount)} {CurrencyRender}</div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 w-full overflow-y-auto overflow-x-hidden relative max-h-[30rem] min-h-[30rem]">
+                        <Select value={ListTypeExpenses} defaultValue={ListTypeExpenses} size="large" className="w-fit" onChange={(v) => {
+                            setListTypeExpenses(v)
+                        }}>
+                            <option value="expenses_list_from_income">รายจ่ายจากเงินรายได้</option>
+                            <option value="expenses_list_from_subsidize">รายจ่ายจากงบอุดหนุน</option>
+                        </Select>
+                        <div className="flex flex-col gap-3">
+                            {
+                                budget.data![ListTypeExpenses].map((v: any, i: any) => (
+                                    <div className="flex flex-col bg-gray-800 rounded-xl p-3 px-4" key={i}>
+                                        <div className="" >{v.name}</div>
+                                        <div className="text-xl text-red-500 font-bold" >- {convertToCurrency(v.amount)} {CurrencyRender}</div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 w-full overflow-y-auto overflow-x-hidden relative max-h-[30rem] min-h-[30rem]">
+                        <Select size="large" className="w-fit" defaultValue="refund_list">
+                            <option value="refund_list">รายการคืนเงิน</option>
+                        </Select>
+                        <div className="flex flex-col gap-3">
+                            {
+                                budget.data?.refund_list.map((v: any, i: any) => (
+                                    <div className="flex flex-col bg-gray-800 rounded-xl p-3 px-4" key={i}>
+                                        <div className="" >{v.name}</div>
+                                        <div className="text-xl text-yellow-500 font-bold" >{convertToCurrency(v.amount)} {CurrencyRender}</div>
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 export interface BudgetResponseInterface {
+    [key: string]: any
     remaining_budget: number
     budget_all: number
     expenses_all: number
