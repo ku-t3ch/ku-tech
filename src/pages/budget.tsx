@@ -10,6 +10,7 @@ import { BudgetResponseInterface } from "@/interfaces/BudgetResponseInterface";
 import { Select } from "antd";
 import { useState } from "react";
 import _ from "lodash";
+import Link from "next/link";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -81,11 +82,12 @@ const Budget: NextPage<Props> = () => {
                         <div className="text-3xl">รายจ่ายทั้งหมด</div>
                         <div className="text-3xl text-red-500 font-bold">- {convertToCurrency(budget.data?.expenses_all!!)} {CurrencyRender}</div>
                     </div>
+                    <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 text-center w-full">
+                        <div className="text-3xl">คืนเงิน</div>
+                        <div className="text-3xl text-yellow-500 font-bold">{convertToCurrency(budget.data?.refund!!)} {CurrencyRender}</div>
+                    </div>
                 </div>
-                <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 text-center w-full">
-                    <div className="text-3xl">คืนเงิน</div>
-                    <div className="text-3xl text-yellow-500 font-bold">{convertToCurrency(budget.data?.refund!!)} {CurrencyRender}</div>
-                </div>
+
                 <div className="flex gap-5 flex-col md:flex-row">
                     <div className="flex flex-col bg-gray-900 px-10 py-7 rounded-2xl gap-5 w-full">
                         <div className="text-3xl">งบประมาณ</div>
@@ -164,6 +166,9 @@ const Budget: NextPage<Props> = () => {
                     </div>
                 </div>
             </div>
+            <Link href="/messaging" className="flex justify-center pt-10 text-center underline">
+                <div>ร่วมแสดงความคิดเห็น <br /> หรือวิจารณ์การใช้จ่ายงบประมาณ</div>
+            </Link>
         </div >
     );
 };
