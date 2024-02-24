@@ -33,8 +33,11 @@ export default function Messaging() {
     return (
         <div className="mx-auto flex max-w-[73rem] flex-col gap-10 md:gap-20 p-5 md:p-10 w-full">
             <div className="flex flex-col gap-5 w-full">
-                <div className="prompt text-2xl w-full">
-                    ช่องแสดงความเห็น และวิจารรณ์
+                <div className='flex flex-col'>
+                    <div className="prompt text-2xl w-full">
+                        ช่องแสดงความเห็น และวิจารรณ์
+                    </div>
+                    <div className='text-red-500'>*ข้อความดังกล่าวจะถูกส่งตรงถึงคณะกรรมการกลุ่มกิจกรรมทุกคน</div>
                 </div>
                 <Textarea
                     value={value}
@@ -58,7 +61,6 @@ export default function Messaging() {
                 <Button onClick={onFinished} auto className='w-full'>
                     {reportApi.isLoading ? <Loading color="currentColor" size="sm" /> : "ส่ง"}
                 </Button>
-
             </div>
         </div>
     )

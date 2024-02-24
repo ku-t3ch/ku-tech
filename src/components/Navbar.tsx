@@ -137,13 +137,6 @@ const navbarItems: NavItem[] = [
                 description: "ku.t3ch",
                 newTab: true,
             },
-            {
-                to: "https://www.instagram.com/ku.t3ch/",
-                icon: <Icon icon="mdi:instagram" />,
-                label: "Instagram",
-                description: "ku.t3ch",
-                newTab: true,
-            },
         ],
     },
 ];
