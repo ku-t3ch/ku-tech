@@ -19,6 +19,7 @@ import { api } from "@/utils/api";
 import { RecoilRoot } from "recoil";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { clarity } from 'react-microsoft-clarity';
 
 import { Toaster } from "react-hot-toast";
 import { NavbarContextProvider } from "@/contexts/NavbarContext";
@@ -45,6 +46,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const router = useRouter();
 
   useEffect(() => {
+    clarity.init('mgtyo69e3n');
     const handleRouteStart = () => setIsStart(true);
     const handleRouteStop = () => setIsStart(false);
     router.events.on("routeChangeStart", handleRouteStart);
