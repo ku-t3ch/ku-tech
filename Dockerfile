@@ -13,12 +13,7 @@ COPY prisma ./
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml\* ./
 
-RUN \
- if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
- elif [ -f package-lock.json ]; then npm ci; \
- elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
- else echo "Lockfile not found." && exit 1; \
- fi
+RUN yarn
 
 ##### BUILDER
 
@@ -46,13 +41,7 @@ COPY . .
 
 # ENV NEXT_TELEMETRY_DISABLED 1
 ENV SKIP_ENV_VALIDATION=1
-
-RUN \
- if [ -f yarn.lock ]; then SKIP_ENV_VALIDATION=1 yarn prisma:generate && yarn lint && yarn build; \
- elif [ -f package-lock.json ]; then SKIP_ENV_VALIDATION=1 npm run prisma:generate && npm run lint && npm run build; \
- elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && SKIP_ENV_VALIDATION=1 pnpm prisma:generate && pnpm lint && pnpm run build; \
- else echo "Lockfile not found." && exit 1; \
- fi
+RUN yarn run prisma:generate && yarn run lint && SKIP_ENV_VALIDATION=1 yarn run build
 
 ##### RUNNER
 

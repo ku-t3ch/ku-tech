@@ -117,7 +117,7 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายโสตฯ
                   </Text>
-                  <div className="flex-wrap-reverse-reverse flex w-full items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                     {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
                     ))}

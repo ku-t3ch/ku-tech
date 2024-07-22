@@ -31,7 +31,7 @@ const navbarItems: NavItem[] = [
                 description: "ข่าวสารทั่วไป",
             },
             {
-                to: "/road-map/2566",
+                to: "/road-map/2567",
                 label: "Road Map",
                 icon: <Icon icon="carbon:roadmap" />,
                 description: "แผนกิจกรรม",

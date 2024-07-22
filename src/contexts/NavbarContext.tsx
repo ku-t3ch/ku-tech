@@ -32,6 +32,7 @@ const withNavbar: Array<string> = [
   "/logo",
   "/documents-download",
   "/road-map/2566",
+  "/road-map/2567",
   "/road-map",
   "/budget",
   "/history",
