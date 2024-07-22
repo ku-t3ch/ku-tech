@@ -41,7 +41,7 @@ COPY . .
 
 # ENV NEXT_TELEMETRY_DISABLED 1
 ENV SKIP_ENV_VALIDATION=1
-RUN yarn run db:generate && SKIP_ENV_VALIDATION=1 yarn run build
+RUN yarn run prisma:generate && yarn run lint && SKIP_ENV_VALIDATION=1 yarn run build
 
 ##### RUNNER
 
