@@ -15,6 +15,7 @@ import ImageCarousel from "@/components/home/ImageCarousel";
 import { Tooltip } from "antd";
 import Partner from "@/components/home/Partner";
 import Sponsor from "@/components/home/Sponsor";
+import TikTokIcon from "@/components/TikTokIcon";
 
 const activitys = [
   {
@@ -24,13 +25,13 @@ const activitys = [
   },
   {
     icon: <Icon icon="material-symbols:directions-bus-outline" className="text-[4rem]" />,
-    title: "KU Tech Camp",
+    title: "Tech Camp",
     content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
     href: "https://camp.tech.nisit.ku.ac.th",
   },
   {
     icon: <Icon icon="material-symbols:interpreter-mode-outline" className="text-[4rem]" />,
-    title: "KU Tech Talk",
+    title: "Tech Talk",
     content:
       "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
   },
@@ -168,6 +169,9 @@ const Home: NextPage = () => {
                 </a>
                 <a href="https://instagram.com/ku.t3ch" target="_blank">
                   <Icon icon="mdi:instagram" className="text-[4rem] text-white " />
+                </a>
+                <a href="https://instagram.com/ku.t3ch" target="_blank">
+                  <TikTokIcon className="text-[4rem] text-white"/>
                 </a>
               </div>
             </div>

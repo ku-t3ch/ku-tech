@@ -7,7 +7,7 @@ interface Props {}
 
 const PartnerData = [
   {
-    name: "สภาผู้แทนนิสิต มก",
+    name: "สภาผู้แทนนิสิต มหาวิทยาลัยเกษตรศาสตร์",
     image: "https://s3.tech.nisit.ku.ac.th/assets/partner/สภาผู้แทนนิสิต.png",
     link: "https://www.facebook.com/kusc.bk",
   },
@@ -17,9 +17,9 @@ const PartnerData = [
     link: "https://www.facebook.com/kusab.bk/",
   },
   {
-    name: "GDSC KU",
-    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/GDSCKU.png",
-    link: "https://www.facebook.com/gdsc.ku/",
+    name: "KU Startup",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/KUStartup.jpg",
+    link: "https://www.facebook.com/Kustartup",
   },
   {
     name: "KU Blockchain",
@@ -27,10 +27,15 @@ const PartnerData = [
     link: "https://www.facebook.com/KUBCS/",
   },
   {
-    name: "KU Startup",
-    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/KUStartup.jpg",
-    link: "https://www.facebook.com/Kustartup",
+    name: "GDSC KU",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/GDSCKU.png",
+    link: "https://www.facebook.com/gdsc.ku/",
   },
+  {
+    name: "KU Case Club",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/caseclub.jpg",
+    link: "https://www.facebook.com/profile.php?id=61556204251832",
+  }
 ];
 
 const Partner: NextPage<Props> = () => {

@@ -9,41 +9,32 @@ interface Props { }
 
 const data = [
     {
-        title: "KU Hackathon (Matching Teams)",
-        date: "15 พฤษจิกายน 2566",
+        title: "Tech Camp #2",
+        date: "9-12 มิถุนายน 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/1.jpeg",
-            "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/2.jpeg",
-            "https://s3.tech.nisit.ku.ac.th/activities/ku-hackathon/3.jpeg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (2).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (1).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (3).jpg"
         ],
     },
     {
-        title: `Tech Talk #1 "Google App Sheet"`,
-        date: "15 กันยายน 2566",
+        title: "Tech Camp #3",
+        date: "29-30 มิถุนายน 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/1.jpeg",
-            "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/2.jpeg",
-            "https://s3.tech.nisit.ku.ac.th/activities/google-app-sheet/3.jpeg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (3).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (2).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (1).jpg"
         ],
     },
     {
-        title: "First Meet 2023",
-        date: "12 กรกฎาคม 2566",
+        title: "First Meet 2024",
+        date: "24 กรกฎาคม 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2023/01.jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2023/IMG_5384.jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2023/IMG_5388.jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (3).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (4).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (1).jpg"
         ],
-    },
-    {
-        title: "Tech Camp #1",
-        date: "17 มิถุนายน 2566",
-        images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2023/9.jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2023/1.jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2023/5.jpg",
-        ],
-    },
+    }
 ];
 
 const ImageCarousel: NextPage<Props> = () => {

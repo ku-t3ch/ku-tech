@@ -116,7 +116,7 @@ const RoadMap: NextPage<Props> = () => {
     <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
       <div className="flex w-full flex-col gap-5">
         <Text className="prompt self-center" b size={"$4xl"}>
-          Road Map 2567
+          Road Map
         </Text>
         <Timeline
           mode={isMobile ? "left" : "alternate"}

@@ -44,7 +44,7 @@ const Logo: NextPage<Props> = () => {
                 <Text b>KU Tech White (png)</Text>
               </Card.Header>
               <Card.Divider />
-              <Card.Body css={{ py: "$10" }}>
+              <Card.Body css={{ py: "$10"}}>
                 <img src="/logo/KUTechWhite.png" alt="" />
                 <Button onClick={() => onDownload("/logo/KUTechWhite.png")} size="sm">
                   ดาวน์โหลด .png
