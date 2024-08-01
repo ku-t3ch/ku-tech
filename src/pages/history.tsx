@@ -4,15 +4,6 @@ import clsx from 'clsx';
 import React from 'react'
 
 const content = [
-    // {
-    //     title: "วิสัยทัศน์",
-    //     content: (
-    //         <div className='flex flex-col'>
-    //             <div>“Elevate Tech, Unleash Innovation”</div>
-    //             <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
-    //         </div>
-    //     )
-    // },
     {
         title: "ประวัติชมรม",
         content: (
@@ -40,9 +31,19 @@ const content = [
                         <div className='font-bold'>ด้านพัฒนาทักษะ</div>
                         <ul className="list-disc">
                             <li>CTF Cyber โครงการแข่งขัน Capture the Flag ของกองทัพไทย โดยกลุ่มกิจกรรมเราได้เปิดโอกาสให้นิสิตภายในกลุ่มกิจกรรมได้เข้าร่วมแข่งขัน เพื่อฝึกฝีมือนอกห้องเรียน</li>
+                            <li>NSC 2024 โครงการแข่งขันพัฒนาโปรแกรมคอมพิวเตอร์แห่งประเทศไทย โดยน้อง ๆ ได้พัฒนาแอปพลิเคชั่นเพื่อส่งเสริมทักษะและการเรียนรู้ด้านการเงินสำหรับเด็กจบใหม่</li>
                         </ul>
                     </div>
                 </div>
+            </div>
+        )
+    },
+    {
+        title: "วิสัยทัศน์",
+        content: (
+            <div className='flex flex-col text-center text-2xl font-bold'>
+                <div>“Elevate Tech, Unleash Innovation”</div>
+                <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
             </div>
         )
     },
@@ -65,12 +66,21 @@ const content = [
                     </div>
                 </div>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-3 md:gap-5'>
-                    <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2566/roadmap1.webp"} alt="" />
                     <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2566/roadmap2.webp"} alt="" />
+                    <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2567/NSC2024.jpg"} alt="" />
                 </div>
             </div>
         )
     },
+    {
+        title: "อาจารย์ที่ปรึกษา",
+        content: (
+            <div className='flex flex-col text-center text-2xl font-bold'>
+                <div>“Elevate Tech, Unleash Innovation”</div>
+                <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
+            </div>
+        )
+    }
 ]
 
 const cssColorGradient = css`

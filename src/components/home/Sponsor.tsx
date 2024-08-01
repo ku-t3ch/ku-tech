@@ -9,7 +9,22 @@ const SponsorData = [
   {
     name: "ทรู คอร์ปอเรชั่น",
     image: "https://s3.tech.nisit.ku.ac.th/assets/sponsor/true.png",
-    link: "https://www.true.th/",
+    link: "https://www.true.th",
+  },
+  {
+    name: "แล็กตาซอย",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/sponsor/lactasoy.jpg",
+    link: "https://www.lactasoy.com",
+  },
+  {
+    name: "ซังซัง",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/sponsor/sangsang.jpg",
+    link: "https://www.lactasoy.com",
+  },
+  {
+    name: "โก๋แก่",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/sponsor/kokhae.png",
+    link: "https://www.kokhae.com",
   },
 ];
 

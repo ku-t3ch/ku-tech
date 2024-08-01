@@ -64,21 +64,27 @@ const navbarItems: NavItem[] = [
         dropdownItems: [
             {
                 to: "/history",
-                label: "ประวัติชมรม",
+                label: "ประวัติองค์กร",
                 icon: <Icon icon="material-symbols:history" />,
-                description: "ประวัติชมรม",
+                description: "ประวัติองค์กร",
             },
             {
                 to: "/members",
                 label: "คณะกรรมการ",
                 icon: <Icon icon="mdi:account-group-outline" />,
-                description: "ข้อมูลคณะกรรมการชมรม",
+                description: "คณะกรรมการปัจจุบัน",
+            },
+            {
+                to: "/founders",
+                label: "ผู้ร่วมก่อตั้ง",
+                icon: <Icon icon="solar:atom-linear" />,
+                description: "ผู้ร่วมก่อตั้งทั้งหมด",
             },
             {
                 to: "/budget",
                 label: "งบประมาณ",
                 icon: <Icon icon="tabler:report-money" />,
-                description: "งบประมาณของชมรม",
+                description: "งบประมาณรายรับ-รายจ่าย",
             },
         ]
     },

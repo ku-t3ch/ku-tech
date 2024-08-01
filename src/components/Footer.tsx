@@ -11,10 +11,10 @@ const Footer: NextPage<Props> = () => {
       <div className="flex flex-col items-center">
         <Image src={Logo} alt="logo" width={100} />
         <div className="flex flex-col gap-2 items-center">
-          <Link className="text-white underline" href="/privacy">
+          <Link className="text-white" href="/privacy">
             Privacy Policy
           </Link>
-          <div>Copyright © {new Date().getFullYear()} KU Tech </div>
+          <div>Copyright © {new Date().getFullYear()} Technology Club of Kasetsart University </div>
         </div>
       </div>
     </div>
