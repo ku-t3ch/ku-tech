@@ -170,7 +170,7 @@ const Home: NextPage = () => {
                 <a href="https://instagram.com/ku.t3ch" target="_blank">
                   <Icon icon="mdi:instagram" className="text-[4rem] text-white " />
                 </a>
-                <a href="https://instagram.com/ku.t3ch" target="_blank">
+                <a href="http://www.tiktok.com/@ku.t3ch" target="_blank">
                   <TikTokIcon className="text-[4rem] text-white"/>
                 </a>
               </div>

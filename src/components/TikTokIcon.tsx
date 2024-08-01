@@ -8,7 +8,6 @@ const TikTokIcon: React.FC<TikTokIconProps> = ({ color = "white", className = "t
   return (
     <svg
       fill={color}
-      xmlns="http://www.tiktok.com/@ku.t3ch"
       className={className}
       viewBox="0 0 50 50"
       height="1em"
