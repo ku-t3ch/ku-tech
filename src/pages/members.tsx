@@ -72,11 +72,11 @@ const Members: NextPage<Props> = () => {
                     {findName("รองประธาน (กิจกรรม)")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"รองประธาน (กิจกรรม)"} />
                     ))}
+                  </div>
+                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
                     {findName("เหรัญญิก")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
-                  </div>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
                     {findName("เลขานุการ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
                     ))}
@@ -91,7 +91,11 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายสารสนเทศ
                   </Text>
+
                   <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                    {findName("หัวหน้าฝ่ายสารสนเทศ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายสารสนเทศ"} />
+                    ))}
                     {findName("ฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายสารสนเทศ"} />
                     ))}
@@ -136,7 +140,7 @@ const Members: NextPage<Props> = () => {
                     ฝ่ายประชาสัมพันธ์
                   </Text>
                   <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                  {findName("หัวหน้าฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
+                    {findName("หัวหน้าฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายประชาสัมพันธ์"} />
                     ))}
                     {findName("ฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
