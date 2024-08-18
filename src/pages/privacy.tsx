@@ -9,9 +9,11 @@ const Privacy: NextPage<Props> = () => {
     <div className="mx-auto w-full max-w-[73rem] flex-col gap-3 p-5 md:flex-row md:p-10">
       <div className="flex flex-col">
         <div className="prose-dark">
-          <Image className="self-" alt="Logo" src={Logo} width={200}/>
-          <h2 className="text-center mb-0">นโยบายความเป็นส่วนตัว (Privacy Policy)</h2>
-          <h4 className="text-center mb-5">แก้ไขเมื่อวันที่ 18 สิงหาคม พ.ศ.2567</h4>
+          <div className="flex items-center justify-center">
+            <Image alt="Logo" src={Logo} width={200} />
+          </div>
+          <h2 className="mb-0 text-center">นโยบายความเป็นส่วนตัว (Privacy Policy)</h2>
+          <h4 className="mb-5 text-center">แก้ไขเมื่อวันที่ 18 สิงหาคม พ.ศ.2567</h4>
           <p className="mt-3">
             กลุ่มกิจกรรมเทคโนโลยี มหาวิทยาลัยเกษตรศาสตร์
             ให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของคุณ
