@@ -10,7 +10,7 @@ const Privacy: NextPage<Props> = () => {
       <div className="flex flex-col">
         <div className="prose-dark">
           <div className="flex items-center justify-center">
-            <Image alt="Logo" src={Logo} width={150} />
+            <Image alt="" src={Logo} width={150} />
           </div>
           <h2 className="mb-0 text-center text-[#00aeef]">นโยบายความเป็นส่วนตัว (Privacy Policy)</h2>
           <h4 className="mb-5 text-center">แก้ไขเมื่อวันที่ 18 สิงหาคม พ.ศ.2567</h4>
