@@ -1,5 +1,7 @@
 import cdn from '@/utils/cdn';
 import { css } from '@emotion/css';
+import Structure from "@/assets/KU-Tech-Structure67.svg";
+import Image from "next/image";
 import clsx from 'clsx';
 import React from 'react'
 
@@ -73,11 +75,10 @@ const content = [
         )
     },
     {
-        title: "อาจารย์ที่ปรึกษา",
+        title: "โครงสร้างองค์กร",
         content: (
             <div className='flex flex-col text-center text-2xl font-bold'>
-                <div>“Elevate Tech, Unleash Innovation”</div>
-                <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
+                <Image className='object-cover' src={Structure} alt=""></Image>
             </div>
         )
     }
