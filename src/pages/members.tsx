@@ -44,15 +44,44 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     อาจารย์ที่ปรึกษา
                   </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
                     <AvatarComponent
+                        href="https://www.linkedin.com/in/usa-sammapun/"
+                        core_team_profile_image_path={
+                          "https://s3.tech.nisit.ku.ac.th/assets/professor/usa.jpeg"
+                        }
+                        first_name_th="ผศ.ดร.อุษา สัมมาพันธ์"
+                        position={"อาจารย์ที่ปรึกษาหลัก - ซอฟต์แวร์"}
+                        major="วิทยาการคอมพิวเตอร์"
+                      />
+                  </div>
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                     <AvatarComponent
                       href="https://www.linkedin.com/in/usa-sammapun/"
                       core_team_profile_image_path={
-                        "https://s3.tech.nisit.ku.ac.th/assets/professor/1578207460360.jpeg"
+                        "https://s3.tech.nisit.ku.ac.th/assets/professor/thepparit.jpeg"
                       }
-                      first_name_th="ผศ.ดร.อุษา สัมมาพันธ์"
-                      position={"อาจารย์ที่ปรึกษาชมรม"}
-                      major="ภาควิชาวิทยาการคอมพิวเตอร์"
+                      first_name_th="รศ.ดร.เทพฤทธิ์ บัณฑิตวัฒนาวงศ์"
+                      position={"อาจารย์ที่ปรึกษา - ฐานข้อมูล"}
+                      major="วิทยาการคอมพิวเตอร์"
+                    />
+                     <AvatarComponent
+                      href="https://www.linkedin.com/in/usa-sammapun/"
+                      core_team_profile_image_path={
+                        "https://s3.tech.nisit.ku.ac.th/assets/professor/thammakorn.jpeg"
+                      }
+                      first_name_th="ผศ.ดร.ธรรมกร แซ่ตั้ง"
+                      position={"อาจารย์ที่ปรึกษา - วิทยาศาสตร์ข้อมูล"}
+                      major="วิทยาการคอมพิวเตอร์"
+                    />
+                     <AvatarComponent
+                      href="https://www.linkedin.com/in/usa-sammapun/"
+                      core_team_profile_image_path={
+                        "https://s3.tech.nisit.ku.ac.th/assets/professor/sethavidh.jpeg"
+                      }
+                      first_name_th="ผศ.ดร.เสฎฐวิทย์ เกิดผล"
+                      position={"อาจารย์ที่ปรึกษา - ปัญญาประดิษฐ์"}
+                      major="วิทยาการคอมพิวเตอร์"
                     />
                   </div>
                 </div>
