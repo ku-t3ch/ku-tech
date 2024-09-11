@@ -111,6 +111,9 @@ const Members: NextPage<Props> = () => {
                     {findName("เลขานุการ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
                     ))}
+                    {findName("ธุรการ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"ธุรการ"} />
+                    ))}
                     {findName("เหรัญญิก")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
