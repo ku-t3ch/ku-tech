@@ -115,7 +115,7 @@ const Members: NextPage<Props> = () => {
                       <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
                     {findName("จัดหารายได้")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
+                      <AvatarComponent {...tag} key={index} position={"จัดหารายได้"} />
                     ))}
                     {findName("ประกันคุณภาพ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
