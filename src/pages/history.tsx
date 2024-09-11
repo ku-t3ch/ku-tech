@@ -44,7 +44,7 @@ const content = [
         title: "วิสัยทัศน์",
         content: (
             <div className='flex flex-col text-center text-2xl font-bold'>
-                <div>“Elevate Tech, Unleash Innovation”</div>
+                <div className='text-primary text-3xl'>Elevate Tech, Unleash Innovation</div>
                 <div>ยกระดับเทคโนโลยี, ปลดปล่อยนวัตกรรม</div>
             </div>
         )
@@ -55,16 +55,16 @@ const content = [
             <div className='flex flex-col gap-5'>
                 <div className='grid md:grid-cols-3 grid-cols-1 gap-3 md:gap-5'>
                     <div className='w-full flex flex-col p-5 gap-3 bg-[#00204B] rounded-2xl text-center'>
-                        <div className='font-bold text-2xl'>สนับสนุนการเรียนรู้</div>
-                        <div>สร้างสภาพแวดล้อมที่ส่งเสริมการแลกเปลี่ยนความรู้และประสบการณ์ในด้านเทคโนโลยี</div>
+                        <div className='font-bold text-2xl'>ดำเนินกิจกรรม</div>
+                        <div>ดำเนินการจัดกิจกรรมพัฒนาทักษะด้านเทคโนโลยีเพื่อนิสิต และสังคม</div>
                     </div>
                     <div className='w-full flex flex-col p-5 gap-3 bg-[#00204B] rounded-2xl text-center'>
-                        <div className='font-bold text-2xl'>สนับสนุนการพัฒนาทักษะ</div>
-                        <div>เปิดพื้นที่ให้โอกาสแก่นิสิตในการพัฒนาทักษะทางเทคโนโลยีและการนำเสนอผลงาน</div>
+                        <div className='font-bold text-2xl'>พัฒนาเทคโนโลยี</div>
+                        <div>ดำเนินการพัฒนาเทคโนโลยี เพื่อพัฒนามหาวิทยาลัยเกษตรศาสตร์</div>
                     </div>
                     <div className='w-full flex flex-col p-5 gap-3 bg-[#00204B] rounded-2xl text-center'>
-                        <div className='font-bold text-2xl'>ส่งเสริมนวัตกรรม</div>
-                        <div>กระตุ้นและสนับสนุนการพัฒนานวัตกรรมในรูปแบบต่างๆ ที่เกี่ยวข้องกับเทคโนโลยี</div>
+                        <div className='font-bold text-2xl'>ผลักดันการแข่งขัน</div>
+                        <div>สนับสนุนและส่งเสริม การแข่งขันด้านเทคโนโลยีให้แก่นิสิต</div>
                     </div>
                 </div>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-3 md:gap-5'>

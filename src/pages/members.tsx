@@ -35,57 +35,60 @@ const Members: NextPage<Props> = () => {
 
   return (
     <>
+      <div className="flex flex-col items-center gap-3">
+        <Text weight={"bold"} className="prompt" size={"$4xl"}>
+          อาจารย์ที่ปรึกษา
+        </Text>
+        <div className="flex w-full flex-wrap items-center justify-center gap-5">
+          <AvatarComponent
+            href="https://www.linkedin.com/in/usa-sammapun/"
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/usa.jpeg"
+            }
+            first_name_th="ผศ.ดร.อุษา สัมมาพันธ์"
+            position={"อาจารย์ที่ปรึกษา"}
+            major="วิทยาการคอมพิวเตอร์"
+          />
+          <AvatarComponent
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/chaiporn.jpg"
+            }
+            first_name_th="ผศ.ดร.ชัยพร ดวงแก้ว"
+            position={"อาจารย์ที่ปรึกษา"}
+            major="วิศวกรรมคอมพิวเตอร์"
+          />
+        </div>
+        <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+          <AvatarComponent
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/thepparit.jpeg"
+            }
+            first_name_th="รศ.ดร.เทพฤทธิ์ บัณฑิตวัฒนาวงศ์"
+            position={"อาจารย์ที่ปรึกษา"}
+            major="วิทยาการคอมพิวเตอร์"
+          />
+          <AvatarComponent
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/thammakorn.jpeg"
+            }
+            first_name_th="ผศ.ดร.ธรรมกร แซ่ตั้ง"
+            position={"อาจารย์ที่ปรึกษา"}
+            major="วิทยาการคอมพิวเตอร์"
+          />
+          <AvatarComponent
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/sethavidh.jpeg"
+            }
+            first_name_th="ผศ.ดร.เสฎฐวิทย์ เกิดผล"
+            position={"อาจารย์ที่ปรึกษา"}
+            major="วิทยาการคอมพิวเตอร์"
+          />
+        </div>
+      </div>
       {!coreTeamApi.isLoading ? (
         <>
           <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
             <div className="flex flex-col gap-[8rem]">
-              {countUser("ฝ่ายบริหาร") > 0 && (
-                <div className="flex flex-col items-center gap-3">
-                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    อาจารย์ที่ปรึกษา
-                  </Text>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
-                    <AvatarComponent
-                        href="https://www.linkedin.com/in/usa-sammapun/"
-                        core_team_profile_image_path={
-                          "https://s3.tech.nisit.ku.ac.th/assets/professor/usa.jpeg"
-                        }
-                        first_name_th="ผศ.ดร.อุษา สัมมาพันธ์"
-                        position={"อาจารย์ที่ปรึกษาหลัก - ซอฟต์แวร์"}
-                        major="วิทยาการคอมพิวเตอร์"
-                      />
-                  </div>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                     <AvatarComponent
-                      href="https://www.linkedin.com/in/usa-sammapun/"
-                      core_team_profile_image_path={
-                        "https://s3.tech.nisit.ku.ac.th/assets/professor/thepparit.jpeg"
-                      }
-                      first_name_th="รศ.ดร.เทพฤทธิ์ บัณฑิตวัฒนาวงศ์"
-                      position={"อาจารย์ที่ปรึกษา - ฐานข้อมูล"}
-                      major="วิทยาการคอมพิวเตอร์"
-                    />
-                     <AvatarComponent
-                      href="https://www.linkedin.com/in/usa-sammapun/"
-                      core_team_profile_image_path={
-                        "https://s3.tech.nisit.ku.ac.th/assets/professor/thammakorn.jpeg"
-                      }
-                      first_name_th="ผศ.ดร.ธรรมกร แซ่ตั้ง"
-                      position={"อาจารย์ที่ปรึกษา - วิทยาศาสตร์ข้อมูล"}
-                      major="วิทยาการคอมพิวเตอร์"
-                    />
-                     <AvatarComponent
-                      href="https://www.linkedin.com/in/usa-sammapun/"
-                      core_team_profile_image_path={
-                        "https://s3.tech.nisit.ku.ac.th/assets/professor/sethavidh.jpeg"
-                      }
-                      first_name_th="ผศ.ดร.เสฎฐวิทย์ เกิดผล"
-                      position={"อาจารย์ที่ปรึกษา - ปัญญาประดิษฐ์"}
-                      major="วิทยาการคอมพิวเตอร์"
-                    />
-                  </div>
-                </div>
-              )}
               {countUser("ฝ่ายบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
@@ -105,11 +108,14 @@ const Members: NextPage<Props> = () => {
                     ))}
                   </div>
                   <div className="flex w-full flex-wrap items-center justify-center gap-5">
+                    {findName("เลขานุการ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
+                    ))}
                     {findName("เหรัญญิก")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
-                    {findName("เลขานุการ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
+                    {findName("จัดหารายได้")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
                     ))}
                     {findName("ประกันคุณภาพ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
@@ -126,8 +132,8 @@ const Members: NextPage<Props> = () => {
                     {findName("หัวหน้าฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายสารสนเทศ"} />
                     ))}
-                    </div>
-                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  </div>
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                     {findName("ฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายสารสนเทศ"} />
                     ))}
@@ -144,8 +150,8 @@ const Members: NextPage<Props> = () => {
                       {findName("หัวหน้าฝ่ายกิจกรรม")?.map((tag, index) => (
                         <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายกิจกรรม"} />
                       ))}
-                      </div>
-                      <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                    </div>
+                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                       {findName("ฝ่ายกิจกรรม")?.map((tag, index) => (
                         <AvatarComponent {...tag} key={index} position={"ฝ่ายกิจกรรม"} />
                       ))}
@@ -162,8 +168,8 @@ const Members: NextPage<Props> = () => {
                     {findName("หัวหน้าฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายโสตฯ"} />
                     ))}
-                    </div>
-                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  </div>
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                     {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
                     ))}
@@ -179,8 +185,8 @@ const Members: NextPage<Props> = () => {
                     {findName("หัวหน้าฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายประชาสัมพันธ์"} />
                     ))}
-                    </div>
-                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  </div>
+                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
                     {findName("ฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายประชาสัมพันธ์"} />
                     ))}
