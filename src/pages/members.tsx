@@ -111,11 +111,14 @@ const Members: NextPage<Props> = () => {
                     {findName("เลขานุการ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
                     ))}
+                    {findName("ธุรการ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"ธุรการ"} />
+                    ))}
                     {findName("เหรัญญิก")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
                     ))}
                     {findName("จัดหารายได้")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
+                      <AvatarComponent {...tag} key={index} position={"จัดหารายได้"} />
                     ))}
                     {findName("ประกันคุณภาพ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
