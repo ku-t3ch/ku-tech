@@ -49,14 +49,14 @@ const Members: NextPage<Props> = () => {
             position={"อาจารย์ที่ปรึกษา"}
             major="วิทยาการคอมพิวเตอร์"
           />
-          <AvatarComponent
+          {/* <AvatarComponent
             core_team_profile_image_path={
               "https://s3.tech.nisit.ku.ac.th/assets/professor/chaiporn.jpg"
             }
             first_name_th="ผศ.ดร.ชัยพร ดวงแก้ว"
             position={"อาจารย์ที่ปรึกษา"}
             major="วิศวกรรมคอมพิวเตอร์"
-          />
+          /> */}
         </div>
         <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
           <AvatarComponent
