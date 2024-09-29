@@ -7,24 +7,24 @@ interface Props {}
 
 const roadMapData = [
   {
-    title: "Internship 2567",
+    title: "Learn Beyond Classroom 2567",
     date: "Apr 2024",
-    description: "การฝึกงาน ณ สำนักบริการคอมพิวเตอร์",
+    description: "โครงการฝึกงาน x สำนักบริการคอมพิวเตอร์",
   },
   {
     title: "Tech Camp #2",
     date: "Jun 2024",
-    description: "ค่ายสอน <Code/> มัธยมสร้างแอปพลิเคชัน (Flutter)",
+    description: "ค่ายสอนน้องมัธยม @ จ.สกลนคร",
+  },
+  {
+    title: "Tech Camp #3",
+    date: "Jun 2024",
+    description: "ค่ายสอนน้องมัธยม @ จ.ปทุมธานี",
   },
   {
     title: "First Meet",
     date: "Jul 2024",
-    description: "พบปะคนในกลุ่มกิจกรรม",
-  },
-  {
-    title: "Tech Camp #3",
-    date: "Jul 2024",
-    description: "ค่ายสอน <Code/> มัธยมLogical Thinking*",
+    description: "พบปะสมาชิกกลุ่มฯ และแนะนำกิจกรรม ปี 2567",
   },
   {
     title: "Midterm Exam 1/67",
@@ -32,44 +32,44 @@ const roadMapData = [
     notMain: true,
   },
   {
-    title: "Tech Talk 2567",
-    date: "Sep 2024",
-    description: "แชร์ความรู้โดยวิทยากร",
-  },
-  {
-    title: "Upskills #2",
-    date: "Oct 2024",
-    description: "พัฒนาสกิลด้านเทคโนโลยี",
-  },
-  {
     title: "Final Exam 1/67",
     date: "Oct 2024",
     notMain: true,
   },
   {
+    title: "UpSkill #3",
+    date: "Nov 2024",
+    description: "ทัศนศึกษาระเบียงเศรษฐกิจภาคตะวันออก @ EECi",
+  },
+  {
     title: "Hackathon 2567",
     date: "Nov 2024",
-    description: "Low Cabon in KU",
+    description: "การแข่งขันการแก้ไขปัญหา ภายในมหาวิทยาลัยเกษตรศาสตร์",
   },
   {
     title: "Tech Talk 2567",
     date: "Dec 2024",
-    description: "แชร์ความรู้โดยวิทยากร",
+    description: "อบรมเชิงปฏิบัติการ เริ่อง \"UX/UI Design\"",
   },
   {
-    title: "Midterm Exam 1/68",
+    title: "Midterm Exam 2/67",
     date: "Jan 2025",
     notMain: true,
   },
   {
-    title: "Valentines 2568",
+    title: "UpSkill #2",
     date: "Feb 2025",
-    description: "Special valentines",
+    description: "ทัศนศึกษาด้านปัญหาประดิษฐ์ @ NECTEC",
   },
   {
-    title: "Mini Project",
+    title: "Tech Talk 2567",
+    date: "Feb 2025",
+    description: "อบรมเชิงปฏิบัติการ เริ่อง \"AI\"",
+  },
+  {
+    title: "Final Exam 2/67",
     date: "Mar 2025",
-    description: "นำไอเดียจาก Hackathon ไปพัฒนาต่อ",
+    notMain: true,
   },
   {
     title: "Finish",
