@@ -86,9 +86,12 @@ export const authOptions: NextAuthOptions = {
       return session.session;
     },
     async jwt({ token, user, profile }) {
-      const userData = await prisma.request.findUnique({
+      const userData = await prisma.request.findFirst({
         where: {
-          email: token.email,
+          email:{
+              equals: token.email,
+              mode: "insensitive",
+          }
         },
         include: {
           tags: {
@@ -103,6 +106,10 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
+      console.log('token:', token);
+      console.log('userData:', userData);
+      console.log('is_approved:', userData?.is_approved);
+
       if (userData === null) {
         return {
           ...token,
@@ -114,7 +121,6 @@ export const authOptions: NextAuthOptions = {
       } else {
         const isCoreTeam =
           userData?.tags.filter((tag) => tag.tag_type?.name === "core-team").length! > 0 || false;
-
         const imageBaseUrl =
           env.S3_ENV_TYPE === "development"
             ? "https://s3.tech.nisit.ku.ac.th/core-team-development/"

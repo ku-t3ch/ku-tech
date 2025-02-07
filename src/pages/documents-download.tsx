@@ -67,7 +67,7 @@ const DocumentsDownload: NextPage<Props> = () => {
     <div className="mx-auto w-full max-w-[73rem] flex-col gap-10 p-5 md:flex-row md:p-10">
       <div className="flex w-full flex-col gap-5">
         <Text className="prompt" size={"$3xl"}>
-          ดาวน์โหลดเอกสารชมรม
+          ดาวน์โหลดเอกสารกลุ่ม
         </Text>
         <div className="flex w-full gap-3">
           <Input

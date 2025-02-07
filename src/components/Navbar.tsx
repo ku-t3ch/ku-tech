@@ -15,11 +15,11 @@ const navbarItems: NavItem[] = [
         to: "/",
         label: "หน้าแรก",
     },
-    {
-        to: "/join",
-        label: "สมัครสมาชิก",
-        onlyNotRegistered: true,
-    },
+    // {
+    //     to: "/join",
+    //     label: "สมัครสมาชิก",
+    //     onlyNotRegistered: true,
+    // },
     {
         to: "/",
         label: "ข่าวสาร",
@@ -36,25 +36,25 @@ const navbarItems: NavItem[] = [
                 icon: <Icon icon="carbon:roadmap" />,
                 description: "แผนกิจกรรม",
             },
-            {
-                to: "/join",
-                label: "Member News",
-                icon: <Icon icon="iconamoon:news" />,
-                description: "ข่าวสารสำหรับสมาชิก",
-                onlyMember: true,
-            },
+            // {
+            //     to: "/join",
+            //     label: "Member News",
+            //     icon: <Icon icon="iconamoon:news" />,
+            //     description: "ข่าวสารสำหรับสมาชิก",
+            //     onlyMember: true,
+            // },
         ],
     },
     {
         to: "/",
-        label: "ระบบบริการสมาชิก",
-        onlyMember: true,
+        label: "ระบบสารสนเทศ",
+        onlyCoreTeam: true,
         dropdownItems: [
             {
                 to: "/user/short-link",
                 icon: <Icon icon="gg:link" />,
                 label: "Shortcut Link",
-                description: "ระบบย่อลิงก์สำหรับสมาชิกชมรม",
+                description: "ระบบย่อลิงก์",
             },
         ],
     },
@@ -72,13 +72,13 @@ const navbarItems: NavItem[] = [
                 to: "/members",
                 label: "คณะกรรมการ",
                 icon: <Icon icon="mdi:account-group-outline" />,
-                description: "คณะกรรมการปัจจุบัน",
+                description: "คณะกรรมการบริหารปัจจุบัน",
             },
             {
-                to: "/founders",
-                label: "ผู้ร่วมก่อตั้ง",
+                to: "/alumni",
+                label: "สมาคมศิษย์เก่า",
                 icon: <Icon icon="solar:atom-linear" />,
-                description: "ผู้ร่วมก่อตั้งทั้งหมด",
+                description: "ศิษย์เก่าทั้งหมด",
             },
             {
                 to: "/budget",
@@ -97,13 +97,13 @@ const navbarItems: NavItem[] = [
                 to: "/logo",
                 label: "ตราสัญลักษณ์",
                 icon: <Icon icon="material-symbols:imagesmode-outline" />,
-                description: "ตราสัญลักษณ์ของชมรม",
+                description: "ตราสัญลักษณ์องค์กร",
             },
             {
                 to: "/documents-download",
-                label: "เอกสารชมรม",
+                label: "ดาวน์โหลด",
                 icon: <Icon icon="mdi:file-document-outline" />,
-                description: "เอกสารต่างๆ ของชมรม",
+                description: "ไฟล์ต่าง ๆ ขององค์กร",
             },
         ],
     },
@@ -164,6 +164,9 @@ const NavbarComponent: NextPage<{}> = () => {
             </Navbar.Brand>
             <Navbar.Content enableCursorHighlight hideIn="sm" variant="default">
                 {navbarItems?.map((v, idx) => {
+                    // require isCoreTeam
+                    if (v.onlyCoreTeam && !session?.user.isCoreTeam) return null!;
+
                     // require isMember
                     if (v.onlyMember && !session?.user.isMember) return null!;
 
@@ -216,6 +219,9 @@ const NavbarComponent: NextPage<{}> = () => {
                                         }}
                                     >
                                         {(v?.dropdownItems ?? []).map((dropdown, idx) => {
+                                            // require isCoreTeam
+                                            if (dropdown.onlyCoreTeam && !session?.user.isCoreTeam) return null!;
+
                                             // require isMember
                                             if (dropdown.onlyMember && !session?.user.isMember) return null!;
 
@@ -373,11 +379,11 @@ const NavbarComponent: NextPage<{}> = () => {
                                 }}
                             >
                                 <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                                    <Text b color="gray" css={{ d: "flex" }}>
-                                        Signed in as
+                                    <Text b color="white" css={{ d: "flex" }}>
+                                        ยินดีต้อนรับ, 
                                     </Text>
-                                    <Text b color="gray" css={{ d: "flex" }}>
-                                        {session.user.email}
+                                    <Text b color="white" css={{ d: "flex" }}>
+                                        {session.user.given_name + " " + session.user.family_name}
                                     </Text>
                                 </Dropdown.Item>
 
