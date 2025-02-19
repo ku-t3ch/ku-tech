@@ -12,7 +12,10 @@ export const shortLinkRouter = createTRPCRouter({
     let res = await prisma.shortLink.findMany({
       where: {
         request_user: {
-          email: ctx.session?.user.email,
+          email: {
+            equals: ctx.session?.user.email,
+            mode: 'insensitive'
+          }
         },
       },
     });
@@ -27,6 +30,19 @@ export const shortLinkRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const link = generateString();
 
+      const user = await prisma.request.findFirst({
+        where: {
+          email: {
+            equals: ctx.session?.user.email,
+            mode: 'insensitive'
+          }
+        }
+      });
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
       await prisma.shortLink.create({
         data: {
           original_link: input.original_link,
@@ -34,7 +50,7 @@ export const shortLinkRouter = createTRPCRouter({
           is_active: true,
           request_user: {
             connect: {
-              email: ctx.session?.user.email,
+              id: user.id,
             },
           },
         },

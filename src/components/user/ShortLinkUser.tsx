@@ -7,8 +7,9 @@ import { NextPage } from "next";
 import toast from "react-hot-toast";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { QRCodeSVG } from 'qrcode.react';
 
-interface Props {}
+interface Props { }
 
 const ShortLinkUser: NextPage<Props> = () => {
   const createShortLinkApi = api.shortlink.createShortLink.useMutation();
@@ -36,6 +37,62 @@ const ShortLinkUser: NextPage<Props> = () => {
       return Promise.resolve();
     }
   };
+
+  const copyQRToClipboard = async (shortLink: string) => {
+    try {
+      const tempDiv = document.createElement('div');
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      document.body.appendChild(tempDiv);
+  
+      const largeQRSize = 512;
+      const ReactDOMServer = (await import('react-dom/server')).default;
+      const qrSvg = ReactDOMServer.renderToString(
+        <QRCodeSVG
+          value={`https://tech.nisit.ku.ac.th/g/${shortLink}`}
+          size={largeQRSize}
+          level="H"
+          includeMargin={true}
+        />
+      );
+      tempDiv.innerHTML = qrSvg;
+  
+      const svg = tempDiv.querySelector('svg') as SVGElement;
+      const svgData = new XMLSerializer().serializeToString(svg);
+      
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+      
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = `data:image/svg+xml;base64,${btoa(svgData)}`;
+      });
+  
+      canvas.width = largeQRSize;
+      canvas.height = largeQRSize;
+      ctx?.drawImage(img, 0, 0);
+  
+      const blob = await new Promise<Blob>((resolve) => 
+        canvas.toBlob((blob) => resolve(blob!), 'image/png', 1.0) // คุณภาพสูงสุด
+      );
+  
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'image/png': blob
+        })
+      ]);
+  
+      document.body.removeChild(tempDiv);
+  
+      toast.success('คัดลอก QR Code แล้ว');
+    } catch (error) {
+      toast.error('ไม่สามารถคัดลอก QR Code ได้');
+      console.error('Error copying QR code:', error);
+    }
+  };
+
   return (
     <>
       <Card title="ระบบย่อ link" bordered={false}>
@@ -67,7 +124,24 @@ const ShortLinkUser: NextPage<Props> = () => {
                   title: "QR Code",
                   dataIndex: "qr_code",
                   key: "qr_code",
-                  render: (qr_code) => (<>sdf</>)
+                  render: (_, record) => (
+                    <div className="flex flex-col items-center gap-2">
+                      <QRCodeSVG
+                        id={`qr-${record.short_link}`}
+                        value={`https://tech.nisit.ku.ac.th/g/${record.short_link}`}
+                        size={64}
+                        level="L"
+                        includeMargin={true}
+                      />
+                      <Button
+                        size="small"
+                        icon={<ContentCopyIcon sx={{ width: 15 }} />}
+                        onClick={() => copyQRToClipboard(record.short_link!)}
+                      >
+                        คัดลอก
+                      </Button>
+                    </div>
+                  )
                 },
                 {
                   title: "Short Link ID",
@@ -77,7 +151,9 @@ const ShortLinkUser: NextPage<Props> = () => {
                 {
                   title: "Original Link",
                   dataIndex: "original_link",
-                  key: "original_link",
+                  render: (text) => (
+                    <div className="w-40 truncate">{text}</div>
+                  ),
                 },
                 {
                   title: "View Count",
