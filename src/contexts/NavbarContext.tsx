@@ -37,7 +37,7 @@ const withNavbar: Array<string> = [
   "/budget",
   "/history",
   "/messaging",
-  "/founders",
+  "/alumni",
 ];
 
 export const NavbarContextProvider: NextPage<Props> = ({ children }) => {

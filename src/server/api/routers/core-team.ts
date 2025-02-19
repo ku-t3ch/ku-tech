@@ -13,7 +13,7 @@ export const coreTeamRouter = createTRPCRouter({
             name: "core-team",
           },
           {
-            name: "co-founder",
+            name: "alumni",
           },
         ],
       },

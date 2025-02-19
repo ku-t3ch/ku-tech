@@ -12,27 +12,49 @@ const data = [
         title: "Tech Camp #2",
         date: "9-12 มิถุนายน 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (2).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (1).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/2/TC2 (3).jpg"
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TC2 (2).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TC2 (1).jpg",
         ],
     },
     {
         title: "Tech Camp #3",
         date: "29-30 มิถุนายน 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (3).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (2).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/techcamp/3/TC3 (1).jpg"
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TC3 (2).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TC3 (1).jpg",
         ],
     },
     {
         title: "First Meet 2024",
         date: "24 กรกฎาคม 2567",
         images: [
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (3).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (4).jpg",
-            "https://s3.tech.nisit.ku.ac.th/activities/firstmeet/2024/FM2024 (1).jpg"
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/FM2024 (1).jpg",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/FM2024 (2).jpg",
+        ],
+    },
+    {
+        title: "UPSKills #3",
+        date: "7 - 9 พฤศจิกายน 2568",
+        images: [
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/UK3 (2).JPG",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/UK3 (1).JPG",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/UK3 (3).jpg",
+        ],
+    },
+    {
+        title: "KU Hackathon 2024",
+        date: "1 ธันวาคม 2567",
+        images: [
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/HK24 (1).JPG",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/HK24 (2).JPG",
+        ],
+    },
+    {
+        title: "Tech Talk 2567",
+        date: "19 ธันวาคม 2567 และ 13 มกราคม 2568",
+        images: [
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TK67 (1).JPG",
+            "https://s3.tech.nisit.ku.ac.th/activities/2567/TK67 (2).jpg",
         ],
     }
 ];

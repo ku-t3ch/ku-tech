@@ -1,6 +1,6 @@
 import cdn from '@/utils/cdn';
 import { css } from '@emotion/css';
-import Structure from "@/assets/KU-Tech-Structure67.svg";
+import Structure from "@/assets/KU-Tech-Structure68.svg";
 import Image from "next/image";
 import clsx from 'clsx';
 import React from 'react'
@@ -68,7 +68,7 @@ const content = [
                     </div>
                 </div>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-3 md:gap-5'>
-                    <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2566/roadmap2.webp"} alt="" />
+                    <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2567/SUNTH68-SAKU.jpg"} alt="" />
                     <img className='object-cover rounded-2xl h-[15rem] w-full' src={cdn + "/roadmap/2567/NSC2024.jpg"} alt="" />
                 </div>
             </div>

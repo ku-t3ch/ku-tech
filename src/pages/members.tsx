@@ -100,14 +100,14 @@ const Members: NextPage<Props> = () => {
               {countUser("ฝ่ายบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ฝ่ายบริหาร
+                    ประธานองค์กร
                   </Text>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap text-center items-center justify-center gap-5">
                     {findName("ประธาน")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ประธาน"} />
                     ))}
                   </div>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap text-center items-center justify-center gap-5">
                     {findName("รองประธาน (สารสนเทศ)")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"รองประธาน (สารสนเทศ)"} />
                     ))}
@@ -115,21 +115,21 @@ const Members: NextPage<Props> = () => {
                       <AvatarComponent {...tag} key={index} position={"รองประธาน (กิจกรรม)"} />
                     ))}
                   </div>
-                  <div className="flex w-full flex-wrap items-center justify-center gap-5">
-                    {findName("เลขานุการ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เลขานุการ"} />
+                </div>
+              )}
+              {countUser("ฝ่ายบริหาร") > 0 && (
+                <div className="flex flex-col items-center gap-3">
+                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
+                    ฝ่ายบริหาร
+                  </Text>
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
+                    {findName("หัวหน้าฝ่ายบริหาร")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายบริหาร"} />
                     ))}
-                    {findName("ธุรการ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ธุรการ"} />
-                    ))}
-                    {findName("เหรัญญิก")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"เหรัญญิก"} />
-                    ))}
-                    {findName("จัดหารายได้")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"จัดหารายได้"} />
-                    ))}
-                    {findName("ประกันคุณภาพ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ประกันคุณภาพ"} />
+                  </div>
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
+                    {findName("ฝ่ายบริหาร")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"ฝ่ายบริหาร"} />
                     ))}
                   </div>
                 </div>
@@ -139,12 +139,12 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายสารสนเทศ
                   </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                     {findName("หัวหน้าฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายสารสนเทศ"} />
                     ))}
                   </div>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                     {findName("ฝ่ายสารสนเทศ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายสารสนเทศ"} />
                     ))}
@@ -157,12 +157,12 @@ const Members: NextPage<Props> = () => {
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
                       ฝ่ายกิจกรรม
                     </Text>
-                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                    <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                       {findName("หัวหน้าฝ่ายกิจกรรม")?.map((tag, index) => (
                         <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายกิจกรรม"} />
                       ))}
                     </div>
-                    <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                    <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                       {findName("ฝ่ายกิจกรรม")?.map((tag, index) => (
                         <AvatarComponent {...tag} key={index} position={"ฝ่ายกิจกรรม"} />
                       ))}
@@ -175,12 +175,12 @@ const Members: NextPage<Props> = () => {
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ฝ่ายโสตฯ
                   </Text>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                     {findName("หัวหน้าฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายโสตฯ"} />
                     ))}
                   </div>
-                  <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                     {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
                       <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
                     ))}

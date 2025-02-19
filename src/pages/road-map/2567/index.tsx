@@ -39,7 +39,7 @@ const roadMapData = [
   {
     title: "UpSkill #3",
     date: "Nov 2024",
-    description: "ทัศนศึกษาระเบียงเศรษฐกิจภาคตะวันออก @ EECi",
+    description: "ทัศนศึกษาสถานีเคเบิ้ลใต้น้ำชลี 3 และ สภอท.",
   },
   {
     title: "Hackathon 2567",
@@ -57,14 +57,9 @@ const roadMapData = [
     notMain: true,
   },
   {
-    title: "UpSkill #2",
-    date: "Feb 2025",
-    description: "ทัศนศึกษาด้านปัญหาประดิษฐ์ @ NECTEC",
-  },
-  {
     title: "Tech Talk 2567",
     date: "Feb 2025",
-    description: "อบรมเชิงปฏิบัติการ เริ่อง \"AI\"",
+    description: "อบรมเชิงปฏิบัติการ เริ่อง \"Career Path\"",
   },
   {
     title: "Final Exam 2/67",

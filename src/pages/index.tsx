@@ -20,25 +20,25 @@ import TikTokIcon from "@/components/TikTokIcon";
 const activitys = [
   {
     icon: <Icon icon="material-symbols:keyboard-double-arrow-up-rounded" className="text-[4rem]" />,
-    title: "Tech Upskill",
-    content: "อบรมสมาชิกด้านเทคโนโลยีต่าง ๆ ที่น่าสนใจ และเป็นประโยชน์ต่อนิสิต",
+    title: "UpSkills",
+    content: "ทัศนศึกษาศูนย์เทคโนโลยีทั่วประเทศไทย เพื่อพัฒนาองค์ความรู้นิสิตนอกห้องเรียน",
   },
   {
     icon: <Icon icon="material-symbols:directions-bus-outline" className="text-[4rem]" />,
     title: "Tech Camp",
-    content: "ออกค่ายโรงเรียนมัธยมเพื่อสอนน้องด้านโค้ดเบื้องต้น",
+    content: "ค่ายให้ความรู้ด้านเทคโนโลยีกับน้อง ๆ ระดับมัธยมศึกษา ลดความเลื่อมล่ำทางการศึกษา เปิดโอกาสทุกคนเข้าสู่โลกเทคโนโลยี",
     href: "https://camp.tech.nisit.ku.ac.th",
   },
   {
     icon: <Icon icon="material-symbols:interpreter-mode-outline" className="text-[4rem]" />,
     title: "Tech Talk",
     content:
-      "การเสวนาทางวิชาการ ในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน และเป็นประโยชน์ในทุกคณะ, สาขา",
+      "อบรมเชิงปฏิบัติการในหัวข้อด้านเทคโนโลยีที่น่าสนใจในปัจจุบัน อันจะเป็นประโยชน์แก่นิสิตในทุกคณะ, สาขา",
   },
   {
     icon: <Icon icon="material-symbols:code-rounded" className="text-[4rem]" />,
     title: "KU Hackathon",
-    content: "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยด้วยเทคโนโลยี",
+    content: "ร่วมกันระดมความคิดแก้ไขปัญหาต่าง ๆ ภายในมหาวิทยาลัยเกษตรศาสตร์ด้วยเทคโนโลยี",
     href: "https://hackathon.ku.ac.th",
   },
 ];
