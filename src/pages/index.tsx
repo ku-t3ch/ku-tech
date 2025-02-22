@@ -16,6 +16,7 @@ import { Tooltip } from "antd";
 import Partner from "@/components/home/Partner";
 import Sponsor from "@/components/home/Sponsor";
 import TikTokIcon from "@/components/TikTokIcon";
+import Lab from "@/components/home/Lab";
 
 const activitys = [
   {
@@ -142,6 +143,17 @@ const Home: NextPage = () => {
           >
             <Partner />
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <Lab />
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -151,6 +163,7 @@ const Home: NextPage = () => {
           >
             <Sponsor />
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
