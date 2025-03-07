@@ -17,6 +17,7 @@ import Partner from "@/components/home/Partner";
 import Sponsor from "@/components/home/Sponsor";
 import TikTokIcon from "@/components/TikTokIcon";
 import Lab from "@/components/home/Lab";
+import Company from "@/components/home/Company";
 
 const activitys = [
   {
@@ -134,6 +135,17 @@ const Home: NextPage = () => {
               <ImageCarousel />
             </div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="z-10 flex-col items-center"
+          >
+            <Company />
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}

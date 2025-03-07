@@ -7,14 +7,14 @@ interface Props {}
 
 const PartnerData = [
   {
-    name: "สภาผู้แทนนิสิต มหาวิทยาลัยเกษตรศาสตร์",
-    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/สภาผู้แทนนิสิต.png",
-    link: "https://www.facebook.com/kusc.bk",
+    name: "Student Devlopment Division",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/SDKUkasetsart.jpg",
+    link: "https://www.facebook.com/sdku",
   },
   {
-    name: "องค์การบริหาร องค์การนิสิต มหาวิทยาลัยเกษตรศาสตร์ บางเขน",
-    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/อบก.png",
-    link: "https://www.facebook.com/kusab.bk/",
+    name: "Office of Computer Services",
+    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/ocslogo.png",
+    link: "https://www.facebook.com/ocs.ku",
   },
   {
     name: "KU Startup",
@@ -25,11 +25,6 @@ const PartnerData = [
     name: "KU Blockchain",
     image: "https://s3.tech.nisit.ku.ac.th/assets/partner/KUBlockchain.jpg",
     link: "https://www.facebook.com/KUBCS/",
-  },
-  {
-    name: "GDSC KU",
-    image: "https://s3.tech.nisit.ku.ac.th/assets/partner/GDSCKU.png",
-    link: "https://www.facebook.com/gdsc.ku/",
   },
   {
     name: "KU Case Club",

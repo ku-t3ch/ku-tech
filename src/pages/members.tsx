@@ -35,7 +35,7 @@ const Members: NextPage<Props> = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-3 mt-10">
         <Text weight={"bold"} className="prompt" size={"$4xl"}>
           อาจารย์ที่ปรึกษา
         </Text>
@@ -53,7 +53,7 @@ const Members: NextPage<Props> = () => {
             core_team_profile_image_path={
               "https://s3.tech.nisit.ku.ac.th/assets/professor/chaiporn.jpg"
             }
-            first_name_th="ผศ.ดร.ชัยพร ดวงแก้ว"
+            first_name_th="ผศ.ดร.ชัยพร ใจแก้ว"
             position={"อาจารย์ที่ปรึกษา"}
             major="วิศวกรรมคอมพิวเตอร์"
           />

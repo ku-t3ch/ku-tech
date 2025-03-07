@@ -54,7 +54,7 @@ const AvatarComponent: NextPage<AvatarComponentProps> = ({
         />
         <div className="mt-2 flex flex-col items-center justify-center">
           <Text b size={"$2xl"}>
-            {first_name_th} {last_name_th} {nick_name && `(${nick_name})`}
+            {first_name_th} {last_name_th}
           </Text>
           <Text b size={"$md"} color="">
             {position}
