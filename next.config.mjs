@@ -28,7 +28,10 @@ const config = {
       {
         protocol: "https",
         hostname: "s3.tech.nisit.ku.ac.th",
-      },
+      },{
+        protocol: "https",
+        hostname: "ap-northeast-1.graphassets.com",
+      }
     ],
   },
 };

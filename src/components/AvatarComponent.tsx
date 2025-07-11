@@ -16,6 +16,7 @@ interface AvatarComponentProps {
   button?: JSX.Element | null;
   showButton?: boolean;
   href?: string | null;
+  head?: boolean | false;
 }
 
 const AvatarComponent: NextPage<AvatarComponentProps> = ({
@@ -32,6 +33,7 @@ const AvatarComponent: NextPage<AvatarComponentProps> = ({
   button,
   showButton,
   href,
+  head,
 }) => {
   return (
     <>
@@ -56,11 +58,16 @@ const AvatarComponent: NextPage<AvatarComponentProps> = ({
           <Text b size={"$2xl"}>
             {first_name_th} {last_name_th}
           </Text>
-          <Text b size={"$md"} color="">
-            {position}
-          </Text>
+          {head ? (
+            <div className="text-primary font-bold text-md">
+              {position}
+            </div>
+          ) : (
+            <div className="font-bold text-md">
+              {position}
+            </div>
+          )}
           <Text className="flex flex-col items-center justify-center" size={"$md"} color="">
-            {/* <div>{faculty}</div> */}
             <div>{major}</div>
           </Text>
         </div>

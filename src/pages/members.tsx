@@ -39,7 +39,7 @@ const Members: NextPage<Props> = () => {
         <Text weight={"bold"} className="prompt" size={"$4xl"}>
           อาจารย์ที่ปรึกษา
         </Text>
-        <div className="flex w-full flex-wrap items-center justify-center gap-5">
+        <div className="flex w-full flex-wrap items-center justify-center text-center gap-5">
           <AvatarComponent
             href="https://www.linkedin.com/in/usa-sammapun/"
             core_team_profile_image_path={
@@ -51,28 +51,28 @@ const Members: NextPage<Props> = () => {
           />
           <AvatarComponent
             core_team_profile_image_path={
-              "https://s3.tech.nisit.ku.ac.th/assets/professor/chaiporn.jpg"
-            }
-            first_name_th="ผศ.ดร.ชัยพร ใจแก้ว"
-            position={"อาจารย์ที่ปรึกษา"}
-            major="วิศวกรรมคอมพิวเตอร์"
-          />
-          <AvatarComponent
-            core_team_profile_image_path={
               "https://s3.tech.nisit.ku.ac.th/assets/professor/thepparit.jpeg"
             }
             first_name_th="รศ.ดร.เทพฤทธิ์ บัณฑิตวัฒนาวงศ์"
-            position={"อาจารย์ที่ปรึกษา"}
+            position={"อาจารย์ที่ปรึกษา ห้องวิจัยและปฏิบัติการ CiSo"}
             major="วิทยาการคอมพิวเตอร์"
           />
         </div>
-        <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
+        <div className="flex w-full flex-wrap-reverse items-center justify-center text-center gap-5">
+            <AvatarComponent
+            core_team_profile_image_path={
+              "https://s3.tech.nisit.ku.ac.th/assets/professor/chaiporn.jpg"
+            }
+            first_name_th="ผศ.ดร.ชัยพร ใจแก้ว"
+            position={"อาจารย์ที่ปรึกษาพิเศษ ด้านฮาร์ดแวร์ฯ"}
+            major="วิศวกรรมคอมพิวเตอร์"
+          />
           <AvatarComponent
             core_team_profile_image_path={
               "https://s3.tech.nisit.ku.ac.th/assets/professor/thammakorn.jpeg"
             }
             first_name_th="ผศ.ดร.ธรรมกร แซ่ตั้ง"
-            position={"อาจารย์ที่ปรึกษา"}
+            position={"อาจารย์ที่ปรึกษาพิเศษ ด้านวิทยาการข้อมูล"}
             major="วิทยาการคอมพิวเตอร์"
           />
           <AvatarComponent
@@ -80,7 +80,7 @@ const Members: NextPage<Props> = () => {
               "https://s3.tech.nisit.ku.ac.th/assets/professor/sethavidh.jpeg"
             }
             first_name_th="ผศ.ดร.เสฎฐวิทย์ เกิดผล"
-            position={"อาจารย์ที่ปรึกษา"}
+            position={"อาจารย์ที่ปรึกษาพิเศษ ด้านปัญญาประดิษฐ์"}
             major="วิทยาการคอมพิวเตอร์"
           />
           <AvatarComponent
@@ -88,7 +88,7 @@ const Members: NextPage<Props> = () => {
               "https://s3.tech.nisit.ku.ac.th/assets/professor/pannapat.jpeg"
             }
             first_name_th="อ.พรรณภัทร์ จันทร์ไพแสง"
-            position={"อาจารย์ที่ปรึกษา"}
+            position={"อาจารย์ที่ปรึกษาพิเศษ ด้านการออกแบบประสบการณ์ผู้ใช้งาน"}
             major="วิทยาการคอมพิวเตอร์"
           />
         </div>
@@ -97,109 +97,92 @@ const Members: NextPage<Props> = () => {
         <>
           <div className="mx-auto w-full max-w-[80rem] flex-col gap-3 p-5 md:flex-row md:p-10">
             <div className="flex flex-col gap-[8rem]">
-              {countUser("ฝ่ายบริหาร") > 0 && (
+              {countUser("กลุ่มงานบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
                     ประธานองค์กร
                   </Text>
                   <div className="flex w-full flex-wrap text-center items-center justify-center gap-5">
                     {findName("ประธาน")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ประธาน"} />
+                      <AvatarComponent {...tag} key={index} head={true} position={"ประธาน"} />
                     ))}
                   </div>
                   <div className="flex w-full flex-wrap text-center items-center justify-center gap-5">
-                    {findName("รองประธาน (สารสนเทศ)")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"รองประธาน (สารสนเทศ)"} />
+                    {findName("รองประธาน (เทคโนโลยีฯ)")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} head={true} position={"รองประธาน (เทคโนโลยีฯ)"} />
                     ))}
                     {findName("รองประธาน (กิจกรรม)")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"รองประธาน (กิจกรรม)"} />
+                      <AvatarComponent {...tag} key={index} head={true} position={"รองประธาน (กิจกรรม)"} />
                     ))}
                   </div>
                 </div>
               )}
-              {countUser("ฝ่ายบริหาร") > 0 && (
+              {countUser("กลุ่มงานบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ฝ่ายบริหาร
+                    ลุ่มงานบริหาร
                   </Text>
                   <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("หัวหน้าฝ่ายบริหาร")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายบริหาร"} />
+                    {findName("หัวหน้ากลุ่มงานบริหาร")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} head={true} position={"หัวหน้ากลุ่มงานบริหาร"} />
                     ))}
                   </div>
                   <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("ฝ่ายบริหาร")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ฝ่ายบริหาร"} />
+                    {findName("กลุ่มงานบริหาร")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"กลุ่มงานบริหาร"} />
                     ))}
                   </div>
                 </div>
               )}
-              {countUser("ฝ่ายสารสนเทศ") > 0 && (
+              {countUser("กลุ่มงานเทคโนโลยีฯ") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ฝ่ายสารสนเทศ
+                    กลุ่มงานเทคโนโลยีฯ
                   </Text>
                   <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("หัวหน้าฝ่ายสารสนเทศ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายสารสนเทศ"} />
+                    {findName("หัวหน้ากลุ่มงานเทคโนโลยีฯ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} head={true} position={"หัวหน้ากลุ่มงานเทคโนโลยีฯ"} />
                     ))}
                   </div>
                   <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("ฝ่ายสารสนเทศ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ฝ่ายสารสนเทศ"} />
+                    {findName("กลุ่มงานเทคโนโลยีฯ")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"กลุ่มงานเทคโนโลยีฯ"} />
                     ))}
                   </div>
                 </div>
               )}
-              {countUser("ฝ่ายกิจกรรม") > 0 && (
+              {countUser("กลุ่มงานกิจกรรม") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <div className="flex flex-col items-center gap-3">
                     <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                      ฝ่ายกิจกรรม
+                      กลุ่มงานกิจกรรม
                     </Text>
                     <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                      {findName("หัวหน้าฝ่ายกิจกรรม")?.map((tag, index) => (
-                        <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายกิจกรรม"} />
+                      {findName("หัวหน้ากลุ่มงานกิจกรรม")?.map((tag, index) => (
+                        <AvatarComponent {...tag} key={index} head={true} position={"หัวหน้ากลุ่มงานกิจกรรม"} />
                       ))}
                     </div>
                     <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                      {findName("ฝ่ายกิจกรรม")?.map((tag, index) => (
-                        <AvatarComponent {...tag} key={index} position={"ฝ่ายกิจกรรม"} />
+                      {findName("กลุ่มงานกิจกรรม")?.map((tag, index) => (
+                        <AvatarComponent {...tag} key={index} position={"กลุ่มงานกิจกรรม"} />
                       ))}
                     </div>
                   </div>
                 </div>
               )}
-              {countUser("ฝ่ายโสตฯ") > 0 && (
+              {countUser("กลุ่มงานประชาสัมพันธ์") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ฝ่ายโสตฯ
-                  </Text>
-                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("หัวหน้าฝ่ายโสตฯ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายโสตฯ"} />
-                    ))}
-                  </div>
-                  <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
-                    {findName("ฝ่ายโสตฯ")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ฝ่ายโสตฯ"} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              {countUser("ฝ่ายประชาสัมพันธ์") > 0 && (
-                <div className="flex flex-col items-center gap-3">
-                  <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ฝ่ายประชาสัมพันธ์
+                    กลุ่มงานประชาสัมพันธ์
                   </Text>
                   <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                    {findName("หัวหน้าฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"หัวหน้าฝ่ายประชาสัมพันธ์"} />
+                    {findName("หัวหน้ากลุ่มงานประชาสัมพันธ์")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"หัวหน้ากลุ่มงานประชาสัมพันธ์"} />
                     ))}
                   </div>
                   <div className="flex w-full flex-wrap-reverse items-center justify-center gap-5">
-                    {findName("ฝ่ายประชาสัมพันธ์")?.map((tag, index) => (
-                      <AvatarComponent {...tag} key={index} position={"ฝ่ายประชาสัมพันธ์"} />
+                    {findName("กลุ่มงานประชาสัมพันธ์")?.map((tag, index) => (
+                      <AvatarComponent {...tag} key={index} position={"กลุ่มงานประชาสัมพันธ์"} />
                     ))}
                   </div>
                 </div>

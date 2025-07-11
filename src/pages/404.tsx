@@ -1,4 +1,4 @@
-import Lottie from "react-lottie";
+import Lottie from 'lottie-react';
 import animationData from "@/assets/lottiefiles/lf20_u1xuufn3.json";
 
 import { NextPage } from "next";
