@@ -120,7 +120,7 @@ const Members: NextPage<Props> = () => {
               {countUser("กลุ่มงานบริหาร") > 0 && (
                 <div className="flex flex-col items-center gap-3">
                   <Text weight={"bold"} className="prompt" size={"$4xl"}>
-                    ลุ่มงานบริหาร
+                    กลุ่มงานบริหาร
                   </Text>
                   <div className="flex w-full flex-wrap-reverse text-center items-center justify-center gap-5">
                     {findName("หัวหน้ากลุ่มงานบริหาร")?.map((tag, index) => (
