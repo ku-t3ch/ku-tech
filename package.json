@@ -54,7 +54,7 @@
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.1",
-    "next": "^13.2.1",
+    "next": "13.5.9",
     "next-auth": "^4.19.0",
     "next-connect": "^0.13.0",
     "next-recaptcha-v3": "^1.1.5",
