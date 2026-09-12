@@ -31,7 +31,7 @@ const LogoCard = React.memo<LogoCardProps>(({ title, imgSrc, downloadUrl, fileTy
         <Text b>{title}</Text>
       </Card.Header>
       <Card.Divider />
-      <Card.Body css={{ py: "$10" }}>
+      <Card.Body css={{ paddingTop: "$10", paddingBottom: "$10" }}>
         <div style={{ position: 'relative', width: '200px', height: '200px', margin: 'auto' }}>
           {isLoading && (
             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>

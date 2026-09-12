@@ -25,7 +25,7 @@ const CardNews: NextPage<Props> = ({ isRequest = false, info }) => {
         }}
         className={clsx("hover:bg-[#2d3d44]", isRequest && "saturate-50")}
       >
-        <Card.Body css={{ p: 0 }}>
+        <Card.Body css={{ padding: 0 }}>
           <div className="h-[20rem]" style={{ position: "relative" }}>
             <Image
               className="object-cover"
@@ -74,7 +74,7 @@ const CardNewsSkeleton: React.FC<{}> = () => {
         border: 0,
       }}
     >
-      <Card.Body css={{ p: 0 }}>
+      <Card.Body css={{ padding: 0 }}>
         <div className="flex h-[20rem] w-full items-center justify-center bg-[#212b31]">
           <Icon
             icon="ion:image"

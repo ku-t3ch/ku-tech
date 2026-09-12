@@ -105,7 +105,7 @@ const ShortLinkUser: NextPage<Props> = () => {
             <Input placeholder="Shorten your link" />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" loading={createShortLinkApi.isLoading}>
+            <Button htmlType="submit" loading={createShortLinkApi.isPending}>
               Shorten
             </Button>
           </Form.Item>
