@@ -39,7 +39,7 @@
     "@types/nodemailer": "^6.4.7",
     "@types/sharp": "^0.31.1",
     "@types/uuid": "^9.0.1",
-    "antd": "^5.29.3",
+    "antd": "^6.6.3",
     "aws-sdk": "^2.1327.0",
     "axios": "^1.4.0",
     "chart.js": "^4.3.2",
