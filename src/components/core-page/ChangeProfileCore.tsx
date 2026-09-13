@@ -33,7 +33,7 @@ const ChangeProfileCore: NextPage<Props> = () => {
                   onSuccess: () => toast.success("ลบรูปออกสำเร็จ"),
                 })
               }
-              loading={deleteProfileImageApi.isLoading}
+              loading={deleteProfileImageApi.isPending}
               danger
             >
               ลบรูปออก

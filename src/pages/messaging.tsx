@@ -9,13 +9,15 @@ export default function Messaging() {
     const [value, setValue] = useState<string>("")
     const [token, setToken] = useState<string>("")
     const [key, setKey] = useState<number>(0)
-    const reportApi = useMutation((message: string) => {
-        return axios.post(process.env.externalApi + "/report/website",
-            {
-                message: message,
-                token: token
-            }
-        )
+    const reportApi = useMutation({
+        mutationFn: (message: string) => {
+            return axios.post(process.env.externalApi + "/report/website",
+                {
+                    message: message,
+                    token: token
+                }
+            )
+        }
     })
 
     const onFinished = () => {
@@ -59,7 +61,7 @@ export default function Messaging() {
                     />
                 </div>
                 <Button onClick={onFinished} auto className='w-full'>
-                    {reportApi.isLoading ? <Loading color="currentColor" size="sm" /> : "ส่ง"}
+                    {reportApi.isPending ? <Loading color="currentColor" size="sm" /> : "ส่ง"}
                 </Button>
             </div>
         </div>

@@ -431,7 +431,7 @@ const Join: NextPage<Props> = () => {
                     style={{ width: "100%" }}
                     type="submit"
                   >
-                    {joinApi.isLoading ? (
+                    {joinApi.isPending ? (
                       <Loading color="currentColor" size="sm" />
                     ) : (
                       "สมัครสมาชิก"
