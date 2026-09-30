@@ -15,11 +15,11 @@ const navbarItems: NavItem[] = [
         to: "/",
         label: "หน้าแรก",
     },
-    // {
-    //     to: "/join",
-    //     label: "สมัครสมาชิก",
-    //     onlyNotRegistered: true,
-    // },
+    {
+        to: "/join",
+        label: "สมัครสมาชิก",
+        onlyNotRegistered: true,
+    },
     {
         to: "/",
         label: "ข่าวสาร",
@@ -36,13 +36,13 @@ const navbarItems: NavItem[] = [
                 icon: <Icon icon="carbon:roadmap" />,
                 description: "แผนกิจกรรม",
             },
-            // {
-            //     to: "/join",
-            //     label: "Member News",
-            //     icon: <Icon icon="iconamoon:news" />,
-            //     description: "ข่าวสารสำหรับสมาชิก",
-            //     onlyMember: true,
-            // },
+            {
+                to: "/join",
+                label: "Member News",
+                icon: <Icon icon="iconamoon:news" />,
+                description: "ข่าวสารสำหรับสมาชิก",
+                onlyMember: true,
+            },
         ],
     },
     {
