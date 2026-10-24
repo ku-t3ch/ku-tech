@@ -1,70 +1,102 @@
-##### DEPENDENCIES
-# --platform=linux/amd64
+##### DEPENDENCIES #####
 
-FROM --platform=linux/amd64 node:20-alpine3.17 AS deps
-RUN apk add --no-cache libc6-compat openssl1.1-compat
+FROM --platform=linux/amd64 node:22-bookworm-slim AS deps
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openssl \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Install Prisma Client - remove if not using Prisma
+# Copy Prisma schema
+COPY prisma ./prisma
 
-COPY prisma ./
+# Copy package files
+COPY package.json yarn.lock ./
 
-# Install dependencies based on the preferred package manager
+# Install dependencies
+RUN yarn install --frozen-lockfile --non-interactive
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml\* ./
 
-RUN yarn
+##### BUILDER #####
 
-##### BUILDER
+FROM --platform=linux/amd64 node:22-bookworm-slim AS builder
 
-FROM --platform=linux/amd64 node:20-alpine3.17 AS builder
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openssl \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-ARG DATABASE_URL
-ARG NEXTAUTH_SECRET
-ARG NEXTAUTH_URL
-ARG CT_SECRET
+# Public environment variables required during build
 ARG NEXT_PUBLIC_CT_SITE_KEY
-ARG RECAPTCHA_SECRET
 ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
-ARG EMAIL_USER
-ARG EMAIL_PASS
-ARG GOOGLE_CLIENT_ID
-ARG GOOGLE_CLIENT_SECRET
-ARG S3
 ARG NEXT_PUBLIC_GRAPHQL_URL
-ARG NODE_ENV
 
 WORKDIR /app
+
+# Copy installed dependencies
 COPY --from=deps /app/node_modules ./node_modules
+
+# Copy application source
 COPY . .
 
-# ENV NEXT_TELEMETRY_DISABLED 1
+# Disable Next.js telemetry
+ENV NEXT_TELEMETRY_DISABLED=1
 ENV SKIP_ENV_VALIDATION=1
-RUN yarn run prisma:generate && yarn run lint && SKIP_ENV_VALIDATION=1 yarn run build
 
-##### RUNNER
+# Generate Prisma Client, lint and build Next.js
+RUN yarn prisma:generate && \
+    yarn lint && \
+    SKIP_ENV_VALIDATION=1 yarn build
 
-FROM --platform=linux/amd64 node:20-alpine3.17 AS runner
+
+##### RUNNER #####
+
+FROM --platform=linux/amd64 node:22-bookworm-slim AS runner
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openssl \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# ENV NODE_ENV production
+# Production environment
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
-# ENV NEXT_TELEMETRY_DISABLED 1
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 --ingroup nodejs nextjs
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Create writable Next.js cache directory
+RUN mkdir -p .next && \
+    chown nextjs:nodejs .next
 
+# Copy application configuration and public assets
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Copy standalone production output
+COPY --from=builder --chown=nextjs:nodejs \
+    /app/.next/standalone ./
 
+# Copy static assets
+COPY --from=builder --chown=nextjs:nodejs \
+    /app/.next/static ./.next/static
+
+# Run as non-root user
 USER nextjs
+
 EXPOSE 3000
-ENV PORT 3000
 
+# Start Next.js standalone server
 CMD ["node", "server.js"]
-
