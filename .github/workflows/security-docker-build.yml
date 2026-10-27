@@ -27,9 +27,36 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: false
+          load: true
           tags: ku-tech:security-test
           build-args: |
             NEXT_PUBLIC_CT_SITE_KEY=${{ secrets.NEXT_PUBLIC_CT_SITE_KEY }}
             NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
             NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
             NEXT_PUBLIC_GRAPHQL_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
+
+      - name: Smoke test standalone server
+        run: |
+          set -euo pipefail
+
+          docker run -d \
+            --name ku-tech-smoke \
+            -p 127.0.0.1:3100:3000 \
+            ku-tech:security-test
+
+          trap 'docker logs ku-tech-smoke || true; docker rm -f ku-tech-smoke || true' EXIT
+
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w '%{http_code}' \
+              http://127.0.0.1:3100/about-club || true)
+
+            if [ "$STATUS" = "200" ]; then
+              echo "Smoke test PASSED"
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          echo "Smoke test FAILED"
+          exit 1
