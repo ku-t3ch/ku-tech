@@ -60,3 +60,27 @@ jobs:
 
           echo "Smoke test FAILED"
           exit 1
+    
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish tested security image
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          set -euo pipefail
+
+          if [ "$DOCKER_USER" != "kutech" ]; then
+            echo "Docker Hub namespace differs from production"
+            exit 1
+          fi
+
+          IMAGE="kutech/ku-tech:security-${GITHUB_SHA:0:12}"
+
+          docker tag ku-tech:security-test "$IMAGE"
+          docker push "$IMAGE"
+
+          echo "Published $IMAGE" >> "$GITHUB_STEP_SUMMARY"
