@@ -122,3 +122,76 @@ jobs:
             echo "- Pull reference: \`$IMAGE_REPO@$IMAGE_DIGEST\`"
             echo "- Production deployment: disabled until the receiver and verification process are audited"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  approve:
+    name: Approve published image (no deployment)
+    if: github.repository == 'ku-t3ch/ku-tech' && github.ref == 'refs/heads/main'
+    needs: [smoke, build]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+
+    environment:
+      name: production
+      deployment: false
+
+    steps:
+      - name: Create approved image receipt
+        shell: bash
+        env:
+          IMAGE_DIGEST: ${{ needs.build.outputs.digest }}
+          SOURCE_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          digest = os.environ["IMAGE_DIGEST"]
+          sha = os.environ["SOURCE_SHA"]
+          run_id = int(os.environ["RUN_ID"])
+          attempt = int(os.environ["RUN_ATTEMPT"])
+
+          if not re.fullmatch(r"sha256:[0-9a-f]{64}", digest):
+              raise SystemExit("Invalid image digest")
+
+          if not re.fullmatch(r"[0-9a-f]{40}", sha):
+              raise SystemExit("Invalid commit SHA")
+
+          receipt = {
+              "schema_version": 1,
+              "repository": "ku-t3ch/ku-tech",
+              "workflow_id": 62618038,
+              "run_id": run_id,
+              "run_attempt": attempt,
+              "commit": sha,
+              "image": f"docker.io/kutech/ku-tech@{digest}",
+              "digest": digest,
+              "environment": "production"
+          }
+
+          Path("approved-image.json").write_text(
+              json.dumps(receipt, indent=2) + "\n"
+          )
+
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write("## Production Image Approval\n\n")
+              f.write(f"- Run: `{run_id}` (attempt {attempt})\n")
+              f.write(f"- Commit: `{sha}`\n")
+              f.write(f"- Image: `{receipt['image']}`\n")
+              f.write("- Deployment: **NOT performed**\n")
+
+          print("Approved image receipt created; no deployment performed.")
+          PY
+
+      - name: Upload approval receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-approved-${{ github.run_id }}-${{ github.run_attempt }}
+          path: approved-image.json
+          if-no-files-found: error
+          retention-days: 30
