@@ -4,53 +4,120 @@ on:
   push:
     branches: ["main"]
 
+permissions: {}
+
 jobs:
-  build:
+
+  smoke:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Build the Docker image
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image for smoke test
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: false
+          load: true
+          tags: ku-tech:smoke-${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_CT_SITE_KEY=${{ secrets.NEXT_PUBLIC_CT_SITE_KEY }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+            NEXT_PUBLIC_GRAPHQL_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
+
+      - name: Verify HTTP 200
+        shell: bash
+        env:
+          IMAGE_TAG: ku-tech:smoke-${{ github.sha }}
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/ku-tech:latest \
-            --build-arg NEXT_PUBLIC_CT_SITE_KEY=${{secrets.NEXT_PUBLIC_CT_SITE_KEY}} \
-            --build-arg NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}} \
-            --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=${{secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID}} \
-            --build-arg NEXT_PUBLIC_GRAPHQL_URL=${{secrets.NEXT_PUBLIC_GRAPHQL_URL}} .
-      
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
+          set -euo pipefail
+          docker run -d --name ku-tech-ci-smoke \
+            -p 127.0.0.1:3100:3000 "$IMAGE_TAG"
+          trap 'docker logs --tail 50 ku-tech-ci-smoke || true; docker rm -f ku-tech-ci-smoke >/dev/null 2>&1 || true' EXIT
+          for _ in {1..30}; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 3 http://127.0.0.1:3100/ || true)"
+            if [[ "$code" == "200" ]]; then
+              echo "Smoke test passed: HTTP 200"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::Smoke test failed"
+          exit 1
+
+  build:
+    needs: smoke
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      digest: ${{ steps.build_image.outputs.digest }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Check Docker Hub credentials
+        shell: bash
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$DOCKER_USERNAME" || -z "$DOCKER_PASSWORD" ]]; then
+            echo "::error::Docker Hub credentials are missing"
+            exit 1
+          fi
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: Push the Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/ku-tech:latest
 
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions: write-all
-    steps:
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
+      - name: Build and push commit-tagged image
+        id: build_image
+        uses: docker/build-push-action@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/ku-tech:sha-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+          build-args: |
+            NEXT_PUBLIC_CT_SITE_KEY=${{ secrets.NEXT_PUBLIC_CT_SITE_KEY }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+            NEXT_PUBLIC_GRAPHQL_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: release
-    permissions: write-all
-    steps:
-      - name: Trigger deployment
+      - name: Record published image digest
+        shell: bash
+        env:
+          IMAGE_REPO: ${{ secrets.DOCKER_USERNAME }}/ku-tech
+          IMAGE_DIGEST: ${{ steps.build_image.outputs.digest }}
+          COMMIT_SHA: ${{ github.sha }}
         run: |
-          curl -X POST ${{secrets.PT_TRIGGER_API}}
+          set -euo pipefail
+          if [[ ! "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "::error::Missing or invalid registry digest"
+            exit 1
+          fi
+          {
+            echo "### Docker image published (NOT deployed)"
+            echo "- Commit: \`$COMMIT_SHA\`"
+            echo "- Tag: \`$IMAGE_REPO:sha-$COMMIT_SHA\`"
+            echo "- Pull reference: \`$IMAGE_REPO@$IMAGE_DIGEST\`"
+            echo "- Production deployment: disabled until the receiver and verification process are audited"
+          } >> "$GITHUB_STEP_SUMMARY"
