@@ -1,0 +1,24 @@
+name: Production Approval Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  approval-test:
+    name: Verify Production Approval
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      deployment: false
+
+    steps:
+      - name: Confirm Approval
+        run: |
+          echo "Production approval was successful."
+          echo "No image was built or pushed."
+          echo "No production deployment was performed."
