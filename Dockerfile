@@ -1,6 +1,6 @@
 ##### DEPENDENCIES #####
 
-FROM --platform=linux/amd64 node:22-bookworm-slim AS deps
+FROM node:22-bookworm-slim AS deps
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -22,7 +22,7 @@ RUN yarn install --frozen-lockfile --non-interactive
 
 ##### BUILDER #####
 
-FROM --platform=linux/amd64 node:22-bookworm-slim AS builder
+FROM node:22-bookworm-slim AS builder
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -56,7 +56,7 @@ RUN yarn prisma:generate && \
 
 ##### RUNNER #####
 
-FROM --platform=linux/amd64 node:22-bookworm-slim AS runner
+FROM node:22-bookworm-slim AS runner
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
