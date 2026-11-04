@@ -106,9 +106,6 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
-      console.log('token:', token);
-      console.log('userData:', userData);
-      console.log('is_approved:', userData?.is_approved);
 
       if (userData === null) {
         return {
